@@ -40,8 +40,8 @@ const Home = () => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, textAlign: 'center' }}>
           {[
             { value: '12+', label: 'Years Experience' },
-            { value: '50M+', label: 'Messages / Day' },
-            { value: '99.9%', label: 'Platform Uptime' },
+            { value: '6+', label: 'Products Owned' },
+            { value: '11+', label: 'Team Size Led' },
           ].map((stat) => (
             <div key={stat.label}>
               <p className="ios26-title2 ios26-title2--emphasized" style={{ margin: '0 0 4px', color: 'var(--color-accent-blue)' }}>
