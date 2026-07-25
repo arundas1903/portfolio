@@ -1,0 +1,127 @@
+/* Manual theme overrides — beats prefers-color-scheme when data-theme is set */
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-accent-red: #ff383c;
+  --color-accent-orange: #ff8d28;
+  --color-accent-yellow: #ffcc00;
+  --color-accent-green: #34c759;
+  --color-accent-mint: #00c8b3;
+  --color-accent-teal: #00c3d0;
+  --color-accent-cyan: #00c0e8;
+  --color-accent-blue: #0088ff;
+  --color-accent-indigo: #6155f5;
+  --color-accent-purple: #cb30e0;
+  --color-accent-pink: #ff2d55;
+  --color-accent-brown: #ac7f5e;
+  --color-label-primary: #000000;
+  --color-label-secondary: #3c3c4399;
+  --color-label-tertiary: #3c3c434d;
+  --color-label-quaternary: #3c3c432e;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f2f2f7;
+  --color-bg-tertiary: #ffffff;
+  --color-bg-primary-elevated: #ffffff;
+  --color-bg-secondary-elevated: #f2f2f7;
+  --color-bg-tertiary-elevated: #ffffff;
+  --color-bg-grouped-primary: #f2f2f7;
+  --color-bg-grouped-secondary: #ffffff;
+  --color-bg-grouped-tertiary: #f2f2f7;
+  --color-bg-grouped-primary-elevated: #f2f2f7;
+  --color-bg-grouped-secondary-elevated: #ffffff;
+  --color-bg-grouped-tertiary-elevated: #f2f2f7;
+  --color-fill-primary: #78787833;
+  --color-fill-secondary: #78788029;
+  --color-fill-tertiary: #7676801f;
+  --color-fill-quaternary: #74748014;
+  --color-gray-black: #000000;
+  --color-gray-gray: #8e8e93;
+  --color-gray-gray2: #aeaeb2;
+  --color-gray-gray3: #c7c7cc;
+  --color-gray-gray4: #d1d1d6;
+  --color-gray-gray5: #e5e5ea;
+  --color-gray-gray6: #f2f2f7;
+  --color-gray-white: #ffffff;
+  --color-separator-opaque: #c6c6c8;
+  --color-separator-nonOpaque: #0000001f;
+  --color-separator-vibrant: #e6e6e6;
+  --color-overlay-default: #00000033;
+  --color-overlay-activityView: #00000033;
+  --color-overlay-alert: #29293a3b;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-accent-red: #ff4245;
+  --color-accent-orange: #ff9230;
+  --color-accent-yellow: #ffd600;
+  --color-accent-green: #30d158;
+  --color-accent-mint: #00dac3;
+  --color-accent-teal: #00d2e0;
+  --color-accent-cyan: #3cd3fe;
+  --color-accent-blue: #0091ff;
+  --color-accent-indigo: #6d7cff;
+  --color-accent-purple: #db34f2;
+  --color-accent-pink: #ff375f;
+  --color-accent-brown: #b78a66;
+  --color-label-primary: #ffffff;
+  --color-label-secondary: #ebebf5b3;
+  --color-label-tertiary: #ebebf54d;
+  --color-label-quaternary: #ebebf529;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #1c1c1e;
+  --color-bg-tertiary: #2c2c2e;
+  --color-bg-primary-elevated: #1c1c1e;
+  --color-bg-secondary-elevated: #2c2c2e;
+  --color-bg-tertiary-elevated: #3a3a3c;
+  --color-bg-grouped-primary: #000000;
+  --color-bg-grouped-secondary: #1c1c1e;
+  --color-bg-grouped-tertiary: #2c2c2e;
+  --color-bg-grouped-primary-elevated: #1c1c1e;
+  --color-bg-grouped-secondary-elevated: #2c2c2e;
+  --color-bg-grouped-tertiary-elevated: #3a3a3c;
+  --color-fill-primary: #7878805c;
+  --color-fill-secondary: #78788052;
+  --color-fill-tertiary: #7676803d;
+  --color-fill-quaternary: #7676802e;
+  --color-gray-black: #000000;
+  --color-gray-gray: #8e8e93;
+  --color-gray-gray2: #636366;
+  --color-gray-gray3: #48484a;
+  --color-gray-gray4: #3a3a3c;
+  --color-gray-gray5: #2c2c2e;
+  --color-gray-gray6: #1c1c1e;
+  --color-gray-white: #ffffff;
+  --color-separator-opaque: #38383a;
+  --color-separator-nonOpaque: #ffffff2b;
+  --color-separator-vibrant: #1a1a1a;
+  --color-overlay-default: #0000007a;
+  --color-overlay-activityView: #0000004a;
+  --color-overlay-alert: #1212128f;
+}
+
+/* Liquid Glass — theme-aware backgrounds */
+:root[data-theme="light"] .ios26-liquid-glass-la {
+  background: #fafafab3;
+}
+
+:root[data-theme="light"] .ios26-liquid-glass-me {
+  background: #f5f5f599;
+}
+
+:root[data-theme="dark"] .ios26-liquid-glass-la,
+:root[data-theme="dark"] .ios26-liquid-glass-me {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme="light"] .glass-surface {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+:root[data-theme="dark"] .glass-surface {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06) !important;
+}
