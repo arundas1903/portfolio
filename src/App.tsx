@@ -7,6 +7,7 @@ import '@ios26_design_system/tokens/css/animations';
 import './styles/theme-overrides.css';
 import './styles/ios26-portfolio.css';
 import './styles/blog.css';
+import './styles/subpage-nav.css';
 import PortfolioApp from './PortfolioApp';
 import A2PAtlasPage from './a2p-atlas/A2PAtlasPage';
 import BlogPostPage from './pages/BlogPostPage';

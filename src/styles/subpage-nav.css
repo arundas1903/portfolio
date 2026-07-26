@@ -1,0 +1,42 @@
+.subpage-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 0 12px;
+  margin-bottom: 8px;
+}
+
+.subpage-nav__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 16px 8px 10px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--color-accent-blue);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--duration-fast) var(--easing-spring-snappy);
+}
+
+.subpage-nav__back:active {
+  transform: scale(0.96);
+}
+
+.subpage-nav__chevron {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.subpage-nav__label {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.subpage-nav .theme-toggle {
+  flex-shrink: 0;
+}

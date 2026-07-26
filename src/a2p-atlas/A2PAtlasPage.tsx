@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import countriesData from './data/countries.json';
 import WorldMap from './components/WorldMap';
 import CountryDetail from './components/CountryDetail';
 import SegmentedControl from '../components/ios26/SegmentedControl';
+import SubpageNav from '../components/ios26/SubpageNav';
 import type { ChannelKey, CountryRecord } from './types';
 import { CHANNEL_LABELS, CHANNEL_SHORT_LABELS } from './types';
 import { supportColor, supportLabel } from './utils/support';
@@ -46,9 +46,10 @@ export default function A2PAtlasPage() {
     <div className="a2p-atlas-page">
       <div className="a2p-atlas-background" aria-hidden />
 
+      <SubpageNav to="/" label="Portfolio" />
+
       <header className="a2p-atlas-header">
         <div>
-          <Link to="/" className="a2p-back-link ios26-footnote">← Back to portfolio</Link>
           <h1 className="ios26-large-title ios26-large-title--emphasized">A2P Atlas</h1>
           <p className="ios26-subheadline" style={{ color: 'var(--color-label-secondary)' }}>
             Global A2P SMS origination support by country

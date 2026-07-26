@@ -86,14 +86,7 @@
 .blog-page-inner {
   max-width: 720px;
   margin: 0 auto;
-  padding: calc(24px + env(safe-area-inset-top, 0px)) 20px 48px;
-}
-
-.blog-back-link {
-  display: inline-block;
-  margin-bottom: 16px;
-  color: var(--color-accent-blue);
-  text-decoration: none;
+  padding: 0 20px 48px;
 }
 
 .blog-article-header {

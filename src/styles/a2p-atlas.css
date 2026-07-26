@@ -1,6 +1,6 @@
 .a2p-atlas-page {
   min-height: 100vh;
-  padding: 24px 16px 40px;
+  padding: 0 16px 40px;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
@@ -20,11 +20,8 @@
   margin-bottom: 20px;
 }
 
-.a2p-back-link {
-  display: inline-block;
-  margin-bottom: 8px;
-  color: var(--color-accent-blue);
-  text-decoration: none;
+.a2p-atlas-header .ios26-large-title {
+  margin: 0 0 8px;
 }
 
 .a2p-channel-segments {

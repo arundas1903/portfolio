@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import BlogPostContent from '../components/blog/BlogPostContent';
 import Button from '../components/ios26/Button';
+import SubpageNav from '../components/ios26/SubpageNav';
 import { formatBlogDate, getPostBySlug } from '../blog/posts';
 
 export default function BlogPostPage() {
@@ -13,7 +14,7 @@ export default function BlogPostPage() {
       <div className="blog-page">
         <div className="blog-page-background" aria-hidden />
         <div className="blog-page-inner">
-          <Link to="/#blog" className="blog-back-link ios26-footnote">← Back to blog</Link>
+          <SubpageNav to="/#blog" label="Blog" />
           <h1 className="ios26-large-title">Post not found</h1>
           <p className="ios26-body" style={{ color: 'var(--color-label-secondary)' }}>
             This article doesn&apos;t exist or may have been moved.
@@ -28,7 +29,7 @@ export default function BlogPostPage() {
       <div className="blog-page-background" aria-hidden />
 
       <article className="blog-page-inner">
-        <Link to="/#blog" className="blog-back-link ios26-footnote">← Back to blog</Link>
+        <SubpageNav to="/#blog" label="Blog" />
 
         <header className="blog-article-header ios26-liquid-glass-la glass-surface">
           <div className="blog-article-header__meta ios26-caption2">
