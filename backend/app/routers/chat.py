@@ -19,7 +19,9 @@ async def chat(request: ChatRequest) -> ChatResponse:
     try:
         classification = await classify_message(request.message)
     except ValueError as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+        detail = str(exc)
+        status = 503 if "OPENAI_API_KEY" in detail else 500
+        raise HTTPException(status_code=status, detail=detail) from exc
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Classification failed: {exc}") from exc
 

@@ -24,18 +24,92 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Faith Discuss chat (optional)
 
-The chat section requires the Python backend:
+The chat widget calls a **local FastAPI backend** on port `8000`. It will not reply until both steps below are done.
+
+**1. Frontend** (from repo root):
+
+```bash
+cp .env.example .env   # optional; defaults to http://localhost:8000
+npm start
+```
+
+**2. Backend** (separate terminal):
 
 ```bash
 cd backend
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # add OPENAI_API_KEY
+cp .env.example .env
+```
+
+Edit `backend/.env` and set your OpenAI key:
+
+```
+OPENAI_API_KEY=sk-...
+```
+
+Start the API:
+
+```bash
 uvicorn app.main:app --reload --port 8000
 ```
 
-For production, deploy the backend (e.g. Railway, Render) and set `REACT_APP_CHAT_API_URL` to your API URL when building the frontend.
+Verify setup:
+
+```bash
+curl http://localhost:8000/api/health
+# {"status":"ok","openai_configured":true,...}
+```
+
+**Common local issues**
+
+| Symptom | Cause | Fix |
+|--------|--------|-----|
+| `OPENAI_API_KEY is not configured` | Missing `backend/.env` | Add key to `backend/.env` and restart uvicorn |
+| Network error / CORS in browser | Backend not running, or wrong port | Run uvicorn on port 8000; check `REACT_APP_CHAT_API_URL` |
+| Works on desktop but not phone on Wi‑Fi | CORS blocked LAN origin | Use `localhost` on the same machine, or restart backend after pulling latest CORS config |
+
+For production, deploy the backend to **Render** (see below).
+
+### Deploy Faith Discuss API to Render
+
+The repo includes a [`render.yaml`](render.yaml) blueprint for the FastAPI backend in `backend/`.
+
+**1. Push this repo to GitHub** (if not already).
+
+**2. Create the Render service**
+
+- Go to [render.com](https://render.com) → **New** → **Blueprint**
+- Connect the `arundas1903/portfolio` repository
+- Render will detect `render.yaml` and create **`portfolio-faith-api`**
+- When prompted, set **`OPENAI_API_KEY`** (mark as secret)
+- Deploy and wait for the service to go live
+
+**3. Verify the API**
+
+```bash
+curl https://portfolio-faith-api.onrender.com/api/health
+# {"status":"ok","openai_configured":true,"model":"gpt-4o-mini"}
+```
+
+If your Render URL differs, use the URL shown in the Render dashboard.
+
+**4. Wire the portfolio frontend**
+
+Add a GitHub repository secret:
+
+- **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
+- Name: `REACT_APP_CHAT_API_URL`
+- Value: `https://portfolio-faith-api.onrender.com` (your Render URL, no trailing slash)
+
+Re-run the **Deploy to GitHub Pages** workflow (or push to `main`). The production build embeds this API URL so the chat widget on [arundas.me](https://arundas.me) calls Render.
+
+**Notes**
+
+- Free Render services spin down after inactivity; the first chat request after idle may take ~30s (cold start).
+- CORS already allows `https://arundas.me` and `https://www.arundas.me`.
+- To redeploy the API, push to `main` — Render auto-deploys from GitHub.
 
 ## Build
 
