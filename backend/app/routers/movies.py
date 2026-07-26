@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
 
-from app.dependencies import get_client_ip, require_movie_rate_limit
+from app.config import settings
+from app.dependencies import get_client_ip, peek_assistant_limits, require_movie_rate_limit
 from app.models import (
+    ChatLimitsResponse,
     MovieChatRequest,
     MovieChatResponse,
     MovieSessionStartRequest,
@@ -49,6 +51,26 @@ async def movies_me(email: str = Depends(get_movie_email)) -> MovieStatusRespons
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return MovieStatusResponse(user=MovieUserProfile(**user))
+
+
+@router.get("/limits", response_model=ChatLimitsResponse)
+async def movies_limits(
+    request: Request,
+    authorization: str | None = Header(default=None),
+) -> ChatLimitsResponse:
+    subject = get_client_ip(request)
+    if authorization and authorization.lower().startswith("bearer "):
+        email = verify_session_token(authorization.split(" ", 1)[1].strip())
+        if email:
+            subject = email
+
+    remaining, retry_after = peek_assistant_limits("movie-discuss", subject)
+    return ChatLimitsResponse(
+        limit=settings.chat_rate_limit,
+        window_minutes=settings.chat_rate_window_minutes,
+        remaining=remaining,
+        retry_after_seconds=retry_after,
+    )
 
 
 @router.post("/chat", response_model=MovieChatResponse)

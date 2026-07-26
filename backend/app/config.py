@@ -11,13 +11,11 @@ class Settings(BaseSettings):
     openai_model: str = "gpt-4o-mini"
     cors_origins: str = ""
     chat_access_password: str = ""
-    chat_rate_limit: int = 10
+    chat_rate_limit: int = 20
     chat_rate_window_minutes: int = 30
 
     movie_session_secret: str = ""
     movie_session_ttl_seconds: int = 60 * 60 * 24 * 14
-    movie_chat_rate_limit: int = 30
-    movie_chat_rate_window_minutes: int = 30
     tmdb_api_key: str = ""
 
     model_config = SettingsConfigDict(env_file=str(ENV_FILE), extra="ignore")
@@ -25,10 +23,6 @@ class Settings(BaseSettings):
     @property
     def chat_rate_window_seconds(self) -> int:
         return self.chat_rate_window_minutes * 60
-
-    @property
-    def movie_chat_rate_window_seconds(self) -> int:
-        return self.movie_chat_rate_window_minutes * 60
 
     @property
     def resolved_movie_session_secret(self) -> str:

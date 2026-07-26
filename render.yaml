@@ -18,7 +18,7 @@ services:
       - key: CHAT_ACCESS_PASSWORD
         sync: false
       - key: CHAT_RATE_LIMIT
-        value: "10"
+        value: "20"
       - key: CHAT_RATE_WINDOW_MINUTES
         value: "30"
       - key: MOVIE_SESSION_SECRET

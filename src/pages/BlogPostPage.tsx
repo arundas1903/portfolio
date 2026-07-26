@@ -51,12 +51,14 @@ export default function BlogPostPage() {
 
         {post.liveDemo && (
           <div className="blog-article-cta ios26-liquid-glass-me glass-surface">
-            <p className="ios26-headline" style={{ margin: '0 0 6px' }}>Explore the map</p>
+            <p className="ios26-headline" style={{ margin: '0 0 6px' }}>
+              {post.liveDemoTitle ?? 'Try it live'}
+            </p>
             <p className="ios26-footnote" style={{ margin: '0 0 16px', color: 'var(--color-label-secondary)' }}>
-              See A2P SMS origination support by country across alphanumeric, short code, long code, and toll-free channels.
+              {post.liveDemoDescription ?? 'Explore this project on the portfolio.'}
             </p>
             <Button variant="filled" to={post.liveDemo}>
-              Open A2P Atlas
+              {post.liveDemoButtonLabel ?? 'Open live demo'}
             </Button>
           </div>
         )}

@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 
-from app.dependencies import require_chat_password, require_chat_rate_limit
-from app.models import A2PChatRequest, A2PChatResponse, A2PCountryResponse, A2PStatsResponse
+from app.config import settings
+from app.dependencies import get_client_ip, peek_assistant_limits, require_a2p_rate_limit, require_chat_password
+from app.models import A2PChatRequest, A2PChatResponse, A2PCountryResponse, A2PStatsResponse, ChatLimitsResponse
 from app.services.a2p.intelligence import classify_a2p_query, generate_a2p_response
 from a2p_regulatory.guidance import format_country_summary
 from a2p_regulatory.store import get_store
@@ -32,11 +33,22 @@ async def a2p_country(query: str) -> A2PCountryResponse:
     )
 
 
+@router.get("/limits", response_model=ChatLimitsResponse)
+async def a2p_limits(request: Request) -> ChatLimitsResponse:
+    remaining, retry_after = peek_assistant_limits("a2p-regulatory", get_client_ip(request))
+    return ChatLimitsResponse(
+        limit=settings.chat_rate_limit,
+        window_minutes=settings.chat_rate_window_minutes,
+        remaining=remaining,
+        retry_after_seconds=retry_after,
+    )
+
+
 @router.post("/chat", response_model=A2PChatResponse)
 async def a2p_chat(
     request: A2PChatRequest,
     _: None = Depends(require_chat_password),
-    __: None = Depends(require_chat_rate_limit),
+    __: None = Depends(require_a2p_rate_limit),
 ) -> A2PChatResponse:
     try:
         classification = await classify_a2p_query(request.message)

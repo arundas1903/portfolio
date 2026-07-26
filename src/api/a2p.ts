@@ -1,5 +1,14 @@
 import type { A2PChatResponse } from '../types/a2p';
+import type { ChatLimits } from './chatAuth';
 import { API_BASE, authHeaders, clearChatSession } from './chatAuth';
+
+export async function fetchA2PLimits(): Promise<ChatLimits> {
+  const response = await fetch(`${API_BASE}/api/a2p/limits`);
+  if (!response.ok) {
+    throw new Error('Could not load chat limits');
+  }
+  return response.json();
+}
 
 export async function sendA2PMessage(message: string): Promise<A2PChatResponse> {
   const response = await fetch(`${API_BASE}/api/a2p/chat`, {
@@ -28,7 +37,6 @@ export async function sendA2PMessage(message: string): Promise<A2PChatResponse> 
 
 export {
   fetchChatAccessStatus,
-  fetchChatLimits,
   getChatPassword,
   unlockChat,
   clearChatSession,

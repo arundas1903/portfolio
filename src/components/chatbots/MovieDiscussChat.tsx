@@ -3,10 +3,12 @@ import Button from '../ios26/Button';
 import MovieEmailGate from './MovieEmailGate';
 import {
   clearMovieSession,
+  fetchMovieLimits,
   fetchMovieProfile,
   getMovieToken,
   sendMovieMessage,
 } from '../../api/movies';
+import type { ChatLimits } from '../../api/chatAuth';
 import type { MovieChatMessage, MovieUserProfile } from '../../types/movies';
 
 const ONBOARDING_STARTERS = [
@@ -32,7 +34,21 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [limits, setLimits] = useState<ChatLimits | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const refreshLimits = useCallback(async () => {
+    if (!getMovieToken()) {
+      setLimits(null);
+      return;
+    }
+    try {
+      const nextLimits = await fetchMovieLimits();
+      setLimits(nextLimits);
+    } catch {
+      setLimits(null);
+    }
+  }, []);
 
   const bootstrapWelcome = useCallback((profile: MovieUserProfile) => {
     if (!profile.onboarding_complete) {
@@ -66,8 +82,19 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
   }, [bootstrapWelcome]);
 
   useEffect(() => {
+    if (user) {
+      refreshLimits();
+    }
+  }, [user, refreshLimits]);
+
+  useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
+
+  const isRateLimited = limits !== null && limits.remaining <= 0;
+  const retryMinutes = limits?.retry_after_seconds
+    ? Math.max(1, Math.ceil(limits.retry_after_seconds / 60))
+    : null;
 
   const handleVerified = (profile: MovieUserProfile) => {
     setUser(profile);
@@ -84,7 +111,7 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
 
   const handleSend = async (text?: string) => {
     const message = (text ?? input).trim();
-    if (!message || loading || !user) return;
+    if (!message || loading || !user || isRateLimited) return;
 
     setError('');
     setInput('');
@@ -106,11 +133,15 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
             }
           : prev,
       );
+      await refreshLimits();
     } catch (err) {
       setMessages((prev) => prev.slice(0, -1));
       const errorMessage = err instanceof Error ? err.message : 'Something went wrong';
       if (errorMessage.toLowerCase().includes('session')) {
         handleSignOut();
+      }
+      if (errorMessage.toLowerCase().includes('limit')) {
+        await refreshLimits();
       }
       setError(errorMessage);
     } finally {
@@ -156,6 +187,14 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
         </button>
       </p>
 
+      {limits && (
+        <p className="chat-limit-banner ios26-caption2">
+          {isRateLimited
+            ? `Free limit reached (${limits.limit} messages per ${limits.window_minutes} min). Try again in ~${retryMinutes} min.`
+            : `${limits.remaining} of ${limits.limit} free messages left · resets every ${limits.window_minutes} min`}
+        </p>
+      )}
+
       <div className="chat-widget__messages">
         {messages.map((message, index) => (
           <article key={`${message.role}-${index}`} className={`chat-message chat-message--${message.role}`}>
@@ -176,7 +215,7 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
         <div ref={messagesEndRef} />
       </div>
 
-      {showStarters && (
+      {showStarters && !isRateLimited && (
         <div className="chat-prompts">
           {starters.map((prompt) => (
             <button
@@ -184,7 +223,7 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
               type="button"
               className="chat-prompt-chip ios26-caption2"
               onClick={() => handleSend(prompt)}
-              disabled={loading}
+              disabled={loading || isRateLimited}
             >
               {prompt}
             </button>
@@ -206,13 +245,15 @@ export default function MovieDiscussChat({ onSignOut }: MovieDiscussChatProps) {
           value={input}
           onChange={(event) => setInput(event.target.value)}
           placeholder={
-            user.onboarding_complete
-              ? 'Ask for a recommendation or review a film…'
-              : 'Tell me about your movie taste…'
+            isRateLimited
+              ? 'Message limit reached for now…'
+              : user.onboarding_complete
+                ? 'Ask for a recommendation or review a film…'
+                : 'Tell me about your movie taste…'
           }
-          disabled={loading}
+          disabled={loading || isRateLimited}
         />
-        <Button variant="filled" type="submit" disabled={loading || !input.trim()}>
+        <Button variant="filled" type="submit" disabled={loading || isRateLimited || !input.trim()}>
           Send
         </Button>
       </form>

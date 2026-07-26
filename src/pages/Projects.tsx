@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import GlassCard from '../components/ios26/GlassCard';
 import Button from '../components/ios26/Button';
+import { chatDeepLink } from '../utils/chatDeepLink';
 
 interface Project {
   title: string;
@@ -13,6 +14,15 @@ interface Project {
 }
 
 const projects: Project[] = [
+  {
+    title: 'Movie Discuss',
+    description:
+      'Interactive movie assistant that learns your taste, saves your reviews, and recommends films based on what you enjoy—not just what’s trending.',
+    icon: '🎬',
+    technologies: ['AI', 'OpenAI', 'TMDB', 'FastAPI'],
+    accent: 'var(--color-accent-purple)',
+    liveDemo: chatDeepLink('movie-discuss'),
+  },
   {
     title: 'A2P Regulatory MCP',
     description:
@@ -75,7 +85,7 @@ const projects: Project[] = [
     title: 'VFX Internal Management Tool',
     description:
       'Internal workflow and asset management system for VFX production teams, streamlining project tracking and collaboration.',
-    icon: '🎬',
+    icon: '🎞️',
     technologies: ['VFX', 'Workflow', 'Internal Tools'],
     accent: 'var(--color-accent-orange)',
   },

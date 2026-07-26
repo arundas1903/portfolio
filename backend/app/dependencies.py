@@ -1,7 +1,9 @@
 from fastapi import Header, HTTPException, Request
 
 from app.config import settings
-from app.services.rate_limit import SlidingWindowRateLimiter, chat_rate_limiter
+from app.services.rate_limit import SlidingWindowRateLimiter
+
+assistant_rate_limiter = SlidingWindowRateLimiter(max_requests=20, window_seconds=30 * 60)
 
 
 def get_client_ip(request: Request) -> str:
@@ -11,6 +13,24 @@ def get_client_ip(request: Request) -> str:
     if request.client:
         return request.client.host
     return "unknown"
+
+
+def _rate_limit_settings() -> tuple[int, int]:
+    return settings.chat_rate_limit, settings.chat_rate_window_seconds
+
+
+def peek_assistant_limits(assistant_id: str, subject: str) -> tuple[int, int]:
+    limit, window_seconds = _rate_limit_settings()
+    assistant_rate_limiter.max_requests = limit
+    assistant_rate_limiter.window_seconds = window_seconds
+    return assistant_rate_limiter.peek(f"{assistant_id}:{subject}")
+
+
+def consume_assistant_limit(assistant_id: str, subject: str) -> tuple[bool, int, int]:
+    limit, window_seconds = _rate_limit_settings()
+    assistant_rate_limiter.max_requests = limit
+    assistant_rate_limiter.window_seconds = window_seconds
+    return assistant_rate_limiter.consume(f"{assistant_id}:{subject}")
 
 
 async def require_chat_password(
@@ -23,29 +43,12 @@ async def require_chat_password(
         raise HTTPException(status_code=401, detail="Invalid or missing chat password")
 
 
-async def require_chat_rate_limit(request: Request) -> None:
-    chat_rate_limiter.max_requests = settings.chat_rate_limit
-    chat_rate_limiter.window_seconds = settings.chat_rate_window_seconds
-
-    client_ip = get_client_ip(request)
-    allowed, _, retry_after = chat_rate_limiter.consume(client_ip)
-
-    if allowed:
-        return
-
-    retry_minutes = max(1, (retry_after + 59) // 60)
-    raise HTTPException(
-        status_code=429,
-        detail=(
-            f"Free chat limit reached ({settings.chat_rate_limit} messages per "
-            f"{settings.chat_rate_window_minutes} minutes). "
-            f"Try again in about {retry_minutes} minute{'s' if retry_minutes != 1 else ''}."
-        ),
-        headers={"Retry-After": str(retry_after)},
-    )
+async def require_faith_rate_limit(request: Request) -> None:
+    await _require_assistant_rate_limit("faith-discuss", get_client_ip(request))
 
 
-movie_chat_rate_limiter = SlidingWindowRateLimiter(max_requests=30, window_seconds=30 * 60)
+async def require_a2p_rate_limit(request: Request) -> None:
+    await _require_assistant_rate_limit("a2p-regulatory", get_client_ip(request))
 
 
 async def require_movie_rate_limit(
@@ -54,26 +57,29 @@ async def require_movie_rate_limit(
 ) -> None:
     from app.services.movies.sessions import verify_session_token
 
-    movie_chat_rate_limiter.max_requests = settings.movie_chat_rate_limit
-    movie_chat_rate_limiter.window_seconds = settings.movie_chat_rate_window_seconds
-
-    rate_key = get_client_ip(request)
+    subject = get_client_ip(request)
     if authorization and authorization.lower().startswith("bearer "):
         token = authorization.split(" ", 1)[1].strip()
         email = verify_session_token(token)
         if email:
-            rate_key = f"movie:{email}"
+            subject = email
 
-    allowed, _, retry_after = movie_chat_rate_limiter.consume(rate_key)
+    await _require_assistant_rate_limit("movie-discuss", subject)
+
+
+async def _require_assistant_rate_limit(assistant_id: str, subject: str) -> None:
+    allowed, _, retry_after = consume_assistant_limit(assistant_id, subject)
     if allowed:
         return
 
+    _, window_seconds = _rate_limit_settings()
+    window_minutes = window_seconds // 60
     retry_minutes = max(1, (retry_after + 59) // 60)
+    limit, _ = _rate_limit_settings()
     raise HTTPException(
         status_code=429,
         detail=(
-            f"Message limit reached ({settings.movie_chat_rate_limit} messages per "
-            f"{settings.movie_chat_rate_window_minutes} minutes). "
+            f"Message limit reached ({limit} messages per {window_minutes} minutes for this assistant). "
             f"Try again in about {retry_minutes} minute(s)."
         ),
         headers={"Retry-After": str(retry_after)},

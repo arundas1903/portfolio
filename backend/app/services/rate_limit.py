@@ -40,4 +40,4 @@ class SlidingWindowRateLimiter:
             return True, remaining, 0
 
 
-chat_rate_limiter = SlidingWindowRateLimiter(max_requests=10, window_seconds=30 * 60)
+chat_rate_limiter = SlidingWindowRateLimiter(max_requests=20, window_seconds=30 * 60)

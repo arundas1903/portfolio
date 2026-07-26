@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from app.config import settings
-from app.dependencies import get_client_ip, require_chat_password, require_chat_rate_limit
+from app.dependencies import get_client_ip, require_chat_password, require_faith_rate_limit
 from app.models import (
     ChatLimitsResponse,
     ChatRequest,
@@ -12,7 +12,6 @@ from app.models import (
 )
 from app.services.chat import classify_message, generate_scripture_response
 from app.services.scripture.search import search_all_traditions
-from app.services.rate_limit import chat_rate_limiter
 
 router = APIRouter(prefix="/api", tags=["chat"])
 
@@ -42,10 +41,9 @@ async def unlock_chat(request: UnlockRequest) -> UnlockResponse:
 
 @router.get("/chat/limits", response_model=ChatLimitsResponse)
 async def chat_limits(request: Request) -> ChatLimitsResponse:
-    chat_rate_limiter.max_requests = settings.chat_rate_limit
-    chat_rate_limiter.window_seconds = settings.chat_rate_window_seconds
+    from app.dependencies import peek_assistant_limits
 
-    remaining, retry_after = chat_rate_limiter.peek(get_client_ip(request))
+    remaining, retry_after = peek_assistant_limits("faith-discuss", get_client_ip(request))
     return ChatLimitsResponse(
         limit=settings.chat_rate_limit,
         window_minutes=settings.chat_rate_window_minutes,
@@ -58,7 +56,7 @@ async def chat_limits(request: Request) -> ChatLimitsResponse:
 async def chat(
     request: ChatRequest,
     _: None = Depends(require_chat_password),
-    __: None = Depends(require_chat_rate_limit),
+    __: None = Depends(require_faith_rate_limit),
 ) -> ChatResponse:
     try:
         classification = await classify_message(request.message)

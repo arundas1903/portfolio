@@ -12,5 +12,8 @@ export interface BlogPost {
   tags: string[];
   accent: string;
   liveDemo?: string;
+  liveDemoTitle?: string;
+  liveDemoDescription?: string;
+  liveDemoButtonLabel?: string;
   content: BlogBlock[];
 }

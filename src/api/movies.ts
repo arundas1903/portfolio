@@ -1,4 +1,5 @@
 import type { MovieChatMessage, MovieChatResponse, MovieUserProfile } from '../types/movies';
+import type { ChatLimits } from './chatAuth';
 import { API_BASE } from './chatAuth';
 
 const TOKEN_KEY = 'movie-discuss-token';
@@ -60,6 +61,16 @@ export async function startMovieSession(email: string): Promise<{ token: string;
   const result = await response.json();
   setMovieSession(result.token, result.user.email);
   return result;
+}
+
+export async function fetchMovieLimits(): Promise<ChatLimits> {
+  const response = await fetch(`${API_BASE}/api/movies/limits`, {
+    headers: movieHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Could not load chat limits');
+  }
+  return response.json();
 }
 
 export async function fetchMovieProfile(): Promise<MovieUserProfile> {

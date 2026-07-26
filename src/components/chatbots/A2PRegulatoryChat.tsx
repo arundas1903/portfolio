@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from '../ios26/Button';
-import { fetchChatLimits, sendA2PMessage } from '../../api/a2p';
-import type { ChatLimits } from '../../api/chat';
+import { fetchA2PLimits, sendA2PMessage } from '../../api/a2p';
+import type { ChatLimits } from '../../api/chatAuth';
 
 interface ChatMessage {
   id: string;
@@ -37,7 +37,7 @@ export default function A2PRegulatoryChat({ onAuthExpired }: A2PRegulatoryChatPr
 
   const refreshLimits = useCallback(async () => {
     try {
-      const nextLimits = await fetchChatLimits();
+      const nextLimits = await fetchA2PLimits();
       setLimits(nextLimits);
     } catch {
       setLimits(null);
