@@ -16,7 +16,13 @@ const Home = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        <div className="hero-avatar ios26-liquid-glass-sm glass-surface">AR</div>
+        <div className="hero-avatar ios26-liquid-glass-sm glass-surface">
+          <img
+            src={`${process.env.PUBLIC_URL}/images/profile.jpg`}
+            alt="Arundas Ramadasan"
+            className="hero-avatar__photo"
+          />
+        </div>
         <h1 className="ios26-large-title ios26-large-title--emphasized">
           Arundas Ramadasan
         </h1>

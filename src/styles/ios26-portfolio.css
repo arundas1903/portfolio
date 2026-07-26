@@ -225,11 +225,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48px;
-  font-weight: 700;
-  color: #fff;
-  background: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-indigo));
+  overflow: hidden;
+  padding: 0;
   box-shadow: 0 8px 32px color-mix(in srgb, var(--color-accent-blue) 40%, transparent);
+}
+
+.hero-avatar__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
 }
 
 .hero .ios26-large-title {
