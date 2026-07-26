@@ -10,12 +10,17 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     openai_model: str = "gpt-4o-mini"
     cors_origins: str = ""
+    chat_access_password: str = ""
 
     model_config = SettingsConfigDict(env_file=str(ENV_FILE), extra="ignore")
 
     @property
     def openai_configured(self) -> bool:
         return bool(self.openai_api_key.strip())
+
+    @property
+    def chat_password_required(self) -> bool:
+        return bool(self.chat_access_password.strip())
 
     @property
     def allowed_cors_origins(self) -> list[str]:

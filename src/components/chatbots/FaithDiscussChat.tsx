@@ -9,7 +9,11 @@ const STARTER_PROMPTS = [
   'What is said about life\'s purpose?',
 ];
 
-export default function FaithDiscussChat() {
+interface FaithDiscussChatProps {
+  onAuthExpired?: () => void;
+}
+
+export default function FaithDiscussChat({ onAuthExpired }: FaithDiscussChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
@@ -49,7 +53,11 @@ export default function FaithDiscussChat() {
         },
       ]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      const message = err instanceof Error ? err.message : 'Something went wrong';
+      if (message.toLowerCase().includes('password')) {
+        onAuthExpired?.();
+      }
+      setError(message);
     } finally {
       setLoading(false);
     }

@@ -1,6 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 
-from app.models import ChatRequest, ChatResponse, SourceCitation
+from app.config import settings
+from app.dependencies import require_chat_password
+from app.models import ChatRequest, ChatResponse, SourceCitation, UnlockRequest, UnlockResponse
 from app.services.chat import classify_message, generate_scripture_response
 from app.services.scripture.search import search_all_traditions
 
@@ -14,8 +16,27 @@ OFF_TOPIC_REPLY = (
 )
 
 
+@router.get("/chat/access", response_model=UnlockResponse)
+async def chat_access_status() -> UnlockResponse:
+    return UnlockResponse(unlocked=not settings.chat_password_required, required=settings.chat_password_required)
+
+
+@router.post("/chat/unlock", response_model=UnlockResponse)
+async def unlock_chat(request: UnlockRequest) -> UnlockResponse:
+    if not settings.chat_password_required:
+        return UnlockResponse(unlocked=True, required=False)
+
+    if request.password != settings.chat_access_password:
+        raise HTTPException(status_code=401, detail="Incorrect password")
+
+    return UnlockResponse(unlocked=True, required=True)
+
+
 @router.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest) -> ChatResponse:
+async def chat(
+    request: ChatRequest,
+    _: None = Depends(require_chat_password),
+) -> ChatResponse:
     try:
         classification = await classify_message(request.message)
     except ValueError as exc:

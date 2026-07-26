@@ -5,6 +5,15 @@ class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
 
 
+class UnlockRequest(BaseModel):
+    password: str = Field(min_length=1, max_length=128)
+
+
+class UnlockResponse(BaseModel):
+    unlocked: bool
+    required: bool
+
+
 class SourceCitation(BaseModel):
     tradition: str
     reference: str

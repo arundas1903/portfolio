@@ -1,13 +1,17 @@
 import type { ChatResponse } from '../types/chat';
-
-const API_BASE = process.env.REACT_APP_CHAT_API_URL || 'http://localhost:8000';
+import { API_BASE, authHeaders, clearChatSession } from './chatAuth';
 
 export async function sendMessage(message: string): Promise<ChatResponse> {
   const response = await fetch(`${API_BASE}/api/chat`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: authHeaders(),
     body: JSON.stringify({ message }),
   });
+
+  if (response.status === 401) {
+    clearChatSession();
+    throw new Error('Session expired. Please enter the password again.');
+  }
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ detail: 'Request failed' }));
@@ -16,3 +20,11 @@ export async function sendMessage(message: string): Promise<ChatResponse> {
 
   return response.json();
 }
+
+export {
+  fetchChatAccessStatus,
+  getChatPassword,
+  unlockChat,
+  clearChatSession,
+} from './chatAuth';
+export type { ChatAccessStatus } from './chatAuth';

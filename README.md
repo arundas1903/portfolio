@@ -43,10 +43,11 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Edit `backend/.env` and set your OpenAI key:
+Edit `backend/.env` and set your keys:
 
 ```
 OPENAI_API_KEY=sk-...
+CHAT_ACCESS_PASSWORD=your-static-chat-password
 ```
 
 Start the API:
@@ -102,6 +103,8 @@ Add a GitHub repository secret:
 - **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
 - Name: `REACT_APP_CHAT_API_URL`
 - Value: `https://portfolio-faith-api.onrender.com` (your Render URL, no trailing slash)
+
+Set **`CHAT_ACCESS_PASSWORD`** in the Render dashboard (Environment) to your static chat password. Users must enter this in the portfolio chat widget before Faith Discuss unlocks.
 
 Re-run the **Deploy to GitHub Pages** workflow (or push to `main`). The production build embeds this API URL so the chat widget on [arundas.me](https://arundas.me) calls Render.
 

@@ -593,7 +593,8 @@ textarea.form-input {
 .chat-widget__panel > .chat-prompts,
 .chat-widget__panel > .chat-composer,
 .chat-widget__panel > .chat-error,
-.chat-widget__panel > .chat-widget__list {
+.chat-widget__panel > .chat-widget__list,
+.chat-widget__panel > .chat-password-gate {
   min-height: 0;
 }
 
@@ -871,6 +872,46 @@ textarea.form-input {
 .chat-error {
   margin: 0 16px 8px;
   color: var(--color-accent-red);
+}
+
+.chat-password-gate {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px 28px;
+  text-align: center;
+}
+
+.chat-password-gate--loading {
+  min-height: 200px;
+}
+
+.chat-password-gate__icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.chat-password-gate__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-password-gate__form .chat-input {
+  width: 100%;
+}
+
+.chat-password-gate__form .ios26-btn {
+  width: 100%;
+  min-height: 44px;
+}
+
+.chat-password-gate__form .chat-error {
+  margin: 0;
+  text-align: left;
 }
 
 @media (min-width: 768px) {

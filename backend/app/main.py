@@ -28,4 +28,5 @@ async def health():
         "status": "ok",
         "openai_configured": settings.openai_configured,
         "model": settings.openai_model,
+        "chat_password_required": settings.chat_password_required,
     }

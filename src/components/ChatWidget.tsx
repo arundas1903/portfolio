@@ -1,19 +1,87 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FaithDiscussChat from './chatbots/FaithDiscussChat';
+import ChatPasswordGate from './chatbots/ChatPasswordGate';
 import { CHATBOTS, ChatbotId } from './chatbots/catalog';
+import { clearChatSession, fetchChatAccessStatus, getChatPassword, unlockChat } from '../api/chat';
 
 type WidgetView = 'list' | ChatbotId;
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<WidgetView>('list');
+  const [unlocked, setUnlocked] = useState(false);
+  const [checkingAccess, setCheckingAccess] = useState(false);
+  const [passwordRequired, setPasswordRequired] = useState(true);
 
   const closeWidget = () => {
     setOpen(false);
     setView('list');
   };
 
+  const handleAuthExpired = () => {
+    clearChatSession();
+    setUnlocked(false);
+    setView('list');
+  };
+
+  useEffect(() => {
+    if (!open) return;
+
+    let cancelled = false;
+
+    const verifyAccess = async () => {
+      setCheckingAccess(true);
+      try {
+        const status = await fetchChatAccessStatus();
+        if (cancelled) return;
+
+        setPasswordRequired(status.required);
+
+        if (!status.required) {
+          setUnlocked(true);
+          return;
+        }
+
+        const storedPassword = getChatPassword();
+        if (!storedPassword) {
+          setUnlocked(false);
+          return;
+        }
+
+        try {
+          await unlockChat(storedPassword);
+          if (!cancelled) setUnlocked(true);
+        } catch {
+          clearChatSession();
+          if (!cancelled) setUnlocked(false);
+        }
+      } catch {
+        if (!cancelled) setUnlocked(false);
+      } finally {
+        if (!cancelled) setCheckingAccess(false);
+      }
+    };
+
+    verifyAccess();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open]);
+
   const activeChatbot = view !== 'list' ? CHATBOTS.find((b) => b.id === view) : null;
+
+  const headerTitle = !unlocked
+    ? 'Assistants'
+    : view === 'list'
+      ? 'Assistants'
+      : activeChatbot?.title;
+
+  const headerSubtitle = !unlocked
+    ? passwordRequired ? 'Enter password to continue' : 'Loading…'
+    : view === 'list'
+      ? 'Choose a conversation'
+      : activeChatbot?.subtitle;
 
   return (
     <div className="chat-widget">
@@ -23,7 +91,7 @@ export default function ChatWidget() {
       >
         <header className="chat-widget__header">
           <div className="chat-widget__header-start">
-            {view !== 'list' && (
+            {unlocked && view !== 'list' && (
               <button
                 type="button"
                 className="chat-widget__back"
@@ -37,10 +105,10 @@ export default function ChatWidget() {
             )}
             <div>
               <p className="ios26-headline" style={{ margin: 0 }}>
-                {view === 'list' ? 'Assistants' : activeChatbot?.title}
+                {headerTitle}
               </p>
               <p className="ios26-caption1" style={{ margin: 0, color: 'var(--color-label-secondary)' }}>
-                {view === 'list' ? 'Choose a conversation' : activeChatbot?.subtitle}
+                {headerSubtitle}
               </p>
             </div>
           </div>
@@ -56,7 +124,15 @@ export default function ChatWidget() {
           </button>
         </header>
 
-        {view === 'list' ? (
+        {checkingAccess ? (
+          <div className="chat-password-gate chat-password-gate--loading">
+            <p className="ios26-footnote" style={{ margin: 0, color: 'var(--color-label-secondary)' }}>
+              Checking access…
+            </p>
+          </div>
+        ) : !unlocked ? (
+          <ChatPasswordGate onUnlocked={() => setUnlocked(true)} />
+        ) : view === 'list' ? (
           <div className="chat-widget__list">
             {CHATBOTS.map((bot) => (
               <button
@@ -82,7 +158,7 @@ export default function ChatWidget() {
             ))}
           </div>
         ) : view === 'faith-discuss' ? (
-          <FaithDiscussChat />
+          <FaithDiscussChat onAuthExpired={handleAuthExpired} />
         ) : null}
       </div>
 
