@@ -14,8 +14,6 @@ const AVAILABLE_CHATBOT_IDS = new Set(
   CHATBOTS.filter((bot) => bot.available).map((bot) => bot.id)
 );
 
-const PASSWORD_PROTECTED_BOTS = new Set<ChatbotId>(['faith-discuss', 'a2p-regulatory']);
-
 export default function ChatWidget() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
@@ -52,12 +50,7 @@ export default function ChatWidget() {
   }, [searchParams, setSearchParams]);
 
   useEffect(() => {
-    if (!open || view === 'list' || view === 'movie-discuss') {
-      setCheckingAccess(false);
-      return;
-    }
-
-    if (!PASSWORD_PROTECTED_BOTS.has(view)) {
+    if (!open || assistantsUnlocked) {
       setCheckingAccess(false);
       return;
     }
@@ -68,10 +61,7 @@ export default function ChatWidget() {
       setCheckingAccess(true);
       const storedPassword = getChatPassword();
       if (!storedPassword) {
-        if (!cancelled) {
-          setAssistantsUnlocked(false);
-          setCheckingAccess(false);
-        }
+        if (!cancelled) setCheckingAccess(false);
         return;
       }
 
@@ -91,10 +81,10 @@ export default function ChatWidget() {
     return () => {
       cancelled = true;
     };
-  }, [open, view]);
+  }, [open, assistantsUnlocked]);
 
   const activeChatbot = view !== 'list' ? CHATBOTS.find((b) => b.id === view) : null;
-  const needsPassword = view !== 'list' && PASSWORD_PROTECTED_BOTS.has(view) && !assistantsUnlocked;
+  const needsPassword = open && !assistantsUnlocked;
 
   const headerTitle = needsPassword
     ? 'Assistants'
@@ -111,7 +101,7 @@ export default function ChatWidget() {
         : activeChatbot?.subtitle;
 
   const renderBody = () => {
-    if (checkingAccess && view !== 'list' && PASSWORD_PROTECTED_BOTS.has(view)) {
+    if (checkingAccess && needsPassword) {
       return (
         <div className="chat-password-gate chat-password-gate--loading">
           <p className="ios26-footnote" style={{ margin: 0, color: 'var(--color-label-secondary)' }}>
@@ -177,7 +167,7 @@ export default function ChatWidget() {
       >
         <header className="chat-widget__header">
           <div className="chat-widget__header-start">
-            {view !== 'list' && !needsPassword && !checkingAccess && (
+            {view !== 'list' && assistantsUnlocked && !checkingAccess && (
               <button
                 type="button"
                 className="chat-widget__back"

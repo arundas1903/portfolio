@@ -176,6 +176,177 @@ const a2pAtlasContent: BlogBlock[] = [
   },
 ];
 
+const portfolioIn15MinutesContent: BlogBlock[] = [
+  {
+    type: 'p',
+    text: 'I wanted a personal portfolio site—something clean, fast, and credible enough to send to hiring managers, customers, and friends. Not a weekend project. Not a “I’ll finish it later” Notion page. A real site on a real domain.',
+  },
+  {
+    type: 'p',
+    text: 'I gave myself fifteen minutes. That sounds like a stunt until you realize most of the time in a greenfield project isn’t typing—it’s deciding what to build, hunting for boilerplate, wiring deployment, and fixing the boring glue between services. Cursor and AI collapse a lot of that glue work if you show up with intent.',
+  },
+  {
+    type: 'p',
+    text: 'This is the story of how arundas.me went from zero to live in about fifteen minutes—and what I learned about using AI as an operator, not just a code generator.',
+  },
+  { type: 'h2', text: 'My path to Cursor' },
+  {
+    type: 'p',
+    text: 'I didn’t start with “let AI build my site.” I started with a workflow problem: I know product and systems, but I don’t always want to spend hours on scaffolding, CSS polish, and deployment checklists for something that should be simple.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'I’d used ChatGPT and Copilot for snippets, but they lacked full-project context',
+      'I wanted an agent that could edit files, run commands, and iterate in-repo',
+      'Cursor felt like the right step: VS Code familiarity + codebase-aware AI + terminal access',
+      'The mental shift: describe outcomes, review diffs, steer—not micromanage every line',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'The first win wasn’t speed. It was momentum. Instead of stopping at “what folder structure should I use?”, I could say “scaffold a React portfolio with an iOS-inspired glass UI” and get a working baseline in one pass.',
+  },
+  { type: 'h2', text: 'The fifteen-minute plan' },
+  {
+    type: 'p',
+    text: 'Before opening Cursor, I wrote a tight scope on a sticky note—literally four bullets:',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Single-page portfolio: hero, about, projects, blog, contact',
+      'Deploy frontend to GitHub Pages from main',
+      'Add a custom domain from GoDaddy',
+      'Keep backend optional for later (chat APIs on Render)',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'Constraints are an AI superpower. Vague prompts produce vague sites. Specific prompts produce shippable diffs.',
+  },
+  { type: 'h2', text: 'Minute 0–5: Scaffold the site in Cursor' },
+  {
+    type: 'p',
+    text: 'I opened Cursor on an empty folder and asked for a React + TypeScript portfolio with routing, a modern layout, and GitHub Pages compatibility. The agent generated the project structure, base components, and styling tokens.',
+  },
+  {
+    type: 'p',
+    text: 'What I did manually: skim the diff, reject anything over-engineered, and keep the design direction (“glass cards, calm typography, mobile-first”). What AI did well: file creation, imports, route wiring, and repetitive JSX.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Created pages for Home, Projects, Blog, and Contact',
+      'Added reusable UI primitives instead of one-off styles',
+      'Set homepage/base path correctly for GitHub Pages',
+      'Ran the dev server and fixed build errors in-loop',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'Lesson: treat the first pass as a draft you can steer. The goal in minute five isn’t perfection—it’s a build that compiles and looks like a portfolio.',
+  },
+  { type: 'h2', text: 'Minute 5–8: GitHub and CI' },
+  {
+    type: 'p',
+    text: 'Next I pushed to GitHub and wired deployment. I asked Cursor to add a GitHub Actions workflow that builds on every push to main and publishes to GitHub Pages.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Initialize git, create repo, push main',
+      'Add workflow: install → build → deploy artifact',
+      'Enable Pages from Actions in repo settings',
+      'Verify the default *.github.io URL loads the site',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'This is where AI saves more time than autocomplete ever could. I didn’t have to remember the exact Actions YAML shape or Pages permission flags—I described the outcome and reviewed the pipeline like a PR.',
+  },
+  {
+    type: 'p',
+    text: 'Lesson: deployment is part of the product. If it’s not automated on push, you’ll hesitate to ship content updates later.',
+  },
+  { type: 'h2', text: 'Minute 8–11: GoDaddy domain and DNS' },
+  {
+    type: 'p',
+    text: 'I bought arundas.me on GoDaddy and connected it to GitHub Pages. This is usually the step that breaks beginners—not because DNS is magic, but because the UI is confusing and docs are scattered.',
+  },
+  {
+    type: 'p',
+    text: 'I used AI as a checklist operator: “I own arundas.me on GoDaddy and host on GitHub Pages—what DNS records do I need?” Then I applied the answer in GoDaddy’s DNS panel.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Add apex/root records pointing to GitHub Pages IPs (or use recommended A records)',
+      'Add www CNAME to your GitHub Pages hostname',
+      'In GitHub repo settings, set the custom domain and enforce HTTPS',
+      'Wait for propagation (often minutes, sometimes longer)',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'The site was live on a custom domain before the coffee cooled. That moment—typing your name and seeing your work—is underrated.',
+  },
+  {
+    type: 'p',
+    text: 'Lesson: AI is excellent at turning platform-specific docs into a numbered checklist. You still click the buttons; it removes the “which tab was that in?” tax.',
+  },
+  { type: 'h2', text: 'Minute 11–15: Render for the backend' },
+  {
+    type: 'p',
+    text: 'The static portfolio was done. I still wanted interactive assistants (Faith Discuss, A2P chat, Movie Discuss), which meant a small FastAPI backend with secrets, rate limits, and CORS.',
+  },
+  {
+    type: 'p',
+    text: 'Render was the fastest path: connect the GitHub repo, deploy the backend folder as a web service, set environment variables, and point the frontend API base URL at the Render URL.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Create a Render web service from the backend directory',
+      'Set OPENAI_API_KEY, chat password, CORS origins, and rate limits',
+      'Add health checks and confirm /api routes respond',
+      'Update frontend env/config to call the Render API in production',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'Within the same session, the portfolio went from static brochure to interactive product surface. That’s the part that would’ve taken me another evening without an agent handling boilerplate and config files.',
+  },
+  {
+    type: 'p',
+    text: 'Lesson: split frontend and backend deploy targets early. GitHub Pages for static assets; Render (or similar) for anything with secrets or compute.',
+  },
+  { type: 'h2', text: 'What I learned' },
+  {
+    type: 'p',
+    text: 'Fifteen minutes isn’t a flex about typing speed. It’s proof that the bottleneck moved from “implementation” to “judgment.”',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Start with outcomes and constraints, not tools',
+      'Review AI output like a senior engineer reviewing a junior PR',
+      'Automate deploy on push or you won’t iterate on content',
+      'DNS and hosting are shippable skills—AI just makes them less intimidating',
+      'The best portfolio isn’t the prettiest template; it’s the one that’s live',
+      'You can add depth later (blog posts, MCP servers, chatbots) because the pipeline exists',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'Since that first fifteen minutes, this site has grown: A2P Atlas, an MCP server, Movie Discuss, per-assistant rate limits, and blog posts like this one. The initial scaffold didn’t predict all of that—and it didn’t need to. It created a runway.',
+  },
+  {
+    type: 'p',
+    text: 'If you’re waiting for the perfect portfolio, ship the imperfect one today. Cursor won’t replace your taste or your product thinking—but it will get you to “live on my domain” faster than you expect.',
+  },
+];
+
 export const blogPosts: BlogPost[] = [
   {
     slug: 'movie-discuss-interactive-assistant',
@@ -192,6 +363,22 @@ export const blogPosts: BlogPost[] = [
       'Open the assistant, share your taste, and get recommendations—or talk through a film you watched and compare your view with public reviews.',
     liveDemoButtonLabel: 'Open Movie Discuss',
     content: movieDiscussContent,
+  },
+  {
+    slug: 'portfolio-in-15-minutes-with-cursor',
+    title: 'How I Built This Portfolio in 15 Minutes with Cursor (and What I Learned)',
+    excerpt:
+      'From zero to arundas.me in fifteen minutes—scaffolding with Cursor, deploying on GitHub Pages, pointing GoDaddy DNS, and wiring a Render backend, all with AI as the operator.',
+    date: '2026-07-25',
+    readTime: estimateReadTime(portfolioIn15MinutesContent),
+    tags: ['Cursor', 'AI', 'GitHub', 'GoDaddy'],
+    accent: 'var(--color-accent-indigo)',
+    liveDemo: '/',
+    liveDemoTitle: 'Visit the site',
+    liveDemoDescription:
+      'The portfolio that came out of that fifteen-minute session—now with projects, blog posts, and interactive AI assistants.',
+    liveDemoButtonLabel: 'Open portfolio',
+    content: portfolioIn15MinutesContent,
   },
   {
     slug: 'a2p-atlas-regulatory-map',

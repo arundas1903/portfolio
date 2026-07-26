@@ -9,7 +9,7 @@ const Blog = () => {
     <section id="blog" className="section">
       <div className="section-header">
         <h2 className="ios26-large-title">Blog</h2>
-        <p className="ios26-subheadline">Product thinking on AI assistants, A2P SMS, and more</p>
+        <p className="ios26-subheadline">Product thinking, AI-assisted building, A2P SMS, and more</p>
       </div>
 
       <div className={`blog-grid${blogPosts.length === 1 ? ' blog-grid--single' : ''}`}>
