@@ -30,6 +30,9 @@ const Home = () => {
           <Button variant="filled" onClick={() => scrollTo('projects')}>
             View My Work
           </Button>
+          <Button variant="tinted" onClick={() => scrollTo('blog')}>
+            Read Blog
+          </Button>
           <Button variant="tinted" onClick={() => scrollTo('contact')}>
             Get in Touch
           </Button>
