@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../ios26/Button';
-import { getMovieClientId, getStoredMovieEmail, startMovieSession } from '../../api/movies';
+import { getStoredMovieEmail, startMovieSession } from '../../api/movies';
 import type { MovieUserProfile } from '../../types/movies';
 
 interface MovieEmailGateProps {
