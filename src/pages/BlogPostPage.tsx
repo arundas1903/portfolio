@@ -14,7 +14,7 @@ export default function BlogPostPage() {
       <div className="blog-page">
         <div className="blog-page-background" aria-hidden />
         <div className="blog-page-inner">
-          <SubpageNav to="/#blog" label="Blog" />
+          <SubpageNav to="/" label="Portfolio" />
           <h1 className="ios26-large-title">Post not found</h1>
           <p className="ios26-body" style={{ color: 'var(--color-label-secondary)' }}>
             This article doesn&apos;t exist or may have been moved.
@@ -29,7 +29,7 @@ export default function BlogPostPage() {
       <div className="blog-page-background" aria-hidden />
 
       <article className="blog-page-inner">
-        <SubpageNav to="/#blog" label="Blog" />
+        <SubpageNav to="/" label="Portfolio" />
 
         <header className="blog-article-header ios26-liquid-glass-la glass-surface">
           <div className="blog-article-header__meta ios26-caption2">
