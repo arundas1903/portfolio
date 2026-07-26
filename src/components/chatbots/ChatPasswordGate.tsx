@@ -33,7 +33,7 @@ export default function ChatPasswordGate({ onUnlocked }: ChatPasswordGateProps) 
       <div className="chat-password-gate__icon" aria-hidden>🔒</div>
       <h3 className="ios26-headline" style={{ margin: '0 0 6px' }}>Password required</h3>
       <p className="ios26-footnote" style={{ margin: '0 0 16px', color: 'var(--color-label-secondary)' }}>
-        Enter the access password to use Faith Discuss.
+        Enter the access password to use Chat assistants.
       </p>
 
       <form className="chat-password-gate__form" onSubmit={handleSubmit}>
