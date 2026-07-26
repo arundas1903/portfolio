@@ -105,69 +105,68 @@ export default function A2PRegulatoryChat({ onAuthExpired }: A2PRegulatoryChatPr
         </p>
       )}
 
-      <div className="chat-messages">
+      <div className="chat-widget__messages">
         {messages.map((message) => (
-          <div
-            key={message.id}
-            className={`chat-message chat-message--${message.role}`}
-          >
-            <p className="ios26-body" style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
-              {message.content}
-            </p>
-            {message.countries && message.countries.length > 0 && (
-              <p className="ios26-caption2" style={{ margin: '8px 0 0', color: 'var(--color-label-secondary)' }}>
-                Markets referenced: {message.countries.join(', ')}
+          <article key={message.id} className={`chat-message chat-message--${message.role}`}>
+            <div className="chat-bubble">
+              <p className="ios26-footnote" style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
+                {message.content}
               </p>
-            )}
-          </div>
+              {message.countries && message.countries.length > 0 && (
+                <div className="chat-sources">
+                  <p className="ios26-caption2 ios26-caption2--emphasized">Markets referenced</p>
+                  <blockquote>
+                    <span className="ios26-caption2">{message.countries.join(', ')}</span>
+                  </blockquote>
+                </div>
+              )}
+            </div>
+          </article>
         ))}
         {loading && (
-          <div className="chat-message chat-message--assistant">
-            <p className="ios26-body" style={{ margin: 0, color: 'var(--color-label-secondary)' }}>
+          <article className="chat-message chat-message--assistant">
+            <div className="chat-bubble chat-bubble--loading ios26-caption2">
               Checking regulatory data…
-            </p>
-          </div>
+            </div>
+          </article>
         )}
         <div ref={messagesEndRef} />
       </div>
 
-      {error && (
-        <p className="chat-error ios26-footnote" role="alert">
-          {error}
-        </p>
+      {messages.length === 1 && !isRateLimited && (
+        <div className="chat-prompts">
+          {STARTER_PROMPTS.map((prompt) => (
+            <button
+              key={prompt}
+              type="button"
+              className="chat-prompt-chip ios26-caption2"
+              onClick={() => handleSend(prompt)}
+              disabled={loading}
+            >
+              {prompt}
+            </button>
+          ))}
+        </div>
       )}
 
-      <div className="chat-starters">
-        {STARTER_PROMPTS.map((prompt) => (
-          <button
-            key={prompt}
-            type="button"
-            className="chat-starter ios26-caption1"
-            onClick={() => handleSend(prompt)}
-            disabled={loading || isRateLimited}
-          >
-            {prompt}
-          </button>
-        ))}
-      </div>
+      {error && <p className="chat-error ios26-caption2">{error}</p>}
 
       <form
-        className="chat-input-row"
+        className="chat-composer"
         onSubmit={(event) => {
           event.preventDefault();
           handleSend();
         }}
       >
         <input
-          type="text"
-          className="chat-input ios26-body"
-          placeholder="Ask about a country or channel…"
+          className="chat-input ios26-footnote"
           value={input}
           onChange={(event) => setInput(event.target.value)}
+          placeholder={isRateLimited ? 'Message limit reached for now…' : 'Ask about a country or channel…'}
           disabled={loading || isRateLimited}
           aria-label="A2P regulatory question"
         />
-        <Button type="submit" variant="filled" disabled={loading || isRateLimited || !input.trim()}>
+        <Button variant="filled" type="submit" disabled={loading || isRateLimited || !input.trim()}>
           Send
         </Button>
       </form>
