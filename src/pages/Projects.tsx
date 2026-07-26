@@ -50,14 +50,6 @@ const projects: Project[] = [
     accent: 'var(--color-accent-blue)',
   },
   {
-    title: 'Enterprise Grade URL Shortener',
-    description:
-      'URL shortening service with custom domains, click tracking, and enterprise-grade security for high-traffic link management.',
-    icon: '🔗',
-    technologies: ['URL Shortener', 'Analytics', 'Enterprise'],
-    accent: 'var(--color-accent-indigo)',
-  },
-  {
     title: 'CRM Integration Framework',
     description:
       'Flexible integration layer connecting multiple CRM platforms with unified APIs, reducing integration time and improving data sync.',
@@ -72,22 +64,6 @@ const projects: Project[] = [
     icon: '🤖',
     technologies: ['AI', 'CRM', 'Campaigns'],
     accent: 'var(--color-accent-purple)',
-  },
-  {
-    title: 'Channel Engagement Analysis Tool',
-    description:
-      'Analytics platform for measuring and optimizing engagement across communication channels with actionable insights.',
-    icon: '📊',
-    technologies: ['Analytics', 'Engagement', 'CPaaS'],
-    accent: 'var(--color-accent-cyan)',
-  },
-  {
-    title: 'VFX Internal Management Tool',
-    description:
-      'Internal workflow and asset management system for VFX production teams, streamlining project tracking and collaboration.',
-    icon: '🎞️',
-    technologies: ['VFX', 'Workflow', 'Internal Tools'],
-    accent: 'var(--color-accent-orange)',
   },
 ];
 
