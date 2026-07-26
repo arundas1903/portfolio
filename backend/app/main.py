@@ -1,14 +1,26 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.routers.a2p import router as a2p_router
 from app.routers.chat import router as chat_router
+from app.routers.movies import router as movies_router
+from app.services.movies.database import init_db
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    init_db()
+    yield
+
 
 app = FastAPI(
     title="Portfolio API",
-    description="Faith Discuss chat and A2P regulatory intelligence for arundas.me",
-    version="0.2.0",
+    description="Portfolio assistants API for arundas.me",
+    version="0.3.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -22,6 +34,7 @@ app.add_middleware(
 
 app.include_router(chat_router)
 app.include_router(a2p_router)
+app.include_router(movies_router)
 
 
 @app.get("/api/health")
@@ -31,4 +44,5 @@ async def health():
         "openai_configured": settings.openai_configured,
         "model": settings.openai_model,
         "chat_password_required": settings.chat_password_required,
+        "tmdb_configured": bool(settings.tmdb_api_key.strip()),
     }

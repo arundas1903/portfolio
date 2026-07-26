@@ -55,3 +55,41 @@ class A2PStatsResponse(BaseModel):
 class A2PCountryResponse(BaseModel):
     country: dict
     summary: str
+
+
+class MovieSessionStartRequest(BaseModel):
+    email: str = Field(min_length=5, max_length=254)
+    client_id: str = Field(min_length=8, max_length=64)
+
+
+class MovieUserProfile(BaseModel):
+    email: str
+    interests: dict = {}
+    onboarding_complete: bool = False
+
+
+class MovieSessionStartResponse(BaseModel):
+    token: str
+    user: MovieUserProfile
+
+
+class MovieStatusResponse(BaseModel):
+    user: MovieUserProfile
+
+
+class MovieChatMessage(BaseModel):
+    role: str = Field(pattern="^(user|assistant)$")
+    content: str = Field(min_length=1, max_length=4000)
+
+
+class MovieChatRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=2000)
+    history: list[MovieChatMessage] = []
+
+
+class MovieChatResponse(BaseModel):
+    reply: str
+    onboarding_complete: bool
+    interests: dict = {}
+    saved_perspective: str | None = None
+    movie_context: str | None = None

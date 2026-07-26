@@ -26,6 +26,7 @@ yarn-error.log*
 backend/.venv/
 mcp/**/.venv/
 backend/.env
+backend/data/movies.db
 backend/__pycache__/
 backend/**/__pycache__/
 *.pyc

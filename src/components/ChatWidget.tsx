@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import FaithDiscussChat from './chatbots/FaithDiscussChat';
 import A2PRegulatoryChat from './chatbots/A2PRegulatoryChat';
+import MovieDiscussChat from './chatbots/MovieDiscussChat';
 import ChatPasswordGate from './chatbots/ChatPasswordGate';
 import { CHATBOTS, ChatbotId } from './chatbots/catalog';
-import { clearChatSession, fetchChatAccessStatus, getChatPassword, unlockChat } from '../api/chat';
+import { clearChatSession, getChatPassword, unlockChat } from '../api/chat';
 import { CHAT_QUERY_PARAM } from '../utils/chatDeepLink';
 
 type WidgetView = 'list' | ChatbotId;
@@ -13,13 +14,14 @@ const AVAILABLE_CHATBOT_IDS = new Set(
   CHATBOTS.filter((bot) => bot.available).map((bot) => bot.id)
 );
 
+const PASSWORD_PROTECTED_BOTS = new Set<ChatbotId>(['faith-discuss', 'a2p-regulatory']);
+
 export default function ChatWidget() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<WidgetView>('list');
-  const [unlocked, setUnlocked] = useState(false);
+  const [assistantsUnlocked, setAssistantsUnlocked] = useState(false);
   const [checkingAccess, setCheckingAccess] = useState(false);
-  const [passwordRequired, setPasswordRequired] = useState(true);
 
   const closeWidget = () => {
     setOpen(false);
@@ -28,7 +30,7 @@ export default function ChatWidget() {
 
   const handleAuthExpired = () => {
     clearChatSession();
-    setUnlocked(false);
+    setAssistantsUnlocked(false);
     setView('list');
   };
 
@@ -50,38 +52,35 @@ export default function ChatWidget() {
   }, [searchParams, setSearchParams]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || view === 'list' || view === 'movie-discuss') {
+      setCheckingAccess(false);
+      return;
+    }
+
+    if (!PASSWORD_PROTECTED_BOTS.has(view)) {
+      setCheckingAccess(false);
+      return;
+    }
 
     let cancelled = false;
 
     const verifyAccess = async () => {
       setCheckingAccess(true);
+      const storedPassword = getChatPassword();
+      if (!storedPassword) {
+        if (!cancelled) {
+          setAssistantsUnlocked(false);
+          setCheckingAccess(false);
+        }
+        return;
+      }
+
       try {
-        const status = await fetchChatAccessStatus();
-        if (cancelled) return;
-
-        setPasswordRequired(status.required);
-
-        if (!status.required) {
-          setUnlocked(true);
-          return;
-        }
-
-        const storedPassword = getChatPassword();
-        if (!storedPassword) {
-          setUnlocked(false);
-          return;
-        }
-
-        try {
-          await unlockChat(storedPassword);
-          if (!cancelled) setUnlocked(true);
-        } catch {
-          clearChatSession();
-          if (!cancelled) setUnlocked(false);
-        }
+        await unlockChat(storedPassword);
+        if (!cancelled) setAssistantsUnlocked(true);
       } catch {
-        if (!cancelled) setUnlocked(false);
+        clearChatSession();
+        if (!cancelled) setAssistantsUnlocked(false);
       } finally {
         if (!cancelled) setCheckingAccess(false);
       }
@@ -92,21 +91,83 @@ export default function ChatWidget() {
     return () => {
       cancelled = true;
     };
-  }, [open]);
+  }, [open, view]);
 
   const activeChatbot = view !== 'list' ? CHATBOTS.find((b) => b.id === view) : null;
+  const needsPassword = view !== 'list' && PASSWORD_PROTECTED_BOTS.has(view) && !assistantsUnlocked;
 
-  const headerTitle = !unlocked
+  const headerTitle = needsPassword
     ? 'Assistants'
     : view === 'list'
       ? 'Assistants'
       : activeChatbot?.title;
 
-  const headerSubtitle = !unlocked
-    ? passwordRequired ? 'Enter password to continue' : 'Loading…'
-    : view === 'list'
-      ? 'Choose a conversation'
-      : activeChatbot?.subtitle;
+  const headerSubtitle = needsPassword
+    ? 'Enter password to continue'
+    : checkingAccess
+      ? 'Loading…'
+      : view === 'list'
+        ? 'Choose a conversation'
+        : activeChatbot?.subtitle;
+
+  const renderBody = () => {
+    if (checkingAccess && view !== 'list' && PASSWORD_PROTECTED_BOTS.has(view)) {
+      return (
+        <div className="chat-password-gate chat-password-gate--loading">
+          <p className="ios26-footnote" style={{ margin: 0, color: 'var(--color-label-secondary)' }}>
+            Checking access…
+          </p>
+        </div>
+      );
+    }
+
+    if (needsPassword) {
+      return <ChatPasswordGate onUnlocked={() => setAssistantsUnlocked(true)} />;
+    }
+
+    if (view === 'list') {
+      return (
+        <div className="chat-widget__list">
+          {CHATBOTS.map((bot) => (
+            <button
+              key={bot.id}
+              type="button"
+              className={`chatbot-item${bot.available ? '' : ' chatbot-item--disabled'}`}
+              onClick={() => bot.available && setView(bot.id)}
+              disabled={!bot.available}
+            >
+              <span className="chatbot-item__icon" aria-hidden>{bot.icon}</span>
+              <span className="chatbot-item__text">
+                <span className="ios26-headline">{bot.title}</span>
+                <span className="ios26-footnote">{bot.subtitle}</span>
+              </span>
+              {bot.available ? (
+                <svg className="chatbot-item__chevron" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                </svg>
+              ) : (
+                <span className="chatbot-item__badge ios26-caption2">Soon</span>
+              )}
+            </button>
+          ))}
+        </div>
+      );
+    }
+
+    if (view === 'faith-discuss') {
+      return <FaithDiscussChat onAuthExpired={handleAuthExpired} />;
+    }
+
+    if (view === 'a2p-regulatory') {
+      return <A2PRegulatoryChat onAuthExpired={handleAuthExpired} />;
+    }
+
+    if (view === 'movie-discuss') {
+      return <MovieDiscussChat />;
+    }
+
+    return null;
+  };
 
   return (
     <div className="chat-widget">
@@ -116,7 +177,7 @@ export default function ChatWidget() {
       >
         <header className="chat-widget__header">
           <div className="chat-widget__header-start">
-            {unlocked && view !== 'list' && (
+            {view !== 'list' && !needsPassword && !checkingAccess && (
               <button
                 type="button"
                 className="chat-widget__back"
@@ -149,44 +210,7 @@ export default function ChatWidget() {
           </button>
         </header>
 
-        {checkingAccess ? (
-          <div className="chat-password-gate chat-password-gate--loading">
-            <p className="ios26-footnote" style={{ margin: 0, color: 'var(--color-label-secondary)' }}>
-              Checking access…
-            </p>
-          </div>
-        ) : !unlocked ? (
-          <ChatPasswordGate onUnlocked={() => setUnlocked(true)} />
-        ) : view === 'list' ? (
-          <div className="chat-widget__list">
-            {CHATBOTS.map((bot) => (
-              <button
-                key={bot.id}
-                type="button"
-                className={`chatbot-item${bot.available ? '' : ' chatbot-item--disabled'}`}
-                onClick={() => bot.available && setView(bot.id)}
-                disabled={!bot.available}
-              >
-                <span className="chatbot-item__icon" aria-hidden>{bot.icon}</span>
-                <span className="chatbot-item__text">
-                  <span className="ios26-headline">{bot.title}</span>
-                  <span className="ios26-footnote">{bot.subtitle}</span>
-                </span>
-                {bot.available ? (
-                  <svg className="chatbot-item__chevron" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-                  </svg>
-                ) : (
-                  <span className="chatbot-item__badge ios26-caption2">Soon</span>
-                )}
-              </button>
-            ))}
-          </div>
-        ) : view === 'faith-discuss' ? (
-          <FaithDiscussChat onAuthExpired={handleAuthExpired} />
-        ) : view === 'a2p-regulatory' ? (
-          <A2PRegulatoryChat onAuthExpired={handleAuthExpired} />
-        ) : null}
+        {renderBody()}
       </div>
 
       <button

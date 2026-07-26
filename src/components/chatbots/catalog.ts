@@ -1,4 +1,4 @@
-export type ChatbotId = 'faith-discuss' | 'a2p-regulatory';
+export type ChatbotId = 'faith-discuss' | 'a2p-regulatory' | 'movie-discuss';
 
 export interface ChatbotOption {
   id: ChatbotId;
@@ -9,6 +9,13 @@ export interface ChatbotOption {
 }
 
 export const CHATBOTS: ChatbotOption[] = [
+  {
+    id: 'movie-discuss',
+    title: 'Movie Discuss',
+    subtitle: 'Your email · taste & recommendations',
+    available: true,
+    icon: '🎬',
+  },
   {
     id: 'faith-discuss',
     title: 'Faith Discussion',

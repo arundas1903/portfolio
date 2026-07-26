@@ -21,3 +21,7 @@ services:
         value: "10"
       - key: CHAT_RATE_WINDOW_MINUTES
         value: "30"
+      - key: MOVIE_SESSION_SECRET
+        sync: false
+      - key: TMDB_API_KEY
+        sync: false
