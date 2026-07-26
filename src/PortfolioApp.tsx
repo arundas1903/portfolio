@@ -6,7 +6,6 @@ import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import TabBar from './components/ios26/TabBar';
 import ThemeToggle from './components/ios26/ThemeToggle';
-import ChatWidget from './components/ChatWidget';
 import { useScrollDirection, useActiveSection } from './hooks/useScroll';
 
 const SECTIONS = ['home', 'about', 'projects', 'blog', 'contact'];
@@ -86,8 +85,6 @@ export default function PortfolioApp() {
         <Blog />
         <Contact />
       </main>
-
-      <ChatWidget />
 
       <TabBar
         tabs={tabs}

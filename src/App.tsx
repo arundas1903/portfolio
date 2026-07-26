@@ -15,6 +15,7 @@ import A2PAtlasPage from './a2p-atlas/A2PAtlasPage';
 import A2PRegulatoryMcpPage from './pages/A2PRegulatoryMcpPage';
 import BlogPostPage from './pages/BlogPostPage';
 import ExperiencePage from './pages/ExperiencePage';
+import ChatWidget from './components/ChatWidget';
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -56,6 +57,7 @@ function App() {
         <Route path="/a2p-atlas" element={<A2PAtlasPage />} />
         <Route path="/a2p-regulatory-mcp" element={<A2PRegulatoryMcpPage />} />
       </Routes>
+      <ChatWidget />
     </BrowserRouter>
   );
 }

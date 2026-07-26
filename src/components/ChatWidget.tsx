@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import FaithDiscussChat from './chatbots/FaithDiscussChat';
 import A2PRegulatoryChat from './chatbots/A2PRegulatoryChat';
 import ChatPasswordGate from './chatbots/ChatPasswordGate';
 import { CHATBOTS, ChatbotId } from './chatbots/catalog';
 import { clearChatSession, fetchChatAccessStatus, getChatPassword, unlockChat } from '../api/chat';
+import { CHAT_QUERY_PARAM } from '../utils/chatDeepLink';
 
 type WidgetView = 'list' | ChatbotId;
 
+const AVAILABLE_CHATBOT_IDS = new Set(
+  CHATBOTS.filter((bot) => bot.available).map((bot) => bot.id)
+);
+
 export default function ChatWidget() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<WidgetView>('list');
   const [unlocked, setUnlocked] = useState(false);
@@ -24,6 +31,23 @@ export default function ChatWidget() {
     setUnlocked(false);
     setView('list');
   };
+
+  useEffect(() => {
+    const chatParam = searchParams.get(CHAT_QUERY_PARAM);
+    if (!chatParam) return;
+
+    setOpen(true);
+
+    if (chatParam !== 'open' && AVAILABLE_CHATBOT_IDS.has(chatParam as ChatbotId)) {
+      setView(chatParam as ChatbotId);
+    } else {
+      setView('list');
+    }
+
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.delete(CHAT_QUERY_PARAM);
+    setSearchParams(nextParams, { replace: true });
+  }, [searchParams, setSearchParams]);
 
   useEffect(() => {
     if (!open) return;

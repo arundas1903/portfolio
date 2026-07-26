@@ -4,6 +4,7 @@ import countriesData from '../a2p-atlas/data/countries.json';
 import SubpageNav from '../components/ios26/SubpageNav';
 import Button from '../components/ios26/Button';
 import type { CountryRecord } from '../a2p-atlas/types';
+import { chatDeepLink } from '../utils/chatDeepLink';
 import '../styles/a2p-regulatory-mcp.css';
 
 const countries = countriesData as CountryRecord[];
@@ -86,8 +87,8 @@ export default function A2PRegulatoryMcpPage() {
             <Button variant="filled" to="/a2p-atlas">
               Open A2P Atlas
             </Button>
-            <Button variant="tinted" to="/">
-              Open portfolio chat
+            <Button variant="tinted" to={chatDeepLink('a2p-regulatory')}>
+              Open A2P chat assistant
             </Button>
           </div>
         </header>
