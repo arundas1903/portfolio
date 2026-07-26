@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import countriesData from './data/countries.json';
 import WorldMap from './components/WorldMap';
 import CountryDetail from './components/CountryDetail';
@@ -53,6 +54,11 @@ export default function A2PAtlasPage() {
           <h1 className="ios26-large-title ios26-large-title--emphasized">A2P Atlas</h1>
           <p className="ios26-subheadline" style={{ color: 'var(--color-label-secondary)' }}>
             Global A2P SMS origination support by country
+          </p>
+          <p className="ios26-footnote" style={{ marginTop: 8 }}>
+            <Link to="/a2p-regulatory-mcp" className="a2p-atlas-mcp-link ios26-footnote">
+              MCP server for AI-assisted regulatory intelligence →
+            </Link>
           </p>
         </div>
       </header>

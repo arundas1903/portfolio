@@ -1,0 +1,70 @@
+Metadata-Version: 2.4
+Name: a2p-regulatory
+Version: 0.1.0
+Summary: A2P SMS regulatory intelligence and onboarding guidance for 190+ countries
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Provides-Extra: mcp
+Requires-Dist: mcp>=1.6.0; extra == "mcp"
+
+# A2P Regulatory Intelligence MCP Server
+
+Model Context Protocol server exposing global A2P SMS regulatory data and onboarding guidance for 190+ countries.
+
+Part of the [arundas.me](https://arundas.me) portfolio — shares data with [A2P Atlas](https://arundas.me/a2p-atlas).
+
+## Install
+
+```bash
+cd mcp/a2p-regulatory
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[mcp]"
+```
+
+## Run (stdio)
+
+```bash
+python -m a2p_regulatory.server
+# or
+a2p-regulatory-mcp
+```
+
+## Cursor configuration
+
+Add to `~/.cursor/mcp.json` (use absolute paths):
+
+```json
+{
+  "mcpServers": {
+    "a2p-regulatory": {
+      "command": "python3",
+      "args": ["/ABSOLUTE/PATH/TO/portfolio/mcp/a2p-regulatory/a2p_regulatory/server.py"],
+      "env": {
+        "A2P_DATA_PATH": "/ABSOLUTE/PATH/TO/portfolio/mcp/a2p-regulatory/data/countries.json"
+      }
+    }
+  }
+}
+```
+
+## Tools
+
+| Tool | Description |
+|------|-------------|
+| `lookup_country` | Regulatory profile by ISO-2 or name |
+| `search_countries` | Filter by channel support level |
+| `list_registration_required` | Markets requiring sender registration |
+| `get_onboarding_guidance` | Launch checklist for country + channel |
+| `compare_countries` | Side-by-side market comparison |
+| `get_dataset_overview` | Dataset statistics |
+
+## Data
+
+Country records are sourced from AWS End User Messaging SMS and Twilio alphanumeric support references. Regenerate with:
+
+```bash
+python3 scripts/generate-a2p-data.py
+```
+
+This writes to `src/a2p-atlas/data/`, `backend/data/`, and `mcp/a2p-regulatory/data/`.

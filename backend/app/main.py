@@ -2,12 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+from app.routers.a2p import router as a2p_router
 from app.routers.chat import router as chat_router
 
 app = FastAPI(
-    title="Portfolio Faith Discuss API",
-    description="Multi-faith scripture chat for arundas.me portfolio",
-    version="0.1.0",
+    title="Portfolio API",
+    description="Faith Discuss chat and A2P regulatory intelligence for arundas.me",
+    version="0.2.0",
 )
 
 app.add_middleware(
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(chat_router)
+app.include_router(a2p_router)
 
 
 @app.get("/api/health")

@@ -24,6 +24,17 @@
   margin: 0 0 8px;
 }
 
+.a2p-atlas-mcp-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--color-accent-teal);
+  text-decoration: none;
+}
+
+.a2p-atlas-mcp-link:hover {
+  text-decoration: underline;
+}
+
 .a2p-channel-segments {
   margin-bottom: 16px;
 }

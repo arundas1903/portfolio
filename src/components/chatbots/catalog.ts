@@ -1,4 +1,4 @@
-export type ChatbotId = 'faith-discuss' | 'coming-soon';
+export type ChatbotId = 'faith-discuss' | 'a2p-regulatory';
 
 export interface ChatbotOption {
   id: ChatbotId;
@@ -17,10 +17,10 @@ export const CHATBOTS: ChatbotOption[] = [
     icon: '🕊️',
   },
   {
-    id: 'coming-soon',
-    title: 'Coming soon',
-    subtitle: 'More assistants on the way',
-    available: false,
-    icon: '✨',
+    id: 'a2p-regulatory',
+    title: 'A2P Regulatory Intel',
+    subtitle: '190+ countries · onboarding guidance',
+    available: true,
+    icon: '📡',
   },
 ];

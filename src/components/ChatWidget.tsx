@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FaithDiscussChat from './chatbots/FaithDiscussChat';
+import A2PRegulatoryChat from './chatbots/A2PRegulatoryChat';
 import ChatPasswordGate from './chatbots/ChatPasswordGate';
 import { CHATBOTS, ChatbotId } from './chatbots/catalog';
 import { clearChatSession, fetchChatAccessStatus, getChatPassword, unlockChat } from '../api/chat';
@@ -159,6 +160,8 @@ export default function ChatWidget() {
           </div>
         ) : view === 'faith-discuss' ? (
           <FaithDiscussChat onAuthExpired={handleAuthExpired} />
+        ) : view === 'a2p-regulatory' ? (
+          <A2PRegulatoryChat onAuthExpired={handleAuthExpired} />
         ) : null}
       </div>
 

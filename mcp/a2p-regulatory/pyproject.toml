@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "a2p-regulatory"
+version = "0.1.0"
+description = "A2P SMS regulatory intelligence and onboarding guidance for 190+ countries"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.6.0"]
+
+[project.scripts]
+a2p-regulatory-mcp = "a2p_regulatory.server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["a2p_regulatory*"]
+
+[tool.setuptools.package-data]
+a2p_regulatory = ["../data/countries.json"]

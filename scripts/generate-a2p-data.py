@@ -7,7 +7,11 @@ import re
 import urllib.request
 from pathlib import Path
 
-OUT = Path(__file__).resolve().parents[1] / "src" / "a2p-atlas" / "data" / "countries.json"
+OUT_PATHS = [
+    Path(__file__).resolve().parents[1] / "src" / "a2p-atlas" / "data" / "countries.json",
+    Path(__file__).resolve().parents[1] / "backend" / "data" / "countries.json",
+    Path(__file__).resolve().parents[1] / "mcp" / "a2p-regulatory" / "data" / "countries.json",
+]
 ALPHA_CSV_URL = (
     "https://raw.githubusercontent.com/eGullGolf/countries-alphanumeric-sms-sender-support/"
     "master/alphasendersupport.csv"
@@ -307,9 +311,10 @@ def main() -> None:
             }
         )
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(countries, indent=2), encoding="utf-8")
-    print(f"Wrote {len(countries)} countries to {OUT}")
+    for out_path in OUT_PATHS:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(countries, indent=2), encoding="utf-8")
+        print(f"Wrote {len(countries)} countries to {out_path}")
 
 
 if __name__ == "__main__":

@@ -14,6 +14,15 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: 'A2P Regulatory MCP',
+    description:
+      'Model Context Protocol server for AI-assisted A2P SMS regulatory intelligence — country lookup, registration rules, and onboarding guidance across 190+ markets.',
+    icon: '📡',
+    technologies: ['MCP', 'A2P SMS', 'CPaaS', 'Python'],
+    accent: 'var(--color-accent-cyan)',
+    liveDemo: '/a2p-regulatory-mcp',
+  },
+  {
     title: 'A2P Atlas',
     description:
       'Interactive world map of A2P SMS origination support by country — alphanumeric sender IDs, short codes, long codes, and toll-free numbers.',

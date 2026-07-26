@@ -1,0 +1,2 @@
+[console_scripts]
+a2p-regulatory-mcp = a2p_regulatory.server:main

@@ -32,3 +32,26 @@ class ChatResponse(BaseModel):
     reply: str
     sources: list[SourceCitation] = []
     traditions_searched: list[str] = []
+
+
+class A2PChatRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=2000)
+
+
+class A2PChatResponse(BaseModel):
+    is_a2p: bool
+    reply: str
+    countries: list[str] = []
+
+
+class A2PStatsResponse(BaseModel):
+    country_count: int
+    data_path: str
+    channels: dict[str, dict[str, int]]
+    registration_required_alphanumeric: int
+    registration_required_short_code: int
+
+
+class A2PCountryResponse(BaseModel):
+    country: dict
+    summary: str
