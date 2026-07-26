@@ -1,13 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import GlassCard from '../components/ios26/GlassCard';
-import Button from '../components/ios26/Button';
 
 const Home = () => {
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section id="home" className="section">
       <motion.div
@@ -32,17 +27,6 @@ const Home = () => {
           product leadership roles, specializing in CPaaS, API integrations, and
           client-focused solutions.
         </p>
-        <div className="ios26-btn-group" style={{ justifyContent: 'center' }}>
-          <Button variant="filled" onClick={() => scrollTo('projects')}>
-            View My Work
-          </Button>
-          <Button variant="tinted" onClick={() => scrollTo('blog')}>
-            Read Blog
-          </Button>
-          <Button variant="tinted" onClick={() => scrollTo('contact')}>
-            Get in Touch
-          </Button>
-        </div>
       </motion.div>
 
       <GlassCard size="la">
