@@ -6,6 +6,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 }
 
 body {
@@ -106,6 +107,12 @@ body {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glass-surface a,
+.glass-surface button {
+  position: relative;
+  z-index: 2;
 }
 
 :root[data-theme="dark"] .glass-surface,
@@ -362,13 +369,17 @@ body {
 .project-card__actions {
   display: flex;
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .project-card__actions .ios26-btn {
   flex: 1;
-  min-height: 36px;
+  min-height: 44px;
   font-size: var(--font-subheadline-size);
   padding: 0 14px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Contact form */
@@ -527,6 +538,8 @@ textarea.form-input {
   flex-direction: column;
   align-items: flex-end;
   gap: 12px;
+  pointer-events: none;
+  isolation: isolate;
 }
 
 .chat-widget__fab {
@@ -541,6 +554,7 @@ textarea.form-input {
   cursor: pointer;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
   transition: transform var(--duration-fast) var(--easing-spring-snappy);
+  pointer-events: auto;
 }
 
 .chat-widget__fab:active {
@@ -563,6 +577,18 @@ textarea.form-input {
     transform var(--duration-normal) var(--easing-spring-snappy);
 }
 
+.chat-widget__panel:not(.chat-widget__panel--open) {
+  position: absolute;
+  right: 0;
+  bottom: calc(56px + 12px);
+  width: 0;
+  height: 0;
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  box-shadow: none;
+}
+
 .chat-widget__panel > .chat-widget__messages,
 .chat-widget__panel > .chat-prompts,
 .chat-widget__panel > .chat-composer,
@@ -576,6 +602,8 @@ textarea.form-input {
 }
 
 .chat-widget__panel--open {
+  position: relative;
+  visibility: visible;
   pointer-events: auto;
   opacity: 1;
   transform: translateY(0) scale(1);
