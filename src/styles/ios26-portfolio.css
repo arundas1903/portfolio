@@ -874,6 +874,15 @@ textarea.form-input {
   color: var(--color-accent-red);
 }
 
+.chat-limit-banner {
+  margin: 0;
+  padding: 10px 16px;
+  text-align: center;
+  color: var(--color-label-secondary);
+  border-bottom: 1px solid var(--color-separator-nonOpaque);
+  background: color-mix(in srgb, var(--color-fill-tertiary) 70%, transparent);
+}
+
 .chat-password-gate {
   flex: 1;
   display: flex;

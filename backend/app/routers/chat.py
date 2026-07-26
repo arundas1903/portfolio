@@ -1,10 +1,18 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 
 from app.config import settings
-from app.dependencies import require_chat_password
-from app.models import ChatRequest, ChatResponse, SourceCitation, UnlockRequest, UnlockResponse
+from app.dependencies import get_client_ip, require_chat_password, require_chat_rate_limit
+from app.models import (
+    ChatLimitsResponse,
+    ChatRequest,
+    ChatResponse,
+    SourceCitation,
+    UnlockRequest,
+    UnlockResponse,
+)
 from app.services.chat import classify_message, generate_scripture_response
 from app.services.scripture.search import search_all_traditions
+from app.services.rate_limit import chat_rate_limiter
 
 router = APIRouter(prefix="/api", tags=["chat"])
 
@@ -32,10 +40,25 @@ async def unlock_chat(request: UnlockRequest) -> UnlockResponse:
     return UnlockResponse(unlocked=True, required=True)
 
 
+@router.get("/chat/limits", response_model=ChatLimitsResponse)
+async def chat_limits(request: Request) -> ChatLimitsResponse:
+    chat_rate_limiter.max_requests = settings.chat_rate_limit
+    chat_rate_limiter.window_seconds = settings.chat_rate_window_seconds
+
+    remaining, retry_after = chat_rate_limiter.peek(get_client_ip(request))
+    return ChatLimitsResponse(
+        limit=settings.chat_rate_limit,
+        window_minutes=settings.chat_rate_window_minutes,
+        remaining=remaining,
+        retry_after_seconds=retry_after,
+    )
+
+
 @router.post("/chat", response_model=ChatResponse)
 async def chat(
     request: ChatRequest,
     _: None = Depends(require_chat_password),
+    __: None = Depends(require_chat_rate_limit),
 ) -> ChatResponse:
     try:
         classification = await classify_message(request.message)

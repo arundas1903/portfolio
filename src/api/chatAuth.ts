@@ -28,6 +28,21 @@ export interface ChatAccessStatus {
   required: boolean;
 }
 
+export interface ChatLimits {
+  limit: number;
+  window_minutes: number;
+  remaining: number;
+  retry_after_seconds: number;
+}
+
+export async function fetchChatLimits(): Promise<ChatLimits> {
+  const response = await fetch(`${API_BASE}/api/chat/limits`);
+  if (!response.ok) {
+    throw new Error('Could not load chat limits');
+  }
+  return response.json();
+}
+
 export async function fetchChatAccessStatus(): Promise<ChatAccessStatus> {
   const response = await fetch(`${API_BASE}/api/chat/access`);
   if (!response.ok) {

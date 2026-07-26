@@ -13,6 +13,11 @@ export async function sendMessage(message: string): Promise<ChatResponse> {
     throw new Error('Session expired. Please enter the password again.');
   }
 
+  if (response.status === 429) {
+    const error = await response.json().catch(() => ({ detail: 'Rate limit reached' }));
+    throw new Error(typeof error.detail === 'string' ? error.detail : 'Rate limit reached');
+  }
+
   if (!response.ok) {
     const error = await response.json().catch(() => ({ detail: 'Request failed' }));
     throw new Error(typeof error.detail === 'string' ? error.detail : 'Failed to send message');
@@ -23,8 +28,9 @@ export async function sendMessage(message: string): Promise<ChatResponse> {
 
 export {
   fetchChatAccessStatus,
+  fetchChatLimits,
   getChatPassword,
   unlockChat,
   clearChatSession,
 } from './chatAuth';
-export type { ChatAccessStatus } from './chatAuth';
+export type { ChatAccessStatus, ChatLimits } from './chatAuth';

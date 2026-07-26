@@ -14,6 +14,13 @@ class UnlockResponse(BaseModel):
     required: bool
 
 
+class ChatLimitsResponse(BaseModel):
+    limit: int
+    window_minutes: int
+    remaining: int
+    retry_after_seconds: int
+
+
 class SourceCitation(BaseModel):
     tradition: str
     reference: str

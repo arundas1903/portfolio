@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from '../ios26/Button';
-import { sendMessage } from '../../api/chat';
+import { fetchChatLimits, sendMessage } from '../../api/chat';
+import type { ChatLimits } from '../../api/chat';
 import type { ChatMessage } from '../../types/chat';
 
 const STARTER_PROMPTS = [
@@ -25,20 +26,41 @@ export default function FaithDiscussChat({ onAuthExpired }: FaithDiscussChatProp
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [limits, setLimits] = useState<ChatLimits | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const refreshLimits = useCallback(async () => {
+    try {
+      const nextLimits = await fetchChatLimits();
+      setLimits(nextLimits);
+    } catch {
+      setLimits(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshLimits();
+  }, [refreshLimits]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
+  const isRateLimited = limits !== null && limits.remaining <= 0;
+  const retryMinutes = limits?.retry_after_seconds
+    ? Math.max(1, Math.ceil(limits.retry_after_seconds / 60))
+    : null;
+
   const handleSend = async (text?: string) => {
     const message = (text ?? input).trim();
-    if (!message || loading) return;
+    if (!message || loading || isRateLimited) return;
 
     setError('');
     setInput('');
     setLoading(true);
-    setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: 'user', content: message }]);
+
+    const userMessageId = crypto.randomUUID();
+    setMessages((prev) => [...prev, { id: userMessageId, role: 'user', content: message }]);
 
     try {
       const response = await sendMessage(message);
@@ -52,12 +74,17 @@ export default function FaithDiscussChat({ onAuthExpired }: FaithDiscussChatProp
           isReligious: response.is_religious,
         },
       ]);
+      await refreshLimits();
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Something went wrong';
-      if (message.toLowerCase().includes('password')) {
+      setMessages((prev) => prev.filter((entry) => entry.id !== userMessageId));
+      const errorMessage = err instanceof Error ? err.message : 'Something went wrong';
+      if (errorMessage.toLowerCase().includes('password')) {
         onAuthExpired?.();
       }
-      setError(message);
+      if (errorMessage.toLowerCase().includes('limit')) {
+        await refreshLimits();
+      }
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -65,6 +92,14 @@ export default function FaithDiscussChat({ onAuthExpired }: FaithDiscussChatProp
 
   return (
     <>
+      {limits && (
+        <p className="chat-limit-banner ios26-caption2">
+          {isRateLimited
+            ? `Free limit reached (${limits.limit} messages per ${limits.window_minutes} min). Try again in ~${retryMinutes} min.`
+            : `${limits.remaining} of ${limits.limit} free messages left · resets every ${limits.window_minutes} min`}
+        </p>
+      )}
+
       <div className="chat-widget__messages">
         {messages.map((message) => (
           <article key={message.id} className={`chat-message chat-message--${message.role}`}>
@@ -96,7 +131,7 @@ export default function FaithDiscussChat({ onAuthExpired }: FaithDiscussChatProp
         <div ref={messagesEndRef} />
       </div>
 
-      {messages.length === 1 && (
+      {messages.length === 1 && !isRateLimited && (
         <div className="chat-prompts">
           {STARTER_PROMPTS.map((prompt) => (
             <button
@@ -104,6 +139,7 @@ export default function FaithDiscussChat({ onAuthExpired }: FaithDiscussChatProp
               type="button"
               className="chat-prompt-chip ios26-caption2"
               onClick={() => handleSend(prompt)}
+              disabled={loading}
             >
               {prompt}
             </button>
@@ -124,10 +160,10 @@ export default function FaithDiscussChat({ onAuthExpired }: FaithDiscussChatProp
           className="chat-input ios26-footnote"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about faith, prayer, purpose…"
-          disabled={loading}
+          placeholder={isRateLimited ? 'Message limit reached for now…' : 'Ask about faith, prayer, purpose…'}
+          disabled={loading || isRateLimited}
         />
-        <Button variant="filled" type="submit" disabled={loading || !input.trim()}>
+        <Button variant="filled" type="submit" disabled={loading || isRateLimited || !input.trim()}>
           Send
         </Button>
       </form>
