@@ -1,8 +1,27 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import GlassCard from '../components/ios26/GlassCard';
+import Button from '../components/ios26/Button';
 
-const projects = [
+interface Project {
+  title: string;
+  description: string;
+  icon: string;
+  technologies: string[];
+  accent: string;
+  liveDemo?: string;
+}
+
+const projects: Project[] = [
+  {
+    title: 'A2P Atlas',
+    description:
+      'Interactive world map of A2P SMS origination support by country — alphanumeric sender IDs, short codes, long codes, and toll-free numbers.',
+    icon: '🌍',
+    technologies: ['CPaaS', 'A2P SMS', 'Regulatory', 'Maps'],
+    accent: 'var(--color-accent-teal)',
+    liveDemo: '/a2p-atlas',
+  },
   {
     title: 'Enterprise SMS and Email Platform',
     description:
@@ -85,6 +104,13 @@ const Projects = () => {
                     <span key={tag} className="project-tag">{tag}</span>
                   ))}
                 </div>
+                {project.liveDemo && (
+                  <div className="project-card__actions">
+                    <Button variant="filled" to={project.liveDemo}>
+                      Live Demo
+                    </Button>
+                  </div>
+                )}
               </div>
             </GlassCard>
           </motion.div>

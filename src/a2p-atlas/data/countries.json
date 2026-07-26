@@ -1,0 +1,3800 @@
+[
+  {
+    "name": "Afghanistan",
+    "iso2": "AF",
+    "dialCode": "93",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Albania",
+    "iso2": "AL",
+    "dialCode": "355",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Algeria",
+    "iso2": "DZ",
+    "dialCode": "213",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Andorra",
+    "iso2": "AD",
+    "dialCode": "376",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Angola",
+    "iso2": "AO",
+    "dialCode": "244",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Anguilla",
+    "iso2": "AI",
+    "dialCode": "1-264",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Antigua and Barbuda",
+    "iso2": "AG",
+    "dialCode": "1-268",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Argentina",
+    "iso2": "AR",
+    "dialCode": "54",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Armenia",
+    "iso2": "AM",
+    "dialCode": "374",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Aruba",
+    "iso2": "AW",
+    "dialCode": "297",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Australia",
+    "iso2": "AU",
+    "dialCode": "61",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Austria",
+    "iso2": "AT",
+    "dialCode": "43",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Azerbaijan",
+    "iso2": "AZ",
+    "dialCode": "994",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bahamas",
+    "iso2": "BS",
+    "dialCode": "1-242",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bahrain",
+    "iso2": "BH",
+    "dialCode": "973",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bangladesh",
+    "iso2": "BD",
+    "dialCode": "880",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Barbados",
+    "iso2": "BB",
+    "dialCode": "1-246",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Belarus",
+    "iso2": "BY",
+    "dialCode": "375",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Belgium",
+    "iso2": "BE",
+    "dialCode": "32",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Belize",
+    "iso2": "BZ",
+    "dialCode": "501",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bermuda",
+    "iso2": "BM",
+    "dialCode": "1-441",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bhutan",
+    "iso2": "BT",
+    "dialCode": "975",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bolivia",
+    "iso2": "BO",
+    "dialCode": "591",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bosnia and Herzegovina",
+    "iso2": "BA",
+    "dialCode": "387",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Botswana",
+    "iso2": "BW",
+    "dialCode": "267",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Brazil",
+    "iso2": "BR",
+    "dialCode": "55",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Brunei",
+    "iso2": "BN",
+    "dialCode": "673",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Bulgaria",
+    "iso2": "BG",
+    "dialCode": "359",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Burkina Faso",
+    "iso2": "BF",
+    "dialCode": "226",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Burundi",
+    "iso2": "BI",
+    "dialCode": "257",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Cambodia",
+    "iso2": "KH",
+    "dialCode": "855",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Cameroon",
+    "iso2": "CM",
+    "dialCode": "237",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Canada",
+    "iso2": "CA",
+    "dialCode": "1",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "yes"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Cape Verde",
+    "iso2": "CV",
+    "dialCode": "238",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Cayman Islands",
+    "iso2": "KY",
+    "dialCode": "1-345",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Central African Republic",
+    "iso2": "CF",
+    "dialCode": "236",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Chad",
+    "iso2": "TD",
+    "dialCode": "235",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Chile",
+    "iso2": "CL",
+    "dialCode": "56",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "China",
+    "iso2": "CN",
+    "dialCode": "86",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Colombia",
+    "iso2": "CO",
+    "dialCode": "57",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Comoros",
+    "iso2": "KM",
+    "dialCode": "269",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Cook Islands",
+    "iso2": "CK",
+    "dialCode": "682",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Costa Rica",
+    "iso2": "CR",
+    "dialCode": "506",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Croatia",
+    "iso2": "HR",
+    "dialCode": "385",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Cyprus",
+    "iso2": "CY",
+    "dialCode": "357",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Czechia",
+    "iso2": "CZ",
+    "dialCode": "420",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Democratic Republic of the Congo",
+    "iso2": "CD",
+    "dialCode": "243",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Denmark",
+    "iso2": "DK",
+    "dialCode": "45",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Djibouti",
+    "iso2": "DJ",
+    "dialCode": "253",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Dominica",
+    "iso2": "DM",
+    "dialCode": "1-767",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Dominican Republic",
+    "iso2": "DO",
+    "dialCode": "1-809",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Ecuador",
+    "iso2": "EC",
+    "dialCode": "593",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Egypt",
+    "iso2": "EG",
+    "dialCode": "20",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "El Salvador",
+    "iso2": "SV",
+    "dialCode": "503",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Equatorial Guinea",
+    "iso2": "GQ",
+    "dialCode": "240",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Eritrea",
+    "iso2": "ER",
+    "dialCode": "291",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Estonia",
+    "iso2": "EE",
+    "dialCode": "372",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Eswatini",
+    "iso2": "SZ",
+    "dialCode": "268",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Ethiopia",
+    "iso2": "ET",
+    "dialCode": "251",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Faroe Islands",
+    "iso2": "FO",
+    "dialCode": "298",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Fiji",
+    "iso2": "FJ",
+    "dialCode": "679",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Finland",
+    "iso2": "FI",
+    "dialCode": "358",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "France",
+    "iso2": "FR",
+    "dialCode": "33",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "French Guiana",
+    "iso2": "GF",
+    "dialCode": "594",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "French Polynesia",
+    "iso2": "PF",
+    "dialCode": "689",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Gabon",
+    "iso2": "GA",
+    "dialCode": "241",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Gambia",
+    "iso2": "GM",
+    "dialCode": "220",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Georgia",
+    "iso2": "GE",
+    "dialCode": "995",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Germany",
+    "iso2": "DE",
+    "dialCode": "49",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Ghana",
+    "iso2": "GH",
+    "dialCode": "233",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Gibraltar",
+    "iso2": "GI",
+    "dialCode": "350",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Greece",
+    "iso2": "GR",
+    "dialCode": "30",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Greenland",
+    "iso2": "GL",
+    "dialCode": "299",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Grenada",
+    "iso2": "GD",
+    "dialCode": "1-473",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Guadeloupe",
+    "iso2": "GP",
+    "dialCode": "590",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Guam",
+    "iso2": "GU",
+    "dialCode": "1-671",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "yes"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Guatemala",
+    "iso2": "GT",
+    "dialCode": "502",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Guernsey",
+    "iso2": "GG",
+    "dialCode": "44-1481",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Guinea",
+    "iso2": "GN",
+    "dialCode": "224",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Guinea-Bissau",
+    "iso2": "GW",
+    "dialCode": "245",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "na",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Guyana",
+    "iso2": "GY",
+    "dialCode": "592",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Haiti",
+    "iso2": "HT",
+    "dialCode": "509",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Honduras",
+    "iso2": "HN",
+    "dialCode": "504",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Hong Kong",
+    "iso2": "HK",
+    "dialCode": "852",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Hungary",
+    "iso2": "HU",
+    "dialCode": "36",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Iceland",
+    "iso2": "IS",
+    "dialCode": "354",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "India",
+    "iso2": "IN",
+    "dialCode": "91",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Indonesia",
+    "iso2": "ID",
+    "dialCode": "62",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Iraq",
+    "iso2": "IQ",
+    "dialCode": "964",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Ireland",
+    "iso2": "IE",
+    "dialCode": "353",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Israel",
+    "iso2": "IL",
+    "dialCode": "972",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Italy",
+    "iso2": "IT",
+    "dialCode": "39",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Ivory Coast",
+    "iso2": "CI",
+    "dialCode": "225",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Jamaica",
+    "iso2": "JM",
+    "dialCode": "1-876",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Japan",
+    "iso2": "JP",
+    "dialCode": "81",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "partial",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Jersey",
+    "iso2": "JE",
+    "dialCode": "44-1434",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Jordan",
+    "iso2": "JO",
+    "dialCode": "962",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Kazakhstan",
+    "iso2": "KZ",
+    "dialCode": "7",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Kenya",
+    "iso2": "KE",
+    "dialCode": "254",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Kosovo",
+    "iso2": "XK",
+    "dialCode": "383",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Kuwait",
+    "iso2": "KW",
+    "dialCode": "965",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Kyrgyzstan",
+    "iso2": "KG",
+    "dialCode": "996",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Laos",
+    "iso2": "LA",
+    "dialCode": "856",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Latvia",
+    "iso2": "LV",
+    "dialCode": "371",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Lebanon",
+    "iso2": "LB",
+    "dialCode": "961",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Lesotho",
+    "iso2": "LS",
+    "dialCode": "266",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Liberia",
+    "iso2": "LR",
+    "dialCode": "231",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Libya",
+    "iso2": "LY",
+    "dialCode": "218",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Liechtenstein",
+    "iso2": "LI",
+    "dialCode": "423",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Lithuania",
+    "iso2": "LT",
+    "dialCode": "370",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Luxembourg",
+    "iso2": "LU",
+    "dialCode": "352",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Macau",
+    "iso2": "MO",
+    "dialCode": "853",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Macedonia",
+    "iso2": "MK",
+    "dialCode": "389",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Madagascar",
+    "iso2": "MG",
+    "dialCode": "261",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Malawi",
+    "iso2": "MW",
+    "dialCode": "265",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Malaysia",
+    "iso2": "MY",
+    "dialCode": "60",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Maldives",
+    "iso2": "MV",
+    "dialCode": "960",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Mali",
+    "iso2": "ML",
+    "dialCode": "223",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Malta",
+    "iso2": "MT",
+    "dialCode": "356",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Marshall Islands",
+    "iso2": "MH",
+    "dialCode": "692",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Martinique",
+    "iso2": "MQ",
+    "dialCode": "596",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Mauritania",
+    "iso2": "MR",
+    "dialCode": "222",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Mauritius",
+    "iso2": "MU",
+    "dialCode": "230",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Mayotte",
+    "iso2": "YT",
+    "dialCode": "262",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Mexico",
+    "iso2": "MX",
+    "dialCode": "52",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Micronesia",
+    "iso2": "FM",
+    "dialCode": "691",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Moldova",
+    "iso2": "MD",
+    "dialCode": "373",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Monaco",
+    "iso2": "MC",
+    "dialCode": "377",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Mongolia",
+    "iso2": "MN",
+    "dialCode": "976",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Montenegro",
+    "iso2": "ME",
+    "dialCode": "382",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Montserrat",
+    "iso2": "MS",
+    "dialCode": "1-664",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Morocco",
+    "iso2": "MA",
+    "dialCode": "212",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Mozambique",
+    "iso2": "MZ",
+    "dialCode": "258",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Myanmar",
+    "iso2": "MM",
+    "dialCode": "95",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Namibia",
+    "iso2": "NA",
+    "dialCode": "264",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Nepal",
+    "iso2": "NP",
+    "dialCode": "977",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Netherlands",
+    "iso2": "NL",
+    "dialCode": "31",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "New Caledonia",
+    "iso2": "NC",
+    "dialCode": "687",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "New Zealand",
+    "iso2": "NZ",
+    "dialCode": "64",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Nicaragua",
+    "iso2": "NI",
+    "dialCode": "505",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Niger",
+    "iso2": "NE",
+    "dialCode": "227",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Nigeria",
+    "iso2": "NG",
+    "dialCode": "234",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Niue",
+    "iso2": "NU",
+    "dialCode": "683",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Norfolk Island",
+    "iso2": "NF",
+    "dialCode": "672",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Norway",
+    "iso2": "NO",
+    "dialCode": "47",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Oman",
+    "iso2": "OM",
+    "dialCode": "968",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Pakistan",
+    "iso2": "PK",
+    "dialCode": "92",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Palestine",
+    "iso2": "PS",
+    "dialCode": "970",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "partial",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Panama",
+    "iso2": "PA",
+    "dialCode": "507",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Palau",
+    "iso2": "PW",
+    "dialCode": "680",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Papua New Guinea",
+    "iso2": "PG",
+    "dialCode": "675",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Paraguay",
+    "iso2": "PY",
+    "dialCode": "595",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Peru",
+    "iso2": "PE",
+    "dialCode": "51",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "partial",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Philippines",
+    "iso2": "PH",
+    "dialCode": "63",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Poland",
+    "iso2": "PL",
+    "dialCode": "48",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Portugal",
+    "iso2": "PT",
+    "dialCode": "351",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Puerto Rico",
+    "iso2": "PR",
+    "dialCode": "1-787",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "yes"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Qatar",
+    "iso2": "QA",
+    "dialCode": "974",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Republic of the Congo",
+    "iso2": "CG",
+    "dialCode": "242",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "R\u00e9union",
+    "iso2": "RE",
+    "dialCode": "262",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Romania",
+    "iso2": "RO",
+    "dialCode": "40",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Russia",
+    "iso2": "RU",
+    "dialCode": "7",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Rwanda",
+    "iso2": "RW",
+    "dialCode": "250",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Saint Lucia",
+    "iso2": "LC",
+    "dialCode": "1-758",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Samoa",
+    "iso2": "WS",
+    "dialCode": "685",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "San Marino",
+    "iso2": "SM",
+    "dialCode": "378",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Saudi Arabia",
+    "iso2": "SA",
+    "dialCode": "966",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Senegal",
+    "iso2": "SN",
+    "dialCode": "221",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Serbia",
+    "iso2": "RS",
+    "dialCode": "381",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Seychelles",
+    "iso2": "SC",
+    "dialCode": "248",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Sierra Leone",
+    "iso2": "SL",
+    "dialCode": "232",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Singapore",
+    "iso2": "SG",
+    "dialCode": "65",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Slovakia",
+    "iso2": "SK",
+    "dialCode": "421",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Slovenia",
+    "iso2": "SI",
+    "dialCode": "386",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Solomon Islands",
+    "iso2": "SB",
+    "dialCode": "677",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Somalia",
+    "iso2": "SO",
+    "dialCode": "252",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "South Africa",
+    "iso2": "ZA",
+    "dialCode": "27",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "South Korea",
+    "iso2": "KR",
+    "dialCode": "82",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "South Sudan",
+    "iso2": "SS",
+    "dialCode": "211",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Spain",
+    "iso2": "ES",
+    "dialCode": "34",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Sri Lanka",
+    "iso2": "LK",
+    "dialCode": "94",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Suriname",
+    "iso2": "SR",
+    "dialCode": "597",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Sweden",
+    "iso2": "SE",
+    "dialCode": "46",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Switzerland",
+    "iso2": "CH",
+    "dialCode": "41",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Taiwan",
+    "iso2": "TW",
+    "dialCode": "886",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Tajikistan",
+    "iso2": "TJ",
+    "dialCode": "992",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Tanzania",
+    "iso2": "TZ",
+    "dialCode": "255",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Thailand",
+    "iso2": "TH",
+    "dialCode": "66",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Timor-Leste",
+    "iso2": "TL",
+    "dialCode": "670",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Togo",
+    "iso2": "TG",
+    "dialCode": "228",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Tonga",
+    "iso2": "TO",
+    "dialCode": "676",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Trinidad and Tobago",
+    "iso2": "TT",
+    "dialCode": "1-868",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Tunisia",
+    "iso2": "TN",
+    "dialCode": "216",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Turkey",
+    "iso2": "TR",
+    "dialCode": "90",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Turkmenistan",
+    "iso2": "TM",
+    "dialCode": "993",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Turks and Caicos Islands",
+    "iso2": "TC",
+    "dialCode": "1-649",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Uganda",
+    "iso2": "UG",
+    "dialCode": "256",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Ukraine",
+    "iso2": "UA",
+    "dialCode": "380",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "United Arab Emirates",
+    "iso2": "AE",
+    "dialCode": "971",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "United Kingdom",
+    "iso2": "GB",
+    "dialCode": "44",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "varies"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "United States",
+    "iso2": "US",
+    "dialCode": "1",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "yes",
+      "tollFree": "yes"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Uruguay",
+    "iso2": "UY",
+    "dialCode": "598",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "yes",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Uzbekistan",
+    "iso2": "UZ",
+    "dialCode": "998",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Vanuatu",
+    "iso2": "VU",
+    "dialCode": "678",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Venezuela",
+    "iso2": "VE",
+    "dialCode": "58",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Vietnam",
+    "iso2": "VN",
+    "dialCode": "84",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "no",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Virgin Islands British",
+    "iso2": "VG",
+    "dialCode": "1-284",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Virgin Islands US",
+    "iso2": "VI",
+    "dialCode": "1-340",
+    "channels": {
+      "alphanumeric": "no",
+      "shortCode": "no",
+      "longCode": "yes",
+      "tollFree": "yes"
+    },
+    "twoWaySms": "yes",
+    "internationalSending": "no",
+    "twilioAlpha": null,
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Yemen",
+    "iso2": "YE",
+    "dialCode": "967",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Zambia",
+    "iso2": "ZM",
+    "dialCode": "260",
+    "channels": {
+      "alphanumeric": "registration",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "yes",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  },
+  {
+    "name": "Zimbabwe",
+    "iso2": "ZW",
+    "dialCode": "263",
+    "channels": {
+      "alphanumeric": "yes",
+      "shortCode": "no",
+      "longCode": "no",
+      "tollFree": "no"
+    },
+    "twoWaySms": "no",
+    "internationalSending": "no",
+    "twilioAlpha": "yes",
+    "sources": [
+      "AWS End User Messaging SMS",
+      "Twilio alpha CSV (eGullGolf)"
+    ]
+  }
+]

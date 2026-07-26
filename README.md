@@ -9,16 +9,33 @@ A personal portfolio built with the **iOS 26 Liquid Glass** design system, using
 - Floating tab bar with morphing indicator (scroll-to-hide behavior)
 - Light / dark / system theme toggle
 - Single-page scroll layout with smooth section navigation
-- Contact links via email and LinkedIn
+- **Faith Discuss** floating chatbot — scripture Q&A from Bible, Quran, and Hindu texts
+- Contact links via email, LinkedIn, and Instagram
 
 ## Getting Started
 
 ```bash
 npm install
+cp .env.example .env
 npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Faith Discuss chat (optional)
+
+The chat section requires the Python backend:
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env   # add OPENAI_API_KEY
+uvicorn app.main:app --reload --port 8000
+```
+
+For production, deploy the backend (e.g. Railway, Render) and set `REACT_APP_CHAT_API_URL` to your API URL when building the frontend.
 
 ## Build
 

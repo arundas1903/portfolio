@@ -1,0 +1,200 @@
+.a2p-atlas-page {
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.a2p-atlas-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-bg-grouped-primary);
+  background-image:
+    radial-gradient(circle at 20% 10%, color-mix(in srgb, var(--color-accent-cyan) 12%, transparent), transparent 35%),
+    radial-gradient(circle at 80% 90%, color-mix(in srgb, var(--color-accent-blue) 10%, transparent), transparent 40%);
+}
+
+.a2p-atlas-header {
+  margin-bottom: 20px;
+}
+
+.a2p-back-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--color-accent-blue);
+  text-decoration: none;
+}
+
+.a2p-channel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.a2p-channel-tab {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: var(--color-fill-tertiary);
+  color: var(--color-label-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-subheadline-size);
+  cursor: pointer;
+}
+
+.a2p-channel-tab--active {
+  background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
+  color: var(--color-accent-blue);
+  font-weight: 600;
+}
+
+.a2p-atlas-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.a2p-map-section {
+  padding: 12px;
+  overflow: hidden;
+}
+
+.a2p-map {
+  width: 100%;
+  height: auto;
+}
+
+.a2p-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  padding: 8px 4px 4px;
+}
+
+.a2p-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-label-secondary);
+}
+
+.a2p-legend__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.a2p-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.a2p-search {
+  padding: 12px;
+  position: relative;
+}
+
+.a2p-search__input {
+  width: 100%;
+  border: none;
+  background: var(--color-fill-tertiary);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: var(--color-label-primary);
+  font-family: var(--font-family);
+  outline: none;
+}
+
+.a2p-search__results {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.a2p-search__results button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 8px 4px;
+  color: var(--color-label-primary);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-footnote-size);
+}
+
+.a2p-search__results button:hover {
+  color: var(--color-accent-blue);
+}
+
+.a2p-detail-card {
+  padding: 16px;
+  min-height: 280px;
+}
+
+.a2p-detail__channels {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.a2p-channel-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.a2p-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: var(--font-caption1-size);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.a2p-badge--yes { background: color-mix(in srgb, #34c759 20%, transparent); color: #248a3d; }
+.a2p-badge--registration { background: color-mix(in srgb, #ff9f0a 20%, transparent); color: #c93400; }
+.a2p-badge--partial, .a2p-badge--varies { background: color-mix(in srgb, #ffd60a 25%, transparent); color: #a28400; }
+.a2p-badge--no { background: var(--color-fill-tertiary); color: var(--color-label-secondary); }
+.a2p-badge--na, .a2p-badge--unknown { background: var(--color-fill-quaternary); color: var(--color-label-tertiary); }
+
+:root[data-theme="dark"] .a2p-badge--yes { color: #30d158; }
+:root[data-theme="dark"] .a2p-badge--registration { color: #ff9230; }
+:root[data-theme="dark"] .a2p-badge--partial, :root[data-theme="dark"] .a2p-badge--varies { color: #ffd60a; }
+
+.a2p-detail__meta {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-separator-nonOpaque);
+}
+
+.a2p-detail__meta p {
+  margin: 0 0 6px;
+  color: var(--color-label-secondary);
+}
+
+.a2p-footer {
+  margin-top: 20px;
+  color: var(--color-label-tertiary);
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .a2p-atlas-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .a2p-atlas-page {
+    padding: 16px 12px 32px;
+  }
+}
