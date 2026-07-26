@@ -1,0 +1,50 @@
+.experience-page {
+  min-height: 100vh;
+  position: relative;
+}
+
+.experience-page-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-bg-grouped-primary);
+  background-image:
+    radial-gradient(circle at 18% 15%, color-mix(in srgb, var(--color-accent-blue) 10%, transparent), transparent 35%),
+    radial-gradient(circle at 82% 85%, color-mix(in srgb, var(--color-accent-indigo) 10%, transparent), transparent 40%);
+}
+
+.experience-page-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px 48px;
+}
+
+.experience-page-header {
+  margin-bottom: 24px;
+}
+
+.experience-page-header .ios26-large-title {
+  margin: 0 0 8px;
+}
+
+.about-experience-link {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.about-experience-link__text {
+  margin: 0;
+  color: var(--color-label-secondary);
+}
+
+.about-experience-link .ios26-btn {
+  align-self: flex-start;
+}
+
+@media (max-width: 640px) {
+  .experience-page-inner {
+    padding: 0 16px 40px;
+  }
+}
