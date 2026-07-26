@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom';
 import countriesData from './data/countries.json';
 import WorldMap from './components/WorldMap';
 import CountryDetail from './components/CountryDetail';
+import SegmentedControl from '../components/ios26/SegmentedControl';
 import type { ChannelKey, CountryRecord } from './types';
-import { CHANNEL_LABELS } from './types';
+import { CHANNEL_LABELS, CHANNEL_SHORT_LABELS } from './types';
 import { supportColor, supportLabel } from './utils/support';
 import '../styles/a2p-atlas.css';
 
 const CHANNELS: ChannelKey[] = ['alphanumeric', 'shortCode', 'longCode', 'tollFree'];
+const CHANNEL_SEGMENTS = CHANNELS.map((key) => ({
+  value: key,
+  label: CHANNEL_SHORT_LABELS[key],
+  ariaLabel: CHANNEL_LABELS[key],
+}));
 const LEGEND_LEVELS = ['yes', 'registration', 'partial', 'no'] as const;
 
 export default function A2PAtlasPage() {
@@ -50,18 +56,13 @@ export default function A2PAtlasPage() {
         </div>
       </header>
 
-      <div className="a2p-channel-tabs">
-        {CHANNELS.map((key) => (
-          <button
-            key={key}
-            type="button"
-            className={`a2p-channel-tab${channel === key ? ' a2p-channel-tab--active' : ''}`}
-            onClick={() => setChannel(key)}
-          >
-            {CHANNEL_LABELS[key]}
-          </button>
-        ))}
-      </div>
+      <SegmentedControl
+        className="a2p-channel-segments"
+        segments={CHANNEL_SEGMENTS}
+        value={channel}
+        onChange={setChannel}
+        aria-label="A2P SMS channel"
+      />
 
       <div className="a2p-atlas-layout">
         <section className="a2p-map-section ios26-liquid-glass-la glass-surface">
@@ -103,15 +104,10 @@ export default function A2PAtlasPage() {
           </div>
 
           <div className="a2p-detail-card ios26-liquid-glass-me glass-surface">
-            <CountryDetail country={selectedCountry} />
+            <CountryDetail country={selectedCountry} selectedIso={selectedIso} />
           </div>
         </aside>
       </div>
-
-      <footer className="a2p-footer ios26-caption2">
-        Data compiled from AWS End User Messaging SMS country tables and Twilio alphanumeric sender
-        support (eGullGolf/countries-alphanumeric-sms-sender-support). Verify with your provider before production use.
-      </footer>
     </div>
   );
 }

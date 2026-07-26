@@ -37,8 +37,3 @@ export function supportColor(level: SupportLevel): string {
   }
 }
 
-export function isoFromGeo(isoProperty: string | number | undefined): string {
-  if (!isoProperty || typeof isoProperty !== 'string') return '';
-  if (isoProperty === '-99') return '';
-  return isoProperty.toUpperCase();
-}

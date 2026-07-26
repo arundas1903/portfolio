@@ -5,16 +5,19 @@ import { supportLabel } from '../utils/support';
 
 interface CountryDetailProps {
   country: CountryRecord | null;
+  selectedIso?: string | null;
 }
 
 const CHANNEL_KEYS: ChannelKey[] = ['alphanumeric', 'shortCode', 'longCode', 'tollFree'];
 
-export default function CountryDetail({ country }: CountryDetailProps) {
+export default function CountryDetail({ country, selectedIso }: CountryDetailProps) {
   if (!country) {
     return (
       <div className="a2p-detail a2p-detail--empty">
         <p className="ios26-body" style={{ margin: 0, color: 'var(--color-label-secondary)' }}>
-          Select a country on the map to view A2P SMS channel support.
+          {selectedIso
+            ? `No A2P SMS data available for ${selectedIso}. Try another country or check your provider directly.`
+            : 'Select a country on the map to view A2P SMS channel support.'}
         </p>
       </div>
     );
@@ -51,10 +54,6 @@ export default function CountryDetail({ country }: CountryDetailProps) {
           </p>
         )}
       </div>
-
-      <p className="ios26-caption2" style={{ margin: '16px 0 0', color: 'var(--color-label-tertiary)' }}>
-        Sources: {country.sources.join(' · ')}
-      </p>
     </div>
   );
 }

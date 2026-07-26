@@ -6,7 +6,8 @@ import {
   ZoomableGroup,
 } from 'react-simple-maps';
 import type { ChannelKey, CountryRecord } from '../types';
-import { isoFromGeo, supportColor } from '../utils/support';
+import { isoFromGeoProperties } from '../utils/geo';
+import { supportColor } from '../utils/support';
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 
@@ -28,8 +29,8 @@ function WorldMap({ countriesByIso, channel, selectedIso, onSelect }: WorldMapPr
         <Geographies geography={GEO_URL}>
           {({ geographies }: { geographies: Array<{ rsmKey: string; properties: Record<string, string> }> }) =>
             geographies.map((geo) => {
-              const iso2 = isoFromGeo(geo.properties.ISO_A2_EH || geo.properties.ISO_A2);
-              const country = countriesByIso.get(iso2);
+              const iso2 = isoFromGeoProperties(geo.properties);
+              const country = iso2 ? countriesByIso.get(iso2) : undefined;
               const level = country?.channels[channel] ?? 'na';
               const fill = supportColor(level);
               const isSelected = iso2 === selectedIso;
@@ -38,7 +39,10 @@ function WorldMap({ countriesByIso, channel, selectedIso, onSelect }: WorldMapPr
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  onClick={() => iso2 && country && onSelect(iso2)}
+                  onClick={(event: React.MouseEvent) => {
+                    event.stopPropagation();
+                    if (iso2) onSelect(iso2);
+                  }}
                   style={{
                     default: {
                       fill,

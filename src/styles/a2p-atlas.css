@@ -27,28 +27,8 @@
   text-decoration: none;
 }
 
-.a2p-channel-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.a2p-channel-segments {
   margin-bottom: 16px;
-}
-
-.a2p-channel-tab {
-  border: none;
-  border-radius: 999px;
-  padding: 8px 14px;
-  background: var(--color-fill-tertiary);
-  color: var(--color-label-primary);
-  font-family: var(--font-family);
-  font-size: var(--font-subheadline-size);
-  cursor: pointer;
-}
-
-.a2p-channel-tab--active {
-  background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
-  color: var(--color-accent-blue);
-  font-weight: 600;
 }
 
 .a2p-atlas-layout {
@@ -179,12 +159,6 @@
 .a2p-detail__meta p {
   margin: 0 0 6px;
   color: var(--color-label-secondary);
-}
-
-.a2p-footer {
-  margin-top: 20px;
-  color: var(--color-label-tertiary);
-  line-height: 1.45;
 }
 
 @media (max-width: 900px) {

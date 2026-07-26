@@ -26,3 +26,10 @@ export const CHANNEL_LABELS: Record<ChannelKey, string> = {
   longCode: 'Long Code',
   tollFree: 'Toll-Free',
 };
+
+export const CHANNEL_SHORT_LABELS: Record<ChannelKey, string> = {
+  alphanumeric: 'Alpha ID',
+  shortCode: 'Short Code',
+  longCode: 'Long Code',
+  tollFree: 'Toll-Free',
+};
