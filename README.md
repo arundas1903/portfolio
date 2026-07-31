@@ -85,7 +85,7 @@ The repo includes a [`render.yaml`](render.yaml) blueprint for the FastAPI backe
 
 - Go to [render.com](https://render.com) → **New** → **Blueprint**
 - Connect the `arundas1903/portfolio` repository
-- Render will detect `render.yaml` and create **`portfolio-api`**
+- Render will detect `render.yaml` and create or sync **`portfolio-faith-api`**
 - When prompted, set **`OPENAI_API_KEY`** (mark as secret)
 - Deploy and wait for the service to go live
 - Add custom domain **`api.arundas.me`** in Render → **Settings** → **Custom Domains** (DNS CNAME to your Render target)

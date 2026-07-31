@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: portfolio-api
+    name: portfolio-faith-api
     runtime: python
     region: singapore
     plan: free
