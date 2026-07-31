@@ -75,7 +75,7 @@ curl http://localhost:8000/api/health
 
 For production, deploy the backend to **Render** (see below).
 
-### Deploy Faith Discuss API to Render
+### Deploy API to Render
 
 The repo includes a [`render.yaml`](render.yaml) blueprint for the FastAPI backend in `backend/`.
 
@@ -85,18 +85,17 @@ The repo includes a [`render.yaml`](render.yaml) blueprint for the FastAPI backe
 
 - Go to [render.com](https://render.com) → **New** → **Blueprint**
 - Connect the `arundas1903/portfolio` repository
-- Render will detect `render.yaml` and create **`portfolio-faith-api`**
+- Render will detect `render.yaml` and create **`portfolio-api`**
 - When prompted, set **`OPENAI_API_KEY`** (mark as secret)
 - Deploy and wait for the service to go live
+- Add custom domain **`api.arundas.me`** in Render → **Settings** → **Custom Domains** (DNS CNAME to your Render target)
 
 **3. Verify the API**
 
 ```bash
-curl https://portfolio-faith-api.onrender.com/api/health
+curl https://api.arundas.me/api/health
 # {"status":"ok","openai_configured":true,"model":"gpt-4o-mini"}
 ```
-
-If your Render URL differs, use the URL shown in the Render dashboard.
 
 **4. Wire the portfolio frontend**
 
@@ -104,16 +103,17 @@ Add a GitHub repository secret:
 
 - **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
 - Name: `REACT_APP_CHAT_API_URL`
-- Value: `https://portfolio-faith-api.onrender.com` (your Render URL, no trailing slash)
+- Value: `https://api.arundas.me` (no trailing slash)
 
 Set **`CHAT_ACCESS_PASSWORD`** in the Render dashboard (Environment) to your static chat password. Users must enter this in the portfolio chat widget before Faith Discuss unlocks.
 
-Re-run the **Deploy to GitHub Pages** workflow (or push to `main`). The production build embeds this API URL so the chat widget on [arundas.me](https://arundas.me) calls Render.
+Re-run the **Deploy to GitHub Pages** workflow (or push to `main`). The production build embeds this API URL so the portfolio on [arundas.me](https://arundas.me) calls your API.
 
 **Notes**
 
-- Free Render services spin down after inactivity; the first chat request after idle may take ~30s (cold start).
+- Free Render services spin down after inactivity; the first request after idle may take ~30s (cold start).
 - CORS already allows `https://arundas.me` and `https://www.arundas.me`.
+- Public API docs: `https://api.arundas.me/docs` (BFSI endpoints only).
 - To redeploy the API, push to `main` — Render auto-deploys from GitHub.
 
 ## Build

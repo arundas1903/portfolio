@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: portfolio-faith-api
+    name: portfolio-api
     runtime: python
     region: singapore
     plan: free
@@ -8,6 +8,8 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
+    domains:
+      - api.arundas.me
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.8
