@@ -54,6 +54,9 @@ export default function BfsiDashboardTab() {
               {formatUsageTotal(usage.total_usage_paise)}
             </span>
             <span className="ios26-caption2 bfsi-muted">{usage.send_count} sends</span>
+            <span className="ios26-caption2 bfsi-muted">
+              · {usage.total_ai_tokens.toLocaleString()} AI tokens
+            </span>
           </div>
           <p className="bfsi-usage__rates ios26-caption2 bfsi-muted">
             SMS {usage.channel_prices.sms} paise · Email {usage.channel_prices.email} paise · Push{' '}

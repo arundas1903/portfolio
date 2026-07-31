@@ -6,7 +6,6 @@ import re
 from openai import AsyncOpenAI
 
 from app.config import settings
-from app.services.bfsi.ai_pricing import build_ai_usage, configured_openai_model
 
 TRANSACTION_KEYWORDS = re.compile(
     r"\b(transaction|payment|paid|debited|credited|transfer|purchase|withdrawn|deposit|upi|txn)\b",
@@ -98,11 +97,9 @@ async def classify_transaction_message(message_body: str) -> dict:
     usage = response.usage
     ai_usage = None
     if usage is not None:
-        ai_usage = build_ai_usage(
-            model=configured_openai_model(),
-            prompt_tokens=int(usage.prompt_tokens or 0),
-            completion_tokens=int(usage.completion_tokens or 0),
-        )
+        tokens = int(usage.prompt_tokens or 0) + int(usage.completion_tokens or 0)
+        if tokens > 0:
+            ai_usage = {"tokens": tokens}
 
     return {
         "is_transaction": is_transaction,

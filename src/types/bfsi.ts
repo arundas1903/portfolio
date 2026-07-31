@@ -54,10 +54,7 @@ export interface BfsiNotificationLog {
   audience_phone: string | null;
   routing_reason: string;
   price_paise: number;
-  ai_prompt_tokens: number | null;
-  ai_completion_tokens: number | null;
-  ai_model: string | null;
-  ai_cost_micro_paise: number;
+  ai_tokens: number | null;
   status: string;
   created_at: string;
 }
@@ -69,11 +66,11 @@ export interface BfsiNotificationLogsPage {
   page_size: number;
   total_pages: number;
   total_usage_paise: number;
-  total_ai_cost_micro_paise: number;
 }
 
 export interface BfsiUsage {
   total_usage_paise: number;
+  total_ai_tokens: number;
   send_count: number;
   channel_prices: Record<NotificationChannel, number>;
   channel_counts: Record<NotificationChannel, number>;

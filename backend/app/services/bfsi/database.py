@@ -112,6 +112,17 @@ def _migrate_notifications(conn: sqlite3.Connection) -> None:
         conn.execute("ALTER TABLE notifications ADD COLUMN ai_model TEXT")
     if "ai_cost_micro_paise" not in columns:
         conn.execute("ALTER TABLE notifications ADD COLUMN ai_cost_micro_paise INTEGER NOT NULL DEFAULT 0")
+    if "ai_tokens" not in columns:
+        conn.execute("ALTER TABLE notifications ADD COLUMN ai_tokens INTEGER")
+        if "ai_prompt_tokens" in columns:
+            conn.execute(
+                """
+                UPDATE notifications
+                SET ai_tokens = COALESCE(ai_prompt_tokens, 0) + COALESCE(ai_completion_tokens, 0)
+                WHERE ai_tokens IS NULL
+                  AND (ai_prompt_tokens IS NOT NULL OR ai_completion_tokens IS NOT NULL)
+                """
+            )
 
     for channel, price in CHANNEL_PRICE_PAISE.items():
         conn.execute(
@@ -404,10 +415,7 @@ def create_notification(
     routing_reason: str,
     price_paise: int,
     status: str = "sent",
-    ai_prompt_tokens: int | None = None,
-    ai_completion_tokens: int | None = None,
-    ai_model: str | None = None,
-    ai_cost_micro_paise: int = 0,
+    ai_tokens: int | None = None,
 ) -> dict[str, Any]:
     notification_id = str(uuid4())
     now = _utc_now()
@@ -417,8 +425,8 @@ def create_notification(
             INSERT INTO notifications (
                 id, template_id, template_owner, template_name, amount, channel, message,
                 audience_email, audience_phone, routing_reason, price_paise, status, created_at,
-                ai_prompt_tokens, ai_completion_tokens, ai_model, ai_cost_micro_paise
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ai_tokens
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 notification_id,
@@ -434,10 +442,7 @@ def create_notification(
                 price_paise,
                 status,
                 now,
-                ai_prompt_tokens,
-                ai_completion_tokens,
-                ai_model,
-                ai_cost_micro_paise,
+                ai_tokens,
             ),
         )
         row = conn.execute("SELECT * FROM notifications WHERE id = ?", (notification_id,)).fetchone()
@@ -473,7 +478,7 @@ def get_usage_summary(email: str) -> dict[str, Any]:
             """
             SELECT
                 COALESCE(SUM(price_paise), 0) AS total_usage_paise,
-                COALESCE(SUM(ai_cost_micro_paise), 0) AS total_ai_cost_micro_paise,
+                COALESCE(SUM(ai_tokens), 0) AS total_ai_tokens,
                 COUNT(*) AS send_count,
                 COALESCE(SUM(CASE WHEN channel = 'sms' THEN 1 ELSE 0 END), 0) AS sms_count,
                 COALESCE(SUM(CASE WHEN channel = 'email' THEN 1 ELSE 0 END), 0) AS email_count,
@@ -485,7 +490,7 @@ def get_usage_summary(email: str) -> dict[str, Any]:
         ).fetchone()
     return {
         "total_usage_paise": int(row["total_usage_paise"]),
-        "total_ai_cost_micro_paise": int(row["total_ai_cost_micro_paise"]),
+        "total_ai_tokens": int(row["total_ai_tokens"]),
         "send_count": int(row["send_count"]),
         "channel_counts": {
             "sms": int(row["sms_count"]),
@@ -508,10 +513,7 @@ def _row_to_notification(row: sqlite3.Row) -> dict[str, Any]:
         "audience_phone": row["audience_phone"],
         "routing_reason": row["routing_reason"],
         "price_paise": int(row["price_paise"]),
-        "ai_prompt_tokens": row["ai_prompt_tokens"],
-        "ai_completion_tokens": row["ai_completion_tokens"],
-        "ai_model": row["ai_model"],
-        "ai_cost_micro_paise": int(row["ai_cost_micro_paise"] or 0),
+        "ai_tokens": int(row["ai_tokens"]) if row["ai_tokens"] is not None else None,
         "status": row["status"],
         "created_at": row["created_at"],
     }

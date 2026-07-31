@@ -55,6 +55,9 @@ export default function Bfsi2DashboardTab() {
             <span className="kale-text-300">Overall usage</span>
             <span className="bfsi2-usage__amount">{formatUsageTotal(usage.total_usage_paise)}</span>
             <span className="kale-text-300">{usage.send_count} sends</span>
+            <span className="kale-text-300">
+              · {usage.total_ai_tokens.toLocaleString()} AI tokens
+            </span>
           </div>
           <p className="kale-text-300">
             SMS {usage.channel_prices.sms} paise · Email {usage.channel_prices.email} paise · Push{' '}

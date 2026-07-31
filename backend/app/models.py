@@ -256,10 +256,7 @@ class BfsiNotificationLogItem(BaseModel):
     audience_phone: str | None = None
     routing_reason: str
     price_paise: int
-    ai_prompt_tokens: int | None = None
-    ai_completion_tokens: int | None = None
-    ai_model: str | None = None
-    ai_cost_micro_paise: int = 0
+    ai_tokens: int | None = None
     status: str
     created_at: str
 
@@ -271,11 +268,11 @@ class BfsiNotificationLogsResponse(BaseModel):
     page_size: int
     total_pages: int
     total_usage_paise: int
-    total_ai_cost_micro_paise: int = 0
 
 
 class BfsiUsageResponse(BaseModel):
     total_usage_paise: int
+    total_ai_tokens: int = 0
     send_count: int
     channel_prices: dict[str, int]
     channel_counts: dict[str, int]

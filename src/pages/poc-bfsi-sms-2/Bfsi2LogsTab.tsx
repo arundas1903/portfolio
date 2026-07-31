@@ -7,7 +7,6 @@ import {
 } from '../../design/kaleyra';
 import { fetchBfsiLogs } from '../../api/bfsi';
 import type { BfsiNotificationLog } from '../../types/bfsi';
-import { formatAiCostLabel, formatMicroPaise } from '../../utils/bfsiCost';
 
 const PAGE_SIZE = 10;
 
@@ -27,6 +26,13 @@ function formatDate(iso: string): string {
 
 function formatPaise(paise: number): string {
   return `${paise} paise`;
+}
+
+function formatAiTokens(tokens: number | null): string {
+  if (!tokens) {
+    return '—';
+  }
+  return tokens.toLocaleString();
 }
 
 function channelLabel(channel: string): string {
@@ -50,7 +56,7 @@ const LOG_COLUMNS = [
   { key: 'sent', label: 'Sent' },
   { key: 'channel', label: 'Channel' },
   { key: 'price', label: 'Channel price' },
-  { key: 'ai_cost', label: 'AI cost' },
+  { key: 'ai_tokens', label: 'AI tokens' },
   { key: 'audience', label: 'Audience' },
   { key: 'message', label: 'Message' },
   { key: 'status', label: 'Status' },
@@ -61,7 +67,6 @@ export default function Bfsi2LogsTab({ onUsageUpdate }: Bfsi2LogsTabProps) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [total, setTotal] = useState(0);
-  const [totalAiCostMicroPaise, setTotalAiCostMicroPaise] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -75,7 +80,6 @@ export default function Bfsi2LogsTab({ onUsageUpdate }: Bfsi2LogsTabProps) {
         setPage(result.page);
         setTotalPages(result.total_pages);
         setTotal(result.total);
-        setTotalAiCostMicroPaise(result.total_ai_cost_micro_paise ?? 0);
         onUsageUpdate?.();
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Could not load logs');
@@ -93,11 +97,7 @@ export default function Bfsi2LogsTab({ onUsageUpdate }: Bfsi2LogsTabProps) {
   return (
     <>
       <p className="kale-text-300">
-        Successful send API calls for your templates — {total} total
-        {totalAiCostMicroPaise > 0
-          ? ` · AI spend ${formatMicroPaise(totalAiCostMicroPaise)}`
-          : ''}
-        .
+        Successful send API calls for your templates — {total} total.
       </p>
 
       {loading && <p className="kale-text-300">Loading logs…</p>}
@@ -115,7 +115,7 @@ export default function Bfsi2LogsTab({ onUsageUpdate }: Bfsi2LogsTabProps) {
                 <td className="kale-text-300">{formatDate(log.created_at)}</td>
                 <td>{channelLabel(log.channel)}</td>
                 <td>{formatPaise(log.price_paise)}</td>
-                <td className="kale-text-400">{formatAiCostLabel(log)}</td>
+                <td className="kale-text-400">{formatAiTokens(log.ai_tokens)}</td>
                 <td className="kale-text-400">{deliveryAudience(log)}</td>
                 <td>{log.message}</td>
                 <td>{log.status}</td>

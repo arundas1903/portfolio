@@ -192,6 +192,7 @@ async def bfsi_usage(email: str = Depends(get_bfsi_email)) -> BfsiUsageResponse:
     )
     return BfsiUsageResponse(
         total_usage_paise=summary["total_usage_paise"],
+        total_ai_tokens=summary["total_ai_tokens"],
         send_count=summary["send_count"],
         channel_prices=channel_prices_public(),
         channel_counts=summary["channel_counts"],
@@ -217,5 +218,4 @@ async def bfsi_list_logs(
         page_size=max(1, min(page_size, 50)),
         total_pages=total_pages,
         total_usage_paise=usage["total_usage_paise"],
-        total_ai_cost_micro_paise=usage["total_ai_cost_micro_paise"],
     )

@@ -156,10 +156,7 @@ async def send_notification_v2(
         audience_phone=(phone or "").strip() or None,
         routing_reason=routing_reason,
         price_paise=price_paise,
-        ai_prompt_tokens=int(ai_usage["prompt_tokens"]) if ai_usage else None,
-        ai_completion_tokens=int(ai_usage["completion_tokens"]) if ai_usage else None,
-        ai_model=str(ai_usage["model"]) if ai_usage else None,
-        ai_cost_micro_paise=int(ai_usage["cost_micro_paise"]) if ai_usage else 0,
+        ai_tokens=int(ai_usage["tokens"]) if ai_usage else None,
     )
 
     return {
