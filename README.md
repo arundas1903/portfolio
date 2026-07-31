@@ -67,6 +67,8 @@ curl http://localhost:8000/api/health
 
 | Symptom | Cause | Fix |
 |--------|--------|-----|
+| `ModuleNotFoundError: No module named 'a2p_regulatory'` | MCP package not installed in venv | `cd backend && .venv/bin/pip install -r requirements.txt` |
+| `Address already in use` on port 8000 | Old uvicorn still running | `lsof -ti :8000 \| xargs kill -9` then restart |
 | `OPENAI_API_KEY is not configured` | Missing `backend/.env` | Add key to `backend/.env` and restart uvicorn |
 | Network error / CORS in browser | Backend not running, or wrong port | Run uvicorn on port 8000; check `REACT_APP_CHAT_API_URL` |
 | Works on desktop but not phone on Wi‑Fi | CORS blocked LAN origin | Use `localhost` on the same machine, or restart backend after pulling latest CORS config |

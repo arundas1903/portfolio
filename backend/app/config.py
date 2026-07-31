@@ -16,6 +16,8 @@ class Settings(BaseSettings):
 
     movie_session_secret: str = ""
     movie_session_ttl_seconds: int = 60 * 60 * 24 * 14
+    bfsi_session_secret: str = ""
+    bfsi_session_ttl_seconds: int = 60 * 60 * 24 * 14
     tmdb_api_key: str = ""
 
     model_config = SettingsConfigDict(env_file=str(ENV_FILE), extra="ignore")
@@ -27,6 +29,10 @@ class Settings(BaseSettings):
     @property
     def resolved_movie_session_secret(self) -> str:
         return self.movie_session_secret.strip() or "dev-movie-session-secret-change-me"
+
+    @property
+    def resolved_bfsi_session_secret(self) -> str:
+        return self.bfsi_session_secret.strip() or self.resolved_movie_session_secret
 
     @property
     def openai_configured(self) -> bool:

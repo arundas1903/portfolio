@@ -1,0 +1,511 @@
+.bfsi-page {
+  min-height: 100vh;
+  position: relative;
+  background: var(--color-background-primary);
+}
+
+.bfsi-background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--color-accent-teal) 16%, transparent), transparent 34%),
+    radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--color-accent-blue) 14%, transparent), transparent 32%),
+    radial-gradient(circle at 50% 100%, color-mix(in srgb, var(--color-accent-indigo) 10%, transparent), transparent 40%);
+}
+
+.bfsi-page__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+}
+
+.bfsi-page__inner--gate {
+  max-width: 560px;
+}
+
+.bfsi-loading {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.bfsi-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  margin-top: 20px;
+  border-radius: 24px;
+}
+
+.bfsi-header__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.bfsi-docs-link {
+  color: var(--color-accent-teal, #30b0a8);
+  text-decoration: none;
+}
+
+.bfsi-docs-link:hover {
+  text-decoration: underline;
+}
+
+.bfsi-eyebrow {
+  margin: 0 0 8px;
+  color: var(--color-accent-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.bfsi-muted {
+  color: var(--color-label-secondary);
+}
+
+.bfsi-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 8px;
+  border-radius: 18px;
+}
+
+.bfsi-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--color-label-secondary);
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.bfsi-tab--active {
+  background: color-mix(in srgb, var(--color-accent-blue) 16%, transparent);
+  color: var(--color-label-primary);
+}
+
+.bfsi-main {
+  margin-top: 16px;
+}
+
+.bfsi-panel {
+  padding: 24px;
+  border-radius: 24px;
+}
+
+.bfsi-panel + .bfsi-panel {
+  margin-top: 16px;
+}
+
+.bfsi-config-card {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-teal) 24%, transparent);
+  background: color-mix(in srgb, var(--color-accent-teal) 6%, transparent);
+  display: grid;
+  gap: 6px;
+}
+
+.bfsi-config-card--paused {
+  border-color: color-mix(in srgb, var(--color-label-secondary) 24%, transparent);
+  background: color-mix(in srgb, var(--color-label-secondary) 6%, transparent);
+}
+
+.bfsi-config-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.bfsi-config-card__badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-label-secondary) 16%, transparent);
+  color: var(--color-label-secondary);
+}
+
+.bfsi-config-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.bfsi-api-hint {
+  margin: 16px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--color-label-secondary) 12%, transparent);
+}
+
+.bfsi-panel__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.bfsi-gate {
+  margin-top: 24px;
+  padding: 28px 24px;
+  border-radius: 24px;
+  text-align: center;
+}
+
+.bfsi-gate__icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.bfsi-gate__lead {
+  margin: 0 0 20px;
+  color: var(--color-label-secondary);
+}
+
+.bfsi-gate__form {
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+
+.bfsi-field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-label-secondary);
+}
+
+.bfsi-input,
+.bfsi-textarea {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--color-label-secondary) 24%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-background-primary) 72%, transparent);
+  color: var(--color-label-primary);
+  padding: 12px 14px;
+  font: inherit;
+}
+
+.bfsi-textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.bfsi-field {
+  display: block;
+}
+
+.bfsi-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.bfsi-create-form {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid color-mix(in srgb, var(--color-label-secondary) 16%, transparent);
+  display: grid;
+  gap: 16px;
+}
+
+.bfsi-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.bfsi-error {
+  margin: 0;
+  color: var(--color-accent-red, #ff3b30);
+}
+
+.bfsi-placeholder {
+  margin-top: 20px;
+  padding: 28px 20px;
+  border-radius: 18px;
+  border: 1px dashed color-mix(in srgb, var(--color-label-secondary) 28%, transparent);
+  display: grid;
+  gap: 6px;
+  text-align: center;
+}
+
+.bfsi-table-wrap {
+  margin-top: 16px;
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-label-secondary) 14%, transparent);
+}
+
+.bfsi-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.bfsi-table th,
+.bfsi-table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-label-secondary) 12%, transparent);
+}
+
+.bfsi-table th {
+  color: var(--color-label-secondary);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--color-background-primary) 40%, transparent);
+}
+
+.bfsi-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.bfsi-table__name {
+  white-space: nowrap;
+}
+
+.bfsi-table__id {
+  min-width: 220px;
+}
+
+.bfsi-table__id .bfsi-template-id {
+  display: block;
+  margin-bottom: 8px;
+  padding: 0;
+  background: none;
+  text-align: left;
+  word-break: break-all;
+}
+
+.bfsi-table__routing {
+  color: var(--color-accent-teal);
+  white-space: nowrap;
+}
+
+.bfsi-table__row--editing {
+  background: color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
+}
+
+.bfsi-edit-btn {
+  border: none;
+  background: transparent;
+  color: var(--color-accent-blue);
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.bfsi-edit-btn:hover {
+  text-decoration: underline;
+}
+
+.bfsi-copy-btn {
+  border: none;
+  background: color-mix(in srgb, var(--color-accent-blue) 14%, transparent);
+  color: var(--color-accent-blue);
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.bfsi-copy-btn:hover {
+  background: color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
+}
+
+.bfsi-template-id {
+  color: var(--color-label-secondary);
+  word-break: break-all;
+  display: block;
+  margin-top: 4px;
+}
+
+.bfsi-usage {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-label-secondary) 14%, transparent);
+  background: color-mix(in srgb, var(--color-accent-teal) 6%, transparent);
+  display: grid;
+  gap: 8px;
+}
+
+.bfsi-usage__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.bfsi-usage__label {
+  color: var(--color-label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bfsi-usage__amount {
+  color: var(--color-label-primary);
+}
+
+.bfsi-usage__rates {
+  margin: 0;
+}
+
+.bfsi-roi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.bfsi-roi-card {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--color-label-secondary) 14%, transparent);
+  background: color-mix(in srgb, var(--color-label-primary) 3%, transparent);
+  display: grid;
+  gap: 4px;
+}
+
+.bfsi-roi-card__label {
+  color: var(--color-label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bfsi-roi-card__value {
+  color: var(--color-label-primary);
+}
+
+.bfsi-roi-summary {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-accent-teal) 24%, transparent);
+  background: color-mix(in srgb, var(--color-accent-teal) 8%, transparent);
+  display: grid;
+  gap: 16px;
+}
+
+.bfsi-roi-summary__header {
+  display: grid;
+  gap: 4px;
+}
+
+.bfsi-roi-compare {
+  display: grid;
+  gap: 12px;
+}
+
+.bfsi-roi-compare__row {
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-label-primary) 4%, transparent);
+}
+
+.bfsi-roi-savings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bfsi-roi-savings__label {
+  display: block;
+  color: var(--color-label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.bfsi-roi-savings__amount {
+  display: block;
+  color: var(--color-accent-teal, #30b0a8);
+}
+
+.bfsi-roi-savings__badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-accent-teal) 18%, transparent);
+  color: var(--color-label-primary);
+}
+
+.bfsi-roi-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-label-secondary) 20%, transparent);
+  overflow: hidden;
+}
+
+.bfsi-roi-bar__actual {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-accent-teal, #30b0a8);
+  min-width: 4px;
+}
+
+.bfsi-subtabs {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.bfsi-subtab {
+  border: none;
+  background: transparent;
+  color: var(--color-label-secondary);
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.bfsi-subtab--active {
+  background: color-mix(in srgb, var(--color-accent-teal) 16%, transparent);
+  color: var(--color-label-primary);
+}
+
+.bfsi-dashboard-body {
+  margin-top: 8px;
+}
+
+.bfsi-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+@media (max-width: 720px) {
+  .bfsi-header,
+  .bfsi-panel__header {
+    flex-direction: column;
+  }
+
+  .bfsi-header__actions {
+    align-items: flex-start;
+  }
+
+  .bfsi-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bfsi-roi-grid {
+    grid-template-columns: 1fr;
+  }
+}
