@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;1,6..12,400&display=swap');
+
+.kale-root,
+.kale-root *,
+.kale-root *::before,
+.kale-root *::after {
+  box-sizing: border-box;
+}
+
+.kale-root {
+  --kale-primary: #029cfd;
+  --kale-primary-hover: #0284d6;
+  --kale-primary-soft: #e6f5ff;
+  --kale-danger: #e53935;
+  --kale-danger-hover: #c62828;
+  --kale-success: #2e7d32;
+  --kale-success-soft: #e8f5e9;
+  --kale-warning: #ed6c02;
+  --kale-warning-soft: #fff4e5;
+  --kale-error-soft: #fdecea;
+  --kale-info-soft: #e8f4fd;
+  --kale-text-900: #111827;
+  --kale-text-700: #374151;
+  --kale-text-500: #6b7280;
+  --kale-text-300: #9ca3af;
+  --kale-border: #e5e7eb;
+  --kale-border-strong: #d1d5db;
+  --kale-surface: #ffffff;
+  --kale-bg: #f3f4f6;
+  --kale-shadow: 0 1px 3px rgba(17, 24, 39, 0.08);
+  --kale-shadow-lg: 0 8px 24px rgba(17, 24, 39, 0.1);
+  --kale-radius-sm: 6px;
+  --kale-radius-md: 8px;
+  --kale-radius-lg: 12px;
+  --kale-font: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--kale-font);
+  color: var(--kale-text-900);
+}
+
+.kale-title-600 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.kale-title-500 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.kale-text-500 {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.kale-text-400 {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.kale-text-300 {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  margin: 0;
+  color: var(--kale-text-500);
+}
+
+.kale-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--kale-primary);
+  margin: 0;
+}

@@ -11,12 +11,14 @@ import './styles/subpage-nav.css';
 import './styles/experience-page.css';
 import './styles/a2p-regulatory-mcp.css';
 import './styles/poc-bfsi-sms.css';
+import './styles/poc-bfsi-sms-2.css';
 import PortfolioApp from './PortfolioApp';
 import A2PAtlasPage from './a2p-atlas/A2PAtlasPage';
 import A2PRegulatoryMcpPage from './pages/A2PRegulatoryMcpPage';
 import BlogPostPage from './pages/BlogPostPage';
 import ExperiencePage from './pages/ExperiencePage';
 import BfsiSmsPage from './pages/poc-bfsi-sms/BfsiSmsPage';
+import Bfsi2SmsPage from './pages/poc-bfsi-sms-2/Bfsi2SmsPage';
 import ChatWidget from './components/ChatWidget';
 
 function ScrollManager() {
@@ -59,6 +61,7 @@ function App() {
         <Route path="/a2p-atlas" element={<A2PAtlasPage />} />
         <Route path="/a2p-regulatory-mcp" element={<A2PRegulatoryMcpPage />} />
         <Route path="/poc-bfsi-sms" element={<BfsiSmsPage />} />
+        <Route path="/poc-bfsi-sms-2" element={<Bfsi2SmsPage />} />
       </Routes>
       <ChatWidget />
     </BrowserRouter>

@@ -1,0 +1,275 @@
+.bfsi2-page {
+  min-height: 100vh;
+  background: var(--kale-bg);
+}
+
+.bfsi2-page__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.bfsi2-page__inner--gate {
+  max-width: 480px;
+}
+
+.bfsi2-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  color: var(--kale-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bfsi2-back:hover {
+  text-decoration: underline;
+}
+
+.bfsi2-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.bfsi2-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.bfsi2-docs-link {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--kale-primary);
+  text-decoration: none;
+}
+
+.bfsi2-docs-link:hover {
+  text-decoration: underline;
+}
+
+.bfsi2-user {
+  font-size: 0.8125rem;
+  color: var(--kale-text-500);
+}
+
+.bfsi2-main {
+  display: grid;
+  gap: 20px;
+}
+
+.bfsi2-gate {
+  display: grid;
+  gap: 16px;
+  text-align: center;
+}
+
+.bfsi2-gate__icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.bfsi2-gate__form {
+  display: grid;
+  gap: 12px;
+  text-align: left;
+}
+
+.bfsi2-panel {
+  display: grid;
+  gap: 16px;
+}
+
+.bfsi2-panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bfsi2-usage {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--kale-border);
+  border-radius: var(--kale-radius-md);
+  background: var(--kale-primary-soft);
+}
+
+.bfsi2-usage__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+}
+
+.bfsi2-usage__amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--kale-primary);
+}
+
+.bfsi2-subtabs {
+  display: flex;
+  gap: 8px;
+}
+
+.bfsi2-subtab {
+  border: 1px solid var(--kale-border-strong);
+  background: #fff;
+  color: var(--kale-text-500);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.bfsi2-subtab--active {
+  background: var(--kale-primary);
+  border-color: var(--kale-primary);
+  color: #fff;
+}
+
+.bfsi2-roi-summary {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--kale-border);
+  border-radius: var(--kale-radius-md);
+  background: #fff;
+}
+
+.bfsi2-roi-compare {
+  display: grid;
+  gap: 12px;
+}
+
+.bfsi2-roi-compare__row {
+  display: grid;
+  gap: 4px;
+}
+
+.bfsi2-roi-savings {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--kale-border);
+}
+
+.bfsi2-roi-savings__amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--kale-success);
+}
+
+.bfsi2-roi-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--kale-border);
+  overflow: hidden;
+}
+
+.bfsi2-roi-bar__actual {
+  height: 100%;
+  background: var(--kale-primary);
+  border-radius: 999px;
+}
+
+.bfsi2-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.bfsi2-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.bfsi2-config-card {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--kale-border);
+  border-radius: var(--kale-radius-md);
+  background: #fff;
+}
+
+.bfsi2-config-card--paused {
+  opacity: 0.75;
+  border-style: dashed;
+}
+
+.bfsi2-config-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bfsi2-config-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.bfsi2-template-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  background: var(--kale-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.bfsi2-copy-btn,
+.bfsi2-edit-btn {
+  border: none;
+  background: transparent;
+  color: var(--kale-primary);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.bfsi2-copy-btn:hover,
+.bfsi2-edit-btn:hover {
+  text-decoration: underline;
+}
+
+.bfsi2-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.bfsi2-api-hint {
+  padding-top: 8px;
+  border-top: 1px solid var(--kale-border);
+}
+
+.bfsi2-api-hint a {
+  color: var(--kale-primary);
+}
+
+@media (max-width: 768px) {
+  .bfsi2-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

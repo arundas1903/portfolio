@@ -1,0 +1,273 @@
+.kale-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--kale-radius-sm);
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.kale-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.kale-btn--sm {
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 0.8125rem;
+}
+
+.kale-btn--md {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 0.875rem;
+}
+
+.kale-btn--lg {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 0.9375rem;
+}
+
+.kale-btn--primary {
+  background: var(--kale-primary);
+  color: #fff;
+}
+
+.kale-btn--primary:hover:not(:disabled) {
+  background: var(--kale-primary-hover);
+}
+
+.kale-btn--ghost {
+  background: #fff;
+  border-color: var(--kale-border-strong);
+  color: var(--kale-text-700);
+}
+
+.kale-btn--ghost:hover:not(:disabled) {
+  background: var(--kale-bg);
+}
+
+.kale-btn--danger {
+  background: var(--kale-danger);
+  color: #fff;
+}
+
+.kale-btn--danger:hover:not(:disabled) {
+  background: var(--kale-danger-hover);
+}
+
+.kale-btn--text {
+  background: transparent;
+  color: var(--kale-primary);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.kale-btn--full {
+  width: 100%;
+}
+
+.kale-field {
+  display: grid;
+  gap: 6px;
+}
+
+.kale-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--kale-text-700);
+}
+
+.kale-input,
+.kale-select,
+.kale-textarea {
+  width: 100%;
+  border: 1px solid var(--kale-border-strong);
+  border-radius: var(--kale-radius-sm);
+  background: #fff;
+  color: var(--kale-text-900);
+  font: inherit;
+  font-size: 0.875rem;
+  padding: 10px 12px;
+}
+
+.kale-input:focus,
+.kale-select:focus,
+.kale-textarea:focus {
+  outline: none;
+  border-color: var(--kale-primary);
+  box-shadow: 0 0 0 3px rgba(2, 156, 253, 0.15);
+}
+
+.kale-textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.kale-alert {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: var(--kale-radius-md);
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+}
+
+.kale-alert--info {
+  background: var(--kale-info-soft);
+  border-color: #b3e0fc;
+  color: #01579b;
+}
+
+.kale-alert--success {
+  background: var(--kale-success-soft);
+  border-color: #a5d6a7;
+  color: var(--kale-success);
+}
+
+.kale-alert--warning {
+  background: var(--kale-warning-soft);
+  border-color: #ffcc80;
+  color: #e65100;
+}
+
+.kale-alert--error {
+  background: var(--kale-error-soft);
+  border-color: #ef9a9a;
+  color: var(--kale-danger);
+}
+
+.kale-card {
+  background: var(--kale-surface);
+  border: 1px solid var(--kale-border);
+  border-radius: var(--kale-radius-lg);
+  box-shadow: var(--kale-shadow);
+  padding: 20px;
+}
+
+.kale-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.kale-badge--primary {
+  background: var(--kale-primary-soft);
+  color: var(--kale-primary);
+}
+
+.kale-badge--muted {
+  background: var(--kale-bg);
+  color: var(--kale-text-500);
+}
+
+.kale-badge--warning {
+  background: var(--kale-warning-soft);
+  color: var(--kale-warning);
+}
+
+.kale-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--kale-border);
+  margin-bottom: 20px;
+}
+
+.kale-tab {
+  border: none;
+  background: transparent;
+  color: var(--kale-text-500);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.kale-tab--active {
+  color: var(--kale-primary);
+  border-bottom-color: var(--kale-primary);
+}
+
+.kale-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--kale-border);
+  border-radius: var(--kale-radius-md);
+}
+
+.kale-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+  font-size: 0.875rem;
+}
+
+.kale-table th,
+.kale-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--kale-border);
+}
+
+.kale-table th {
+  background: var(--kale-bg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--kale-text-500);
+}
+
+.kale-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.kale-empty {
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--kale-text-500);
+}
+
+.kale-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.kale-stat {
+  padding: 16px;
+  border: 1px solid var(--kale-border);
+  border-radius: var(--kale-radius-md);
+  background: #fff;
+}
+
+.kale-stat__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--kale-text-900);
+}
+
+.kale-stat__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--kale-text-500);
+}
+
+@media (max-width: 768px) {
+  .kale-stat-grid {
+    grid-template-columns: 1fr;
+  }
+}
