@@ -82,6 +82,11 @@
   text-align: left;
 }
 
+.bfsi2-gate__actions {
+  display: grid;
+  gap: 8px;
+}
+
 .bfsi2-panel {
   display: grid;
   gap: 16px;

@@ -22,3 +22,8 @@ def start_session(email: str, *, ip: str, client_id: str) -> tuple[str | None, d
     user = db.upsert_user(normalized)
     token = create_session_token(normalized)
     return token, {"email": user["email"]}, None
+
+
+def reset_bindings(*, ip: str, client_id: str) -> None:
+    db.unbind_ip(ip)
+    db.unbind_client(client_id)

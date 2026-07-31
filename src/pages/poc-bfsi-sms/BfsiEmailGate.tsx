@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../components/ios26/Button';
-import { getStoredBfsiEmail, startBfsiSession } from '../../api/bfsi';
+import {
+  getStoredBfsiEmail,
+  resetBfsiEmailForBrowser,
+  startBfsiSession,
+} from '../../api/bfsi';
 import type { BfsiUserProfile } from '../../types/bfsi';
 
 interface BfsiEmailGateProps {
@@ -9,20 +13,38 @@ interface BfsiEmailGateProps {
 
 export default function BfsiEmailGate({ onStarted }: BfsiEmailGateProps) {
   const [email, setEmail] = useState('');
+  const [browserEmail, setBrowserEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const storedEmail = getStoredBfsiEmail();
     if (storedEmail) {
+      setBrowserEmail(storedEmail);
       setEmail(storedEmail);
     }
   }, []);
 
+  const handleResetEmail = async () => {
+    setResetting(true);
+    setError('');
+
+    try {
+      await resetBfsiEmailForBrowser();
+      setBrowserEmail(null);
+      setEmail('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not reset email');
+    } finally {
+      setResetting(false);
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const trimmed = email.trim();
-    if (!trimmed || loading) return;
+    if (!trimmed || loading || resetting) return;
 
     setLoading(true);
     setError('');
@@ -36,6 +58,9 @@ export default function BfsiEmailGate({ onStarted }: BfsiEmailGateProps) {
       setLoading(false);
     }
   };
+
+  const emailLocked = Boolean(browserEmail);
+  const busy = loading || resetting;
 
   return (
     <div className="bfsi-gate ios26-liquid-glass-la glass-surface">
@@ -57,19 +82,26 @@ export default function BfsiEmailGate({ onStarted }: BfsiEmailGateProps) {
           placeholder="you@bank.com"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          disabled={loading || Boolean(getStoredBfsiEmail())}
+          disabled={busy || emailLocked}
           autoComplete="email"
           required
         />
-        {getStoredBfsiEmail() && (
+        {emailLocked && (
           <p className="ios26-caption2 bfsi-muted">
-            This browser is linked to {getStoredBfsiEmail()}.
+            This browser is linked to {browserEmail}.
           </p>
         )}
         {error && <p className="bfsi-error ios26-caption2">{error}</p>}
-        <Button variant="filled" type="submit" disabled={loading || !email.trim()}>
-          {loading ? 'Signing in…' : 'Enter application'}
-        </Button>
+        <div className="bfsi-gate__actions">
+          {emailLocked && (
+            <Button variant="tinted" type="button" onClick={handleResetEmail} disabled={busy}>
+              {resetting ? 'Resetting…' : 'Reset email'}
+            </Button>
+          )}
+          <Button variant="filled" type="submit" disabled={busy || !email.trim()}>
+            {loading ? 'Signing in…' : 'Enter application'}
+          </Button>
+        </div>
       </form>
     </div>
   );

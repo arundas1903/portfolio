@@ -15,6 +15,22 @@
   transform: translateY(calc(100% + 20px));
 }
 
+.tab-bar-container--embedded {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  z-index: 1;
+  flex-shrink: 0;
+  padding: 8px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+  pointer-events: auto;
+  transform: none;
+}
+
+.tab-bar-container--embedded.tab-bar-container--hidden {
+  display: none;
+}
+
 .tab-bar {
   display: flex;
   align-items: center;

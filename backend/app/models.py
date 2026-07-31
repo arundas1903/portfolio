@@ -114,6 +114,10 @@ class BfsiSessionStartResponse(BaseModel):
     user: BfsiUserProfile
 
 
+class BfsiSessionResetRequest(BaseModel):
+    client_id: str = Field(min_length=8, max_length=64)
+
+
 class BfsiStatusResponse(BaseModel):
     user: BfsiUserProfile
 
@@ -252,6 +256,10 @@ class BfsiNotificationLogItem(BaseModel):
     audience_phone: str | None = None
     routing_reason: str
     price_paise: int
+    ai_prompt_tokens: int | None = None
+    ai_completion_tokens: int | None = None
+    ai_model: str | None = None
+    ai_cost_micro_paise: int = 0
     status: str
     created_at: str
 
@@ -263,6 +271,7 @@ class BfsiNotificationLogsResponse(BaseModel):
     page_size: int
     total_pages: int
     total_usage_paise: int
+    total_ai_cost_micro_paise: int = 0
 
 
 class BfsiUsageResponse(BaseModel):

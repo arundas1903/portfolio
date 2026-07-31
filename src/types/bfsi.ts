@@ -54,6 +54,10 @@ export interface BfsiNotificationLog {
   audience_phone: string | null;
   routing_reason: string;
   price_paise: number;
+  ai_prompt_tokens: number | null;
+  ai_completion_tokens: number | null;
+  ai_model: string | null;
+  ai_cost_micro_paise: number;
   status: string;
   created_at: string;
 }
@@ -65,6 +69,7 @@ export interface BfsiNotificationLogsPage {
   page_size: number;
   total_pages: number;
   total_usage_paise: number;
+  total_ai_cost_micro_paise: number;
 }
 
 export interface BfsiUsage {
@@ -78,6 +83,34 @@ export interface BfsiUsage {
 }
 
 export type BfsiDashboardView = 'overview' | 'logs';
+
+export interface BfsiNotificationAudience {
+  email: string | null;
+  phone: string | null;
+}
+
+export interface BfsiV2SendInput {
+  message_body: string;
+  audience: {
+    email?: string | null;
+    phone?: string | null;
+  };
+}
+
+export interface BfsiV2SendResponse {
+  notification_id: string;
+  channel: NotificationChannel;
+  message: string;
+  audience: BfsiNotificationAudience;
+  amount: number | null;
+  is_transaction: boolean;
+  used_default_config: boolean;
+  classification_reason: string;
+  price_paise: number;
+  status: string;
+  routing_reason: string;
+  created_at: string;
+}
 
 export const CHANNEL_OPTIONS: { value: NotificationChannel; label: string }[] = [
   { value: 'sms', label: 'SMS' },

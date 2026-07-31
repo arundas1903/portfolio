@@ -6,6 +6,7 @@ import re
 from openai import AsyncOpenAI
 
 from app.config import settings
+from app.services.bfsi.ai_pricing import build_ai_usage, configured_openai_model
 
 TRANSACTION_KEYWORDS = re.compile(
     r"\b(transaction|payment|paid|debited|credited|transfer|purchase|withdrawn|deposit|upi|txn)\b",
@@ -41,6 +42,7 @@ def classify_message_fallback(message_body: str) -> dict:
         "amount": amount,
         "confidence": 0.55 if is_transaction else 0.35,
         "reason": "Heuristic classification (OpenAI unavailable).",
+        "ai_usage": None,
     }
 
 
@@ -52,6 +54,7 @@ async def classify_transaction_message(message_body: str) -> dict:
             "amount": None,
             "confidence": 1.0,
             "reason": "Message body is empty.",
+            "ai_usage": None,
         }
 
     if not settings.openai_configured:
@@ -92,9 +95,19 @@ async def classify_transaction_message(message_body: str) -> dict:
 
     is_transaction = bool(parsed.get("is_transaction")) and amount is not None
 
+    usage = response.usage
+    ai_usage = None
+    if usage is not None:
+        ai_usage = build_ai_usage(
+            model=configured_openai_model(),
+            prompt_tokens=int(usage.prompt_tokens or 0),
+            completion_tokens=int(usage.completion_tokens or 0),
+        )
+
     return {
         "is_transaction": is_transaction,
         "amount": amount,
         "confidence": float(parsed.get("confidence", 0.0)),
         "reason": str(parsed.get("reason", "AI classification.")).strip() or "AI classification.",
+        "ai_usage": ai_usage,
     }

@@ -6,6 +6,8 @@ import type {
   BfsiUsage,
   BfsiDefaultConfig,
   BfsiDefaultConfigInput,
+  BfsiV2SendInput,
+  BfsiV2SendResponse,
 } from '../types/bfsi';
 import { API_BASE } from './chatAuth';
 
@@ -30,6 +32,10 @@ export function getStoredBfsiEmail(): string | null {
   return localStorage.getItem(EMAIL_KEY);
 }
 
+export function clearStoredBfsiEmail(): void {
+  localStorage.removeItem(EMAIL_KEY);
+}
+
 export function setBfsiSession(token: string, email: string): void {
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(EMAIL_KEY, email);
@@ -37,6 +43,24 @@ export function setBfsiSession(token: string, email: string): void {
 
 export function clearBfsiSession(): void {
   localStorage.removeItem(TOKEN_KEY);
+}
+
+export async function resetBfsiBindings(): Promise<void> {
+  const response = await fetch(`${API_BASE}/api/bfsi/session/reset-bindings`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ client_id: getClientId() }),
+  });
+
+  if (!response.ok) {
+    throw new Error(await parseError(response, 'Could not reset email bindings'));
+  }
+}
+
+export async function resetBfsiEmailForBrowser(): Promise<void> {
+  clearStoredBfsiEmail();
+  clearBfsiSession();
+  await resetBfsiBindings();
 }
 
 function authHeaders(): Record<string, string> {
@@ -259,6 +283,26 @@ export async function fetchBfsiLogs(page = 1, pageSize = 10): Promise<BfsiNotifi
 
   if (!response.ok) {
     throw new Error('Could not load notification logs');
+  }
+
+  return response.json();
+}
+
+export async function sendBfsiV2Notification(
+  ownerEmail: string,
+  input: BfsiV2SendInput,
+): Promise<BfsiV2SendResponse> {
+  const response = await fetch(`${API_BASE}/api/bfsi/v2/notifications/send`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-BFSI-Owner-Email': ownerEmail,
+    },
+    body: JSON.stringify(input),
+  });
+
+  if (!response.ok) {
+    throw new Error(await parseError(response, 'Could not send notification'));
   }
 
   return response.json();

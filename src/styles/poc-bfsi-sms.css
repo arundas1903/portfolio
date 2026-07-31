@@ -178,6 +178,13 @@
   text-align: left;
 }
 
+.bfsi-gate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
 .bfsi-field-label {
   display: block;
   margin-bottom: 6px;

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Button from '../../components/ios26/Button';
 import { fetchBfsiLogs } from '../../api/bfsi';
 import type { BfsiNotificationLog } from '../../types/bfsi';
+import { formatAiCostLabel, formatMicroPaise } from '../../utils/bfsiCost';
 
 const PAGE_SIZE = 10;
 
@@ -45,6 +46,7 @@ export default function BfsiLogsTab({ onUsageUpdate }: BfsiLogsTabProps) {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [total, setTotal] = useState(0);
+  const [totalAiCostMicroPaise, setTotalAiCostMicroPaise] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -58,6 +60,7 @@ export default function BfsiLogsTab({ onUsageUpdate }: BfsiLogsTabProps) {
         setPage(result.page);
         setTotalPages(result.total_pages);
         setTotal(result.total);
+        setTotalAiCostMicroPaise(result.total_ai_cost_micro_paise ?? 0);
         onUsageUpdate?.();
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Could not load logs');
@@ -75,7 +78,11 @@ export default function BfsiLogsTab({ onUsageUpdate }: BfsiLogsTabProps) {
   return (
     <>
       <p className="ios26-footnote bfsi-muted">
-        Successful send API calls for your templates — {total} total.
+        Successful send API calls for your templates — {total} total
+        {totalAiCostMicroPaise > 0
+          ? ` · AI spend ${formatMicroPaise(totalAiCostMicroPaise)}`
+          : ''}
+        .
       </p>
 
       {loading && <p className="ios26-footnote bfsi-muted">Loading logs…</p>}
@@ -93,7 +100,8 @@ export default function BfsiLogsTab({ onUsageUpdate }: BfsiLogsTabProps) {
                 <tr>
                   <th scope="col">Sent</th>
                   <th scope="col">Channel</th>
-                  <th scope="col">Price</th>
+                  <th scope="col">Channel price</th>
+                  <th scope="col">AI cost</th>
                   <th scope="col">Audience</th>
                   <th scope="col">Message</th>
                   <th scope="col">Status</th>
@@ -105,6 +113,7 @@ export default function BfsiLogsTab({ onUsageUpdate }: BfsiLogsTabProps) {
                     <td className="bfsi-muted ios26-caption2">{formatDate(log.created_at)}</td>
                     <td>{channelLabel(log.channel)}</td>
                     <td>{formatPaise(log.price_paise)}</td>
+                    <td className="ios26-caption2">{formatAiCostLabel(log)}</td>
                     <td className="ios26-caption2">{deliveryAudience(log)}</td>
                     <td>{log.message}</td>
                     <td>{log.status}</td>

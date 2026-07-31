@@ -9,6 +9,7 @@ from app.models import (
     BfsiNotificationLogsResponse,
     BfsiSessionStartRequest,
     BfsiSessionStartResponse,
+    BfsiSessionResetRequest,
     BfsiStatusResponse,
     BfsiTemplateCreateRequest,
     BfsiTemplateListResponse,
@@ -18,7 +19,7 @@ from app.models import (
     BfsiUserProfile,
 )
 from app.services.bfsi import database as db
-from app.services.bfsi.auth import start_session
+from app.services.bfsi.auth import reset_bindings, start_session
 from app.services.bfsi.default_config import (
     delete_default_config_for_user,
     format_default_config_response,
@@ -74,6 +75,11 @@ async def bfsi_session_start(body: BfsiSessionStartRequest, request: Request) ->
         token=token,
         user=BfsiUserProfile(**user),
     )
+
+
+@router.post("/session/reset-bindings", status_code=204)
+async def bfsi_session_reset_bindings(body: BfsiSessionResetRequest, request: Request) -> None:
+    reset_bindings(ip=get_client_ip(request), client_id=body.client_id.strip())
 
 
 @router.get("/me", response_model=BfsiStatusResponse)
@@ -211,4 +217,5 @@ async def bfsi_list_logs(
         page_size=max(1, min(page_size, 50)),
         total_pages=total_pages,
         total_usage_paise=usage["total_usage_paise"],
+        total_ai_cost_micro_paise=usage["total_ai_cost_micro_paise"],
     )

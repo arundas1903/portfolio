@@ -5,7 +5,11 @@ import {
   KaleField,
   KaleInput,
 } from '../../design/kaleyra';
-import { getStoredBfsiEmail, startBfsiSession } from '../../api/bfsi';
+import {
+  getStoredBfsiEmail,
+  resetBfsiEmailForBrowser,
+  startBfsiSession,
+} from '../../api/bfsi';
 import type { BfsiUserProfile } from '../../types/bfsi';
 
 interface Bfsi2EmailGateProps {
@@ -15,19 +19,37 @@ interface Bfsi2EmailGateProps {
 export default function Bfsi2EmailGate({ onStarted }: Bfsi2EmailGateProps) {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const [error, setError] = useState('');
+  const [browserEmail, setBrowserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const storedEmail = getStoredBfsiEmail();
     if (storedEmail) {
+      setBrowserEmail(storedEmail);
       setEmail(storedEmail);
     }
   }, []);
 
+  const handleResetEmail = async () => {
+    setResetting(true);
+    setError('');
+
+    try {
+      await resetBfsiEmailForBrowser();
+      setBrowserEmail(null);
+      setEmail('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not reset email');
+    } finally {
+      setResetting(false);
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const trimmed = email.trim();
-    if (!trimmed || loading) return;
+    if (!trimmed || loading || resetting) return;
 
     setLoading(true);
     setError('');
@@ -41,6 +63,9 @@ export default function Bfsi2EmailGate({ onStarted }: Bfsi2EmailGateProps) {
       setLoading(false);
     }
   };
+
+  const emailLocked = Boolean(browserEmail);
+  const busy = loading || resetting;
 
   return (
     <div className="bfsi2-gate">
@@ -61,23 +86,30 @@ export default function Bfsi2EmailGate({ onStarted }: Bfsi2EmailGateProps) {
             placeholder="you@bank.com"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            disabled={loading || Boolean(getStoredBfsiEmail())}
+            disabled={busy || emailLocked}
             autoComplete="email"
             required
           />
         </KaleField>
 
-        {getStoredBfsiEmail() && (
+        {emailLocked && (
           <KaleAlert variant="info">
-            This browser is linked to {getStoredBfsiEmail()}.
+            This browser is linked to {browserEmail}.
           </KaleAlert>
         )}
 
         {error && <KaleAlert variant="error">{error}</KaleAlert>}
 
-        <KaleButton variant="primary" fullWidth disabled={loading || !email.trim()} type="submit">
-          {loading ? 'Signing in…' : 'Enter application'}
-        </KaleButton>
+        <div className="bfsi2-gate__actions">
+          {emailLocked && (
+            <KaleButton variant="ghost" fullWidth disabled={busy} onClick={handleResetEmail}>
+              {resetting ? 'Resetting…' : 'Reset email'}
+            </KaleButton>
+          )}
+          <KaleButton variant="primary" fullWidth disabled={busy || !email.trim()} type="submit">
+            {loading ? 'Signing in…' : 'Enter application'}
+          </KaleButton>
+        </div>
       </form>
     </div>
   );

@@ -104,6 +104,14 @@ def _migrate_notifications(conn: sqlite3.Connection) -> None:
         conn.execute("ALTER TABLE notifications ADD COLUMN routing_reason TEXT NOT NULL DEFAULT ''")
     if "price_paise" not in columns:
         conn.execute("ALTER TABLE notifications ADD COLUMN price_paise INTEGER NOT NULL DEFAULT 0")
+    if "ai_prompt_tokens" not in columns:
+        conn.execute("ALTER TABLE notifications ADD COLUMN ai_prompt_tokens INTEGER")
+    if "ai_completion_tokens" not in columns:
+        conn.execute("ALTER TABLE notifications ADD COLUMN ai_completion_tokens INTEGER")
+    if "ai_model" not in columns:
+        conn.execute("ALTER TABLE notifications ADD COLUMN ai_model TEXT")
+    if "ai_cost_micro_paise" not in columns:
+        conn.execute("ALTER TABLE notifications ADD COLUMN ai_cost_micro_paise INTEGER NOT NULL DEFAULT 0")
 
     for channel, price in CHANNEL_PRICE_PAISE.items():
         conn.execute(
@@ -190,6 +198,16 @@ def bind_client(client_id: str, email: str) -> None:
             """,
             (client_id, email, _utc_now()),
         )
+
+
+def unbind_ip(ip: str) -> None:
+    with get_connection() as conn:
+        conn.execute("DELETE FROM ip_bindings WHERE ip = ?", (ip,))
+
+
+def unbind_client(client_id: str) -> None:
+    with get_connection() as conn:
+        conn.execute("DELETE FROM client_bindings WHERE client_id = ?", (client_id,))
 
 
 def list_templates(email: str) -> list[dict[str, Any]]:
@@ -386,6 +404,10 @@ def create_notification(
     routing_reason: str,
     price_paise: int,
     status: str = "sent",
+    ai_prompt_tokens: int | None = None,
+    ai_completion_tokens: int | None = None,
+    ai_model: str | None = None,
+    ai_cost_micro_paise: int = 0,
 ) -> dict[str, Any]:
     notification_id = str(uuid4())
     now = _utc_now()
@@ -394,8 +416,9 @@ def create_notification(
             """
             INSERT INTO notifications (
                 id, template_id, template_owner, template_name, amount, channel, message,
-                audience_email, audience_phone, routing_reason, price_paise, status, created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                audience_email, audience_phone, routing_reason, price_paise, status, created_at,
+                ai_prompt_tokens, ai_completion_tokens, ai_model, ai_cost_micro_paise
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
                 notification_id,
@@ -411,6 +434,10 @@ def create_notification(
                 price_paise,
                 status,
                 now,
+                ai_prompt_tokens,
+                ai_completion_tokens,
+                ai_model,
+                ai_cost_micro_paise,
             ),
         )
         row = conn.execute("SELECT * FROM notifications WHERE id = ?", (notification_id,)).fetchone()
@@ -446,6 +473,7 @@ def get_usage_summary(email: str) -> dict[str, Any]:
             """
             SELECT
                 COALESCE(SUM(price_paise), 0) AS total_usage_paise,
+                COALESCE(SUM(ai_cost_micro_paise), 0) AS total_ai_cost_micro_paise,
                 COUNT(*) AS send_count,
                 COALESCE(SUM(CASE WHEN channel = 'sms' THEN 1 ELSE 0 END), 0) AS sms_count,
                 COALESCE(SUM(CASE WHEN channel = 'email' THEN 1 ELSE 0 END), 0) AS email_count,
@@ -457,6 +485,7 @@ def get_usage_summary(email: str) -> dict[str, Any]:
         ).fetchone()
     return {
         "total_usage_paise": int(row["total_usage_paise"]),
+        "total_ai_cost_micro_paise": int(row["total_ai_cost_micro_paise"]),
         "send_count": int(row["send_count"]),
         "channel_counts": {
             "sms": int(row["sms_count"]),
@@ -479,6 +508,10 @@ def _row_to_notification(row: sqlite3.Row) -> dict[str, Any]:
         "audience_phone": row["audience_phone"],
         "routing_reason": row["routing_reason"],
         "price_paise": int(row["price_paise"]),
+        "ai_prompt_tokens": row["ai_prompt_tokens"],
+        "ai_completion_tokens": row["ai_completion_tokens"],
+        "ai_model": row["ai_model"],
+        "ai_cost_micro_paise": int(row["ai_cost_micro_paise"] or 0),
         "status": row["status"],
         "created_at": row["created_at"],
     }

@@ -12,9 +12,16 @@ interface TabBarProps {
   activeTab: string;
   onTabChange: (id: string) => void;
   hidden?: boolean;
+  embedded?: boolean;
 }
 
-export default function TabBar({ tabs, activeTab, onTabChange, hidden = false }: TabBarProps) {
+export default function TabBar({
+  tabs,
+  activeTab,
+  onTabChange,
+  hidden = false,
+  embedded = false,
+}: TabBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
@@ -40,7 +47,15 @@ export default function TabBar({ tabs, activeTab, onTabChange, hidden = false }:
   };
 
   return (
-    <div className={`tab-bar-container ${hidden ? 'tab-bar-container--hidden' : ''}`}>
+    <div
+      className={[
+        'tab-bar-container',
+        embedded ? 'tab-bar-container--embedded' : '',
+        hidden ? 'tab-bar-container--hidden' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <nav className="tab-bar ios26-liquid-glass-me glass-surface" ref={containerRef} aria-label="Main navigation">
         <div
           className="tab-bar__indicator"
