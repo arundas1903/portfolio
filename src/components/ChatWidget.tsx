@@ -6,6 +6,7 @@ import MovieDiscussChat from './chatbots/MovieDiscussChat';
 import ChatPasswordGate from './chatbots/ChatPasswordGate';
 import { CHATBOTS, ChatbotId } from './chatbots/catalog';
 import { clearChatSession, getChatPassword, unlockChat } from '../api/chat';
+import { trackEvent } from '../analytics/mixpanel';
 import { CHAT_QUERY_PARAM } from '../utils/chatDeepLink';
 
 type WidgetView = 'list' | ChatbotId;
@@ -22,8 +23,23 @@ export default function ChatWidget() {
   const [checkingAccess, setCheckingAccess] = useState(false);
 
   const closeWidget = () => {
+    trackEvent('Chat Widget Close');
     setOpen(false);
     setView('list');
+  };
+
+  const openWidget = () => {
+    trackEvent('Chat Widget Open');
+    setOpen(true);
+  };
+
+  const selectChatbot = (botId: ChatbotId) => {
+    const bot = CHATBOTS.find((item) => item.id === botId);
+    trackEvent('Chatbot Selected', {
+      chatbot: botId,
+      title: bot?.title,
+    });
+    setView(botId);
   };
 
   const handleAuthExpired = () => {
@@ -67,7 +83,10 @@ export default function ChatWidget() {
 
       try {
         await unlockChat(storedPassword);
-        if (!cancelled) setAssistantsUnlocked(true);
+        if (!cancelled) {
+          setAssistantsUnlocked(true);
+          trackEvent('Chat Unlocked', { method: 'stored_password' });
+        }
       } catch {
         clearChatSession();
         if (!cancelled) setAssistantsUnlocked(false);
@@ -112,7 +131,10 @@ export default function ChatWidget() {
     }
 
     if (needsPassword) {
-      return <ChatPasswordGate onUnlocked={() => setAssistantsUnlocked(true)} />;
+      return <ChatPasswordGate onUnlocked={() => {
+        trackEvent('Chat Unlocked', { method: 'password_form' });
+        setAssistantsUnlocked(true);
+      }} />;
     }
 
     if (view === 'list') {
@@ -123,7 +145,7 @@ export default function ChatWidget() {
               key={bot.id}
               type="button"
               className={`chatbot-item${bot.available ? '' : ' chatbot-item--disabled'}`}
-              onClick={() => bot.available && setView(bot.id)}
+              onClick={() => bot.available && selectChatbot(bot.id)}
               disabled={!bot.available}
             >
               <span className="chatbot-item__icon" aria-hidden>{bot.icon}</span>
@@ -206,7 +228,7 @@ export default function ChatWidget() {
       <button
         type="button"
         className="chat-widget__fab ios26-liquid-glass-me glass-surface"
-        onClick={() => (open ? closeWidget() : setOpen(true))}
+        onClick={() => (open ? closeWidget() : openWidget())}
         aria-label={open ? 'Close assistants' : 'Open assistants'}
         aria-expanded={open}
       >

@@ -24,6 +24,7 @@ import Bfsi2SmsPage from './pages/poc-bfsi-sms-2/Bfsi2SmsPage';
 import PaymentPocApp from './pages/payment-poc-app/PaymentPocApp';
 import TaskTrackerPage from './pages/task-tracker/TaskTrackerPage';
 import ChatWidget from './components/ChatWidget';
+import MixpanelPageTracker from './analytics/MixpanelPageTracker';
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -79,6 +80,7 @@ function AppRoutes() {
 function App() {
   return (
     <BrowserRouter>
+      <MixpanelPageTracker />
       <ScrollManager />
       <AppRoutes />
     </BrowserRouter>

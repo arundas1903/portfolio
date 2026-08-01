@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import BlogPostContent from '../components/blog/BlogPostContent';
 import Button from '../components/ios26/Button';
 import SubpageNav from '../components/ios26/SubpageNav';
+import { trackEvent } from '../analytics/mixpanel';
 import { formatBlogDate, getPostBySlug } from '../blog/posts';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const post = slug ? getPostBySlug(slug) : undefined;
+
+  useEffect(() => {
+    if (!post) {
+      return;
+    }
+    trackEvent('Blog Post View', {
+      slug: post.slug,
+      title: post.title,
+      tags: post.tags,
+    });
+  }, [post]);
 
   if (!post) {
     return (

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import GlassCard from '../components/ios26/GlassCard';
 import Button from '../components/ios26/Button';
+import { trackEvent } from '../analytics/mixpanel';
 import { chatDeepLink } from '../utils/chatDeepLink';
 
 interface Project {
@@ -110,7 +111,16 @@ const Projects = () => {
                 </div>
                 {project.liveDemo && (
                   <div className="project-card__actions">
-                    <Button variant="filled" to={project.liveDemo}>
+                    <Button
+                      variant="filled"
+                      to={project.liveDemo}
+                      onClick={() =>
+                        trackEvent('Project Demo Click', {
+                          project: project.title,
+                          destination: project.liveDemo,
+                        })
+                      }
+                    >
                       Live Demo
                     </Button>
                   </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '../../components/ios26/Button';
 import GlassCard from '../../components/ios26/GlassCard';
 import { summarizeTaskNotes } from '../../api/tasks';
+import { trackEvent } from '../../analytics/mixpanel';
 import type { TaskNoteRangeSummary } from '../../types/tasks';
 import { formatDateRangeLabel, offsetIsoDate, todayIsoDate } from './utils';
 
@@ -35,6 +36,12 @@ export default function SummarizeModal({ initialFrom, initialTo, onClose }: Summ
       const to = dateFrom <= dateTo ? dateTo : dateFrom;
       const result = await summarizeTaskNotes(from, to);
       setSummary(result);
+      trackEvent('Task Summarize Generated', {
+        date_from: from,
+        date_to: to,
+        note_count: result.note_count,
+        section_count: result.sections.length,
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not generate summary');
       setSummary(null);

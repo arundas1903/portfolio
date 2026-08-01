@@ -6,6 +6,7 @@ import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import TabBar from './components/ios26/TabBar';
 import ThemeToggle from './components/ios26/ThemeToggle';
+import { trackEvent } from './analytics/mixpanel';
 import { useScrollDirection, useActiveSection } from './hooks/useScroll';
 
 const SECTIONS = ['home', 'about', 'projects', 'blog', 'contact'];
@@ -61,8 +62,18 @@ const tabs = [
 export default function PortfolioApp() {
   const tabBarHidden = useScrollDirection();
   const activeSection = useActiveSection(SECTIONS);
+  const lastSection = React.useRef('');
+
+  React.useEffect(() => {
+    if (activeSection === lastSection.current) {
+      return;
+    }
+    lastSection.current = activeSection;
+    trackEvent('Section View', { section: activeSection, page: 'home' });
+  }, [activeSection]);
 
   const handleTabChange = (id: string) => {
+    trackEvent('Tab Click', { tab: id, page: 'home' });
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 

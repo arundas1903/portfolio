@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { trackEvent } from '../../analytics/mixpanel';
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -47,9 +48,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const cycleTheme = () => {
     setTheme((current) => {
-      if (current === 'system') return 'light';
-      if (current === 'light') return 'dark';
-      return 'system';
+      const next = current === 'system' ? 'light' : current === 'light' ? 'dark' : 'system';
+      trackEvent('Theme Change', { from: current, to: next });
+      return next;
     });
   };
 

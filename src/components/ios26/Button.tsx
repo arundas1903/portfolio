@@ -22,8 +22,13 @@ export default function Button({
   const classes = `ios26-btn ios26-btn--${variant} ${className}`.trim();
 
   if (to) {
+    const { onClick } = props;
     return (
-      <Link to={to} className={classes}>
+      <Link
+        to={to}
+        className={classes}
+        onClick={onClick as React.MouseEventHandler<HTMLAnchorElement> | undefined}
+      >
         {children}
       </Link>
     );

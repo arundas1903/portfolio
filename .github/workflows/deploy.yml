@@ -33,6 +33,7 @@ jobs:
       - name: Build
         env:
           REACT_APP_CHAT_API_URL: ${{ secrets.REACT_APP_CHAT_API_URL }}
+          REACT_APP_MIXPANEL_TOKEN: ${{ secrets.REACT_APP_MIXPANEL_TOKEN }}
         run: npm run build
 
       - name: SPA fallback for client routes

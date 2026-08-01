@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import GlassCard from '../components/ios26/GlassCard';
+import { trackEvent } from '../analytics/mixpanel';
 import { blogPosts, formatBlogDate } from '../blog/posts';
 
 const Blog = () => {
@@ -21,7 +22,16 @@ const Blog = () => {
             viewport={{ once: true, margin: '-30px' }}
             transition={{ duration: 0.4, delay: index * 0.08 }}
           >
-            <Link to={`/blog/${post.slug}`} className="blog-card-link">
+            <Link
+              to={`/blog/${post.slug}`}
+              className="blog-card-link"
+              onClick={() =>
+                trackEvent('Blog Post Click', {
+                  slug: post.slug,
+                  title: post.title,
+                })
+              }
+            >
               <GlassCard size="la" className="blog-card">
                 <div
                   className="blog-card__accent"

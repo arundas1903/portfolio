@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { ThemeProvider } from './components/ios26/ThemeToggle';
+import { initMixpanel } from './analytics/mixpanel';
 import reportWebVitals from './reportWebVitals';
+
+initMixpanel();
 
 // Apply saved theme before first paint
 const savedTheme = localStorage.getItem('theme');

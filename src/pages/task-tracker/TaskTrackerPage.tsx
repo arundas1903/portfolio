@@ -24,6 +24,7 @@ import {
   startOfMonthIsoDate,
   todayIsoDate,
 } from './utils';
+import { resetUser, identifyUser, trackEvent } from '../../analytics/mixpanel';
 
 type DatePreset = 'all' | 'today' | 'last7' | 'last30' | 'thisMonth' | 'custom';
 
@@ -42,7 +43,10 @@ export default function TaskTrackerPage() {
 
       try {
         const profile = await fetchTaskProfile();
-        if (!cancelled) setUser(profile);
+        if (!cancelled) {
+          setUser(profile);
+          identifyUser(profile.email, { product: 'task-tracker' });
+        }
       } catch {
         clearTaskSession();
       } finally {
@@ -54,6 +58,8 @@ export default function TaskTrackerPage() {
   }, []);
 
   const handleSignOut = () => {
+    trackEvent('Task Tracker Sign Out', { email: user?.email });
+    resetUser();
     clearTaskSession();
     setUser(null);
   };
@@ -166,12 +172,17 @@ function TaskTrackerApp({
 
   const handleCreate = async (input: TaskNoteInput) => {
     await createTaskNote(input);
+    trackEvent('Task Note Created', {
+      note_date: input.note_date,
+      label_count: input.labels.length,
+    });
     await loadAll();
   };
 
   const handleUpdate = async (input: TaskNoteInput) => {
     if (!editingNote) return;
     await updateTaskNote(editingNote.id, input);
+    trackEvent('Task Note Updated', { note_id: editingNote.id });
     setEditingNote(null);
     await loadAll();
   };
@@ -180,6 +191,7 @@ function TaskTrackerApp({
     const confirmed = window.confirm('Delete this note?');
     if (!confirmed) return;
     await deleteTaskNote(note.id);
+    trackEvent('Task Note Deleted', { note_id: note.id });
     await loadAll();
   };
 
@@ -188,6 +200,7 @@ function TaskTrackerApp({
     setError('');
     try {
       await analyzeTaskNote(note.id);
+      trackEvent('Task Note Analyzed', { note_id: note.id });
       await loadAll();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not analyze note');
@@ -246,7 +259,17 @@ function TaskTrackerApp({
               </p>
             </div>
             <div className="tt-header__actions">
-              <Button variant="filled" type="button" onClick={() => setShowSummarize(true)}>
+              <Button
+                variant="filled"
+                type="button"
+                onClick={() => {
+                  trackEvent('Task Summarize Open', {
+                    date_from: dateFrom || undefined,
+                    date_to: dateTo || undefined,
+                  });
+                  setShowSummarize(true);
+                }}
+              >
                 Summarize
               </Button>
               <Button variant="tinted" type="button" onClick={onSignOut}>

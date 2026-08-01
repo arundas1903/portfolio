@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '../../components/ios26/Button';
 import GlassCard from '../../components/ios26/GlassCard';
 import { loginTaskUser, registerTaskUser } from '../../api/tasks';
+import { identifyUser, trackEvent } from '../../analytics/mixpanel';
 import type { TaskUserProfile } from '../../types/tasks';
 
 type AuthMode = 'login' | 'register';
@@ -29,6 +30,8 @@ export default function TaskAuthGate({ onAuthenticated }: TaskAuthGateProps) {
         mode === 'login'
           ? await loginTaskUser(trimmedEmail, password)
           : await registerTaskUser(trimmedEmail, password);
+      identifyUser(trimmedEmail, { product: 'task-tracker' });
+      trackEvent('Task Tracker Auth', { mode, email: trimmedEmail });
       onAuthenticated(result.user);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Authentication failed');
