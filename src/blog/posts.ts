@@ -347,7 +347,135 @@ const portfolioIn15MinutesContent: BlogBlock[] = [
   },
 ];
 
+const urlStrengthContent: BlogBlock[] = [
+  {
+    type: 'p',
+    text: 'You get a link in Slack, a text, or an email: “Verify your account.” The domain looks almost right. Maybe it redirects once or twice. You could open it and hope—or you could run a quick sanity check first.',
+  },
+  {
+    type: 'p',
+    text: 'I built URL Strength for that moment. It’s a URL trust checker on my portfolio: paste a link and get domain age, stack fingerprints, spam-like heuristics, and an AI-written risk summary. It is not a URL shortener—it does not create or redirect links. It inspects them.',
+  },
+  { type: 'h2', text: 'Why I built it' },
+  {
+    type: 'p',
+    text: 'Most “is this link safe?” tools are either opaque black boxes or static blocklists. I wanted something in between: transparent signals you can read, plus an LLM layer that synthesizes them into plain language—without claiming certainty.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Phishing pages often use brand names in the title but not in the domain',
+      'Very new domains show up constantly in scam campaigns',
+      'Redirect chains hide the final destination until you click',
+      'A portfolio is a good place to demo full-stack product thinking—not just UI polish',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'URL Strength also let me exercise patterns I use elsewhere on the site: password-gated AI features, per-tool rate limits, Mixpanel events, and a FastAPI service that does real network work safely.',
+  },
+  { type: 'h2', text: 'What you get when you analyze a URL' },
+  {
+    type: 'p',
+    text: 'Paste a bare domain like arundas.me or a full https:// link. The app returns a risk level (low, medium, or high), a short summary, reasons behind the score, and a practical recommendation.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'Domain age from RDAP registration data (with registry fallbacks when needed)',
+      'Technical signals: final URL, redirect count, HTTPS, HTTP status, page title, login-form detection',
+      'Technology fingerprints: server headers, WordPress, Next.js, React, Cloudflare, and similar',
+      'Heuristic spam flags: urgency phrases, brand/domain mismatches on credential pages',
+      'Token usage when OpenAI runs the synthesis step',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'The UI is explicit that this is guidance—not a guarantee. That honesty matters for trust products.',
+  },
+  { type: 'h2', text: 'How it’s built: backend pipeline' },
+  {
+    type: 'p',
+    text: 'The backend lives under backend/app/services/url_strength/ as four focused modules plus a FastAPI router.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'fetcher.py — normalizes input (adds https:// when missing), resolves DNS, blocks private/local hosts (SSRF protection), follows up to five redirects manually, and extracts title, meta description, and login/password forms from HTML',
+      'rdap.py — looks up domain registration via IANA’s RDAP bootstrap, then tries registry-specific bases (Identity Digital, Google, rdap.nic.{tld}) and rdap.org as fallback',
+      'signals.py — combines RDAP age, technology detection from headers/HTML, technical signal cards, and heuristic spam flags',
+      'analyzer.py — sends structured signals to OpenAI for JSON risk assessment; falls back to pure heuristics when no API key is configured',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'The router exposes POST /api/url-strength/analyze and GET /api/url-strength/limits. Both require the same portfolio access password as my chat assistants (X-Chat-Password header). Analysis is rate-limited to 10 runs per IP per rolling 24 hours by default—configurable via URL_STRENGTH_DAILY_LIMIT.',
+  },
+  { type: 'h2', text: 'How it’s built: frontend' },
+  {
+    type: 'p',
+    text: 'The React page at /url-strength reuses ChatPasswordGate for access control, then shows a simple URL form and a results layout built from GlassCard panels.',
+  },
+  {
+    type: 'ul',
+    items: [
+      'UrlStrengthPage.tsx — password gate, quota banner, analyze form, and results sections (assessment, reasons, content read, technical signals, technologies, usage metadata)',
+      'api/urlStrength.ts — typed client for analyze and limits endpoints, sharing authHeaders() with chat',
+      'types/urlStrength.ts — response shapes for risk level, signals, and token counts',
+      'url-strength.css — risk badge colors, signal grid, and panel spacing',
+    ],
+  },
+  {
+    type: 'p',
+    text: 'Mixpanel tracks URL Strength Analyze events with risk level, token count, and whether the source was openai or heuristic—useful when tuning prompts or limits.',
+  },
+  { type: 'h2', text: 'Design choices I cared about' },
+  {
+    type: 'p',
+    text: 'SSRF guardrails first: the fetcher refuses localhost, .local, .internal, and any hostname that resolves to a non-public IP. You cannot use my server to scan your internal network.',
+  },
+  {
+    type: 'p',
+    text: 'Graceful degradation: without OPENAI_API_KEY, the tool still runs heuristics and returns useful signals—just with a lower-confidence summary.',
+  },
+  {
+    type: 'p',
+    text: 'Domain age reliability: RDAP is messy across TLDs, so the lookup chain tries multiple registries instead of failing on the first 404.',
+  },
+  {
+    type: 'p',
+    text: 'Cost control: password gate + daily cap keep a public demo from becoming an open proxy for unlimited OpenAI calls.',
+  },
+  { type: 'h2', text: 'Try it on a link you’re unsure about' },
+  {
+    type: 'p',
+    text: 'Open URL Strength, enter the portfolio password if prompted, and paste a URL. Compare the technical signals with the AI summary. If they disagree, trust the signals—the model is synthesizing, not fetching.',
+  },
+  {
+    type: 'p',
+    text: 'That loop—fetch safely, extract signals, explain risk in human terms—is the product. It’s the kind of small tool I like shipping on a portfolio: useful, bounded, and honest about what it can and cannot prove.',
+  },
+];
+
+export const FEATURED_BLOG_COUNT = 3;
+
 export const blogPosts: BlogPost[] = [
+  {
+    slug: 'url-strength-trust-checker',
+    title: 'URL Strength: Why I Built a URL Trust Checker (and How It Works)',
+    excerpt:
+      'Paste a link to inspect domain age, tech fingerprints, spam heuristics, and an AI risk summary—built with FastAPI, RDAP, OpenAI, and the same guardrails as my portfolio chat tools.',
+    date: '2026-08-01',
+    readTime: estimateReadTime(urlStrengthContent),
+    tags: ['AI', 'Security', 'FastAPI'],
+    accent: 'var(--color-accent-teal)',
+    liveDemo: '/url-strength',
+    liveDemoTitle: 'Try URL Strength',
+    liveDemoDescription:
+      'Analyze a URL for domain age, detected technologies, heuristic spam flags, and an AI-written risk assessment.',
+    liveDemoButtonLabel: 'Open URL Strength',
+    content: urlStrengthContent,
+  },
   {
     slug: 'movie-discuss-interactive-assistant',
     title: 'Movie Discuss: A Conversational Guide That Remembers Your Taste',

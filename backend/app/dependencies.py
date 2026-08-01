@@ -1,3 +1,4 @@
+import secrets
 from fastapi import Depends, Header, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
@@ -5,6 +6,8 @@ from app.config import settings
 from app.services.rate_limit import SlidingWindowRateLimiter
 
 assistant_rate_limiter = SlidingWindowRateLimiter(max_requests=20, window_seconds=30 * 60)
+url_strength_rate_limiter = SlidingWindowRateLimiter(max_requests=10, window_seconds=24 * 60 * 60)
+unlock_rate_limiter = SlidingWindowRateLimiter(max_requests=5, window_seconds=15 * 60)
 _task_bearer = HTTPBearer(auto_error=False)
 
 
@@ -41,8 +44,18 @@ async def require_chat_password(
     if not settings.chat_password_required:
         return
 
-    if not x_chat_password or x_chat_password != settings.chat_access_password:
+    if not x_chat_password or not secrets.compare_digest(
+        x_chat_password, settings.chat_access_password
+    ):
         raise HTTPException(status_code=401, detail="Invalid or missing chat password")
+
+
+def chat_password_valid(x_chat_password: str | None) -> bool:
+    if not settings.chat_password_required:
+        return True
+    if not x_chat_password:
+        return False
+    return secrets.compare_digest(x_chat_password, settings.chat_access_password)
 
 
 async def require_faith_rate_limit(request: Request) -> None:
@@ -51,6 +64,55 @@ async def require_faith_rate_limit(request: Request) -> None:
 
 async def require_a2p_rate_limit(request: Request) -> None:
     await _require_assistant_rate_limit("a2p-regulatory", get_client_ip(request))
+
+
+def _url_strength_rate_key(request: Request) -> str:
+    return f"url-strength:{get_client_ip(request)}"
+
+
+def peek_url_strength_limits(request: Request) -> tuple[int, int, int]:
+    url_strength_rate_limiter.max_requests = settings.url_strength_daily_limit
+    url_strength_rate_limiter.window_seconds = settings.url_strength_window_seconds
+    remaining, retry_after = url_strength_rate_limiter.peek(_url_strength_rate_key(request))
+    return settings.url_strength_daily_limit, remaining, retry_after
+
+
+async def require_unlock_rate_limit(request: Request) -> None:
+    unlock_rate_limiter.max_requests = settings.chat_unlock_rate_limit
+    unlock_rate_limiter.window_seconds = settings.chat_unlock_window_seconds
+    allowed, _, retry_after = unlock_rate_limiter.consume(f"unlock:{get_client_ip(request)}")
+    if allowed:
+        return
+
+    retry_minutes = max(1, (retry_after + 59) // 60)
+    raise HTTPException(
+        status_code=429,
+        detail=(
+            f"Too many unlock attempts ({settings.chat_unlock_rate_limit} per "
+            f"{settings.chat_unlock_window_minutes} minutes). "
+            f"Try again in about {retry_minutes} minute(s)."
+        ),
+        headers={"Retry-After": str(retry_after)},
+    )
+
+
+async def require_url_strength_rate_limit(request: Request) -> None:
+    url_strength_rate_limiter.max_requests = settings.url_strength_daily_limit
+    url_strength_rate_limiter.window_seconds = settings.url_strength_window_seconds
+    allowed, _, retry_after = url_strength_rate_limiter.consume(_url_strength_rate_key(request))
+    if allowed:
+        return
+
+    limit = settings.url_strength_daily_limit
+    retry_hours = max(1, (retry_after + 3599) // 3600)
+    raise HTTPException(
+        status_code=429,
+        detail=(
+            f"Daily URL analysis limit reached ({limit} per day for this personal demo). "
+            f"Try again in about {retry_hours} hour(s)."
+        ),
+        headers={"Retry-After": str(retry_after)},
+    )
 
 
 async def require_movie_rate_limit(

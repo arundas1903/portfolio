@@ -454,3 +454,44 @@ class PaymentRegisterVerifyResponse(BaseModel):
     blocked_reason: str | None = None
     sim_swap: SimSwapCheckResult | None = None
     alert_email_sent: bool = False
+
+
+class UrlStrengthLimitsResponse(BaseModel):
+    limit: int
+    remaining: int
+    retry_after_seconds: int
+    ai_unlocked: bool = False
+
+
+class UrlStrengthAnalyzeRequest(BaseModel):
+    url: str = Field(min_length=4, max_length=2048, description="Website URL to analyze.")
+    use_ai: bool = Field(
+        default=False,
+        description="When true, run OpenAI risk synthesis. Requires a valid access password.",
+    )
+
+
+class UrlStrengthSignalItem(BaseModel):
+    name: str
+    value: str
+    detail: str
+
+
+class UrlStrengthAnalyzeResponse(BaseModel):
+    input_url: str
+    final_url: str
+    risk_level: Literal["low", "medium", "high"]
+    summary: str
+    reasons: list[str]
+    content_assessment: str
+    recommendation: str
+    technologies: list[str]
+    technical_signals: list[UrlStrengthSignalItem]
+    spam_flags: list[str]
+    domain: str
+    domain_age_days: int | None = None
+    domain_registered_at: str | None = None
+    source: str
+    ai_tokens: int = 0
+    prompt_tokens: int = 0
+    completion_tokens: int = 0

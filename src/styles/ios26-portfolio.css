@@ -388,6 +388,41 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+.projects-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.projects-page {
+  min-height: 100dvh;
+  position: relative;
+}
+
+.projects-page__background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent-blue) 14%, transparent), transparent 45%),
+    var(--color-bg-grouped-primary);
+}
+
+.projects-page__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 48px;
+}
+
+.projects-page__header {
+  margin-bottom: 24px;
+}
+
+.projects-page__lead {
+  color: var(--color-label-secondary);
+  margin: 8px 0 0;
+}
+
 /* Contact form */
 .contact-grid {
   display: grid;

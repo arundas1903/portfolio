@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     chat_access_password: str = ""
     chat_rate_limit: int = 20
     chat_rate_window_minutes: int = 30
+    chat_unlock_rate_limit: int = 5
+    chat_unlock_window_minutes: int = 15
+    url_strength_daily_limit: int = 10
 
     movie_session_secret: str = ""
     movie_session_ttl_seconds: int = 60 * 60 * 24 * 14
@@ -25,6 +28,10 @@ class Settings(BaseSettings):
     @property
     def chat_rate_window_seconds(self) -> int:
         return self.chat_rate_window_minutes * 60
+
+    @property
+    def chat_unlock_window_seconds(self) -> int:
+        return self.chat_unlock_window_minutes * 60
 
     @property
     def resolved_movie_session_secret(self) -> str:
@@ -41,6 +48,10 @@ class Settings(BaseSettings):
     @property
     def chat_password_required(self) -> bool:
         return bool(self.chat_access_password.strip())
+
+    @property
+    def url_strength_window_seconds(self) -> int:
+        return 24 * 60 * 60
 
     @property
     def allowed_cors_origins(self) -> list[str]:

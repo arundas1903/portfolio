@@ -13,6 +13,7 @@ from app.routers.chat import router as chat_router
 from app.routers.movies import router as movies_router
 from app.routers.payment import router as payment_router
 from app.routers.tasks import router as tasks_router
+from app.routers.url_strength import router as url_strength_router
 from app.services.bfsi.database import init_db as init_bfsi_db
 from app.services.movies.database import init_db
 from app.services.tasks.database import init_db as init_tasks_db
@@ -52,6 +53,7 @@ app.include_router(chat_router)
 app.include_router(a2p_router)
 app.include_router(movies_router)
 app.include_router(tasks_router)
+app.include_router(url_strength_router)
 app.include_router(payment_router)
 app.include_router(bfsi_router)
 app.include_router(bfsi_v1_router, prefix="/api/bfsi")

@@ -1,7 +1,9 @@
+import secrets
+
 from fastapi import APIRouter, Depends, HTTPException, Request
 
 from app.config import settings
-from app.dependencies import get_client_ip, require_chat_password, require_faith_rate_limit
+from app.dependencies import get_client_ip, require_chat_password, require_faith_rate_limit, require_unlock_rate_limit
 from app.models import (
     ChatLimitsResponse,
     ChatRequest,
@@ -29,11 +31,14 @@ async def chat_access_status() -> UnlockResponse:
 
 
 @router.post("/chat/unlock", response_model=UnlockResponse)
-async def unlock_chat(request: UnlockRequest) -> UnlockResponse:
+async def unlock_chat(
+    request: UnlockRequest,
+    _: None = Depends(require_unlock_rate_limit),
+) -> UnlockResponse:
     if not settings.chat_password_required:
         return UnlockResponse(unlocked=True, required=False)
 
-    if request.password != settings.chat_access_password:
+    if not secrets.compare_digest(request.password, settings.chat_access_password):
         raise HTTPException(status_code=401, detail="Incorrect password")
 
     return UnlockResponse(unlocked=True, required=True)

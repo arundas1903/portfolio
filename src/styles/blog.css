@@ -1,3 +1,38 @@
+.blog-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.blog-index-page {
+  min-height: 100dvh;
+  position: relative;
+}
+
+.blog-index-page__background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--color-accent-indigo) 14%, transparent), transparent 45%),
+    var(--color-bg-grouped-primary);
+}
+
+.blog-index-page__inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 48px;
+}
+
+.blog-index-page__header {
+  margin-bottom: 24px;
+}
+
+.blog-index-page__lead {
+  color: var(--color-label-secondary);
+  margin: 8px 0 0;
+}
+
 .blog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
