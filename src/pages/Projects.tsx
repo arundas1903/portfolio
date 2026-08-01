@@ -67,14 +67,6 @@ const projects: Project[] = [
     technologies: ['CRM', 'API Integration', 'Data Sync'],
     accent: 'var(--color-accent-teal)',
   },
-  {
-    title: 'AI Based Campaigner for CRM Platforms',
-    description:
-      'AI-powered campaign orchestration tool for CRM platforms, enabling intelligent audience targeting and automated outreach.',
-    icon: '🤖',
-    technologies: ['AI', 'CRM', 'Campaigns'],
-    accent: 'var(--color-accent-purple)',
-  },
 ];
 
 const Projects = () => {
