@@ -10,6 +10,8 @@ declare module 'mixpanel-browser' {
     people: MixpanelPeople;
     register(properties: Record<string, unknown>): void;
     reset(): void;
+    has_opted_out_tracking(): boolean;
+    opt_in_tracking(): void;
   }
 
   const mixpanel: Mixpanel;

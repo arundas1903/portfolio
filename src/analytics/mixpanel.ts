@@ -1,19 +1,56 @@
 import mixpanel from 'mixpanel-browser';
 
 const TOKEN = process.env.REACT_APP_MIXPANEL_TOKEN?.trim() ?? '';
+const API_HOST = process.env.REACT_APP_MIXPANEL_API_HOST?.trim();
 
 let initialized = false;
 
+function isDebugEnabled(): boolean {
+  if (process.env.NODE_ENV === 'development') {
+    return true;
+  }
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  return new URLSearchParams(window.location.search).has('mp_debug');
+}
+
+function buildInitConfig(persistence: 'localStorage' | 'cookie') {
+  return {
+    debug: isDebugEnabled(),
+    track_pageview: false,
+    persistence,
+    ignore_dnt: true,
+    ...(API_HOST ? { api_host: API_HOST } : {}),
+  };
+}
+
 export function initMixpanel(): void {
-  if (!TOKEN || initialized || typeof window === 'undefined') {
+  if (typeof window === 'undefined') {
     return;
   }
 
-  mixpanel.init(TOKEN, {
-    debug: process.env.NODE_ENV === 'development',
-    track_pageview: false,
-    persistence: 'localStorage',
-  });
+  if (!TOKEN) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('[mixpanel] REACT_APP_MIXPANEL_TOKEN is not set — analytics disabled');
+    }
+    return;
+  }
+
+  if (initialized) {
+    return;
+  }
+
+  try {
+    mixpanel.init(TOKEN, buildInitConfig('localStorage'));
+  } catch (error) {
+    console.warn('[mixpanel] localStorage init failed, falling back to cookie persistence', error);
+    mixpanel.init(TOKEN, buildInitConfig('cookie'));
+  }
+
+  if (mixpanel.has_opted_out_tracking()) {
+    mixpanel.opt_in_tracking();
+  }
 
   mixpanel.register({
     app: 'portfolio',
@@ -21,6 +58,10 @@ export function initMixpanel(): void {
   });
 
   initialized = true;
+
+  if (isDebugEnabled()) {
+    console.info('[mixpanel] initialized', { token: `${TOKEN.slice(0, 6)}…`, apiHost: API_HOST || 'default' });
+  }
 }
 
 export function isMixpanelEnabled(): boolean {
@@ -31,7 +72,12 @@ export function trackEvent(event: string, properties?: Record<string, unknown>):
   if (!initialized) {
     return;
   }
+
   mixpanel.track(event, properties);
+
+  if (isDebugEnabled()) {
+    console.info('[mixpanel] track', event, properties);
+  }
 }
 
 export function trackPageView(path: string, properties?: Record<string, unknown>): void {
