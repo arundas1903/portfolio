@@ -35,8 +35,15 @@ export default function Button({
   }
 
   if (href) {
+    const { onClick } = props;
     return (
-      <a href={href} className={classes} target="_blank" rel="noopener noreferrer">
+      <a
+        href={href}
+        className={classes}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick as React.MouseEventHandler<HTMLAnchorElement> | undefined}
+      >
         {children}
       </a>
     );
