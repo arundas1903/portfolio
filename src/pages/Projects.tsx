@@ -24,6 +24,15 @@ const projects: Project[] = [
     liveDemo: chatDeepLink('movie-discuss'),
   },
   {
+    title: 'Daily Task Tracker',
+    description:
+      'Google Keep–style daily notes with date-linked history, labels, and an AI task analyzer that extracts priorities and action items from your notes.',
+    icon: '📝',
+    technologies: ['React', 'FastAPI', 'OpenAI', 'SQLite'],
+    accent: 'var(--color-accent-yellow)',
+    liveDemo: '/task-tracker',
+  },
+  {
     title: 'A2P Regulatory MCP',
     description:
       'Model Context Protocol server for AI-assisted A2P SMS regulatory intelligence — country lookup, registration rules, and onboarding guidance across 190+ markets.',

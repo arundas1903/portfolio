@@ -28,6 +28,7 @@ mcp/**/.venv/
 backend/.env
 backend/data/movies.db
 backend/data/bfsi.db
+backend/data/tasks.db
 backend/__pycache__/
 backend/**/__pycache__/
 *.pyc

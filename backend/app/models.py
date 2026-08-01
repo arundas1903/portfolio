@@ -279,3 +279,104 @@ class BfsiUsageResponse(BaseModel):
     baseline_cost_paise: int
     savings_paise: int
     savings_percent: float
+
+
+class TaskNoteAnalysisTask(BaseModel):
+    title: str
+    priority: Literal["high", "medium", "low"] = "medium"
+
+
+class TaskNoteAnalysis(BaseModel):
+    summary: str
+    tasks: list[TaskNoteAnalysisTask]
+    focus: str
+    source: str = "openai"
+
+
+class TaskNoteItem(BaseModel):
+    id: str
+    title: str
+    content: str
+    note_date: str
+    labels: list[str]
+    ai_analysis: TaskNoteAnalysis | None = None
+    created_at: str
+    updated_at: str
+
+
+class TaskNoteCreateRequest(BaseModel):
+    title: str = Field(default="", max_length=200)
+    content: str = Field(min_length=1, max_length=10000)
+    note_date: str = Field(min_length=10, max_length=10, pattern=r"^\d{4}-\d{2}-\d{2}$")
+    labels: list[str] = Field(default_factory=list, max_length=20)
+
+
+class TaskNoteUpdateRequest(BaseModel):
+    title: str = Field(default="", max_length=200)
+    content: str = Field(min_length=1, max_length=10000)
+    note_date: str = Field(min_length=10, max_length=10, pattern=r"^\d{4}-\d{2}-\d{2}$")
+    labels: list[str] = Field(default_factory=list, max_length=20)
+
+
+class TaskNoteListResponse(BaseModel):
+    items: list[TaskNoteItem]
+    total: int
+
+
+class TaskNoteDateSummary(BaseModel):
+    note_date: str
+    note_count: int
+
+
+class TaskNoteDatesResponse(BaseModel):
+    dates: list[TaskNoteDateSummary]
+
+
+class TaskNoteLabelsResponse(BaseModel):
+    labels: list[str]
+
+
+class TaskNoteAnalysisResponse(BaseModel):
+    note: TaskNoteItem
+    analysis: TaskNoteAnalysis
+
+
+class TaskNoteSummarizeRequest(BaseModel):
+    date_from: str = Field(min_length=10, max_length=10, pattern=r"^\d{4}-\d{2}-\d{2}$")
+    date_to: str = Field(min_length=10, max_length=10, pattern=r"^\d{4}-\d{2}-\d{2}$")
+
+
+class TaskNoteSummarySection(BaseModel):
+    label: str
+    summary: str
+    highlights: list[str]
+    tasks: list[TaskNoteAnalysisTask]
+
+
+class TaskNoteSummarizeResponse(BaseModel):
+    date_from: str
+    date_to: str
+    note_count: int
+    overview: str
+    sections: list[TaskNoteSummarySection]
+    source: str
+
+
+class TaskUserProfile(BaseModel):
+    email: str
+    created_at: str
+
+
+class TaskAuthRegisterRequest(BaseModel):
+    email: str = Field(min_length=5, max_length=254)
+    password: str = Field(min_length=8, max_length=128)
+
+
+class TaskAuthLoginRequest(BaseModel):
+    email: str = Field(min_length=5, max_length=254)
+    password: str = Field(min_length=1, max_length=128)
+
+
+class TaskAuthResponse(BaseModel):
+    token: str
+    user: TaskUserProfile

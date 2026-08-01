@@ -13,6 +13,7 @@ import './styles/a2p-regulatory-mcp.css';
 import './styles/poc-bfsi-sms.css';
 import './styles/poc-bfsi-sms-2.css';
 import './styles/payment-poc-app.css';
+import './styles/task-tracker.css';
 import PortfolioApp from './PortfolioApp';
 import A2PAtlasPage from './a2p-atlas/A2PAtlasPage';
 import A2PRegulatoryMcpPage from './pages/A2PRegulatoryMcpPage';
@@ -21,6 +22,7 @@ import ExperiencePage from './pages/ExperiencePage';
 import BfsiSmsPage from './pages/poc-bfsi-sms/BfsiSmsPage';
 import Bfsi2SmsPage from './pages/poc-bfsi-sms-2/Bfsi2SmsPage';
 import PaymentPocApp from './pages/payment-poc-app/PaymentPocApp';
+import TaskTrackerPage from './pages/task-tracker/TaskTrackerPage';
 import ChatWidget from './components/ChatWidget';
 
 function ScrollManager() {
@@ -54,7 +56,7 @@ function ScrollManager() {
 
 function AppRoutes() {
   const { pathname } = useLocation();
-  const hideChat = pathname === '/payment-poc-app';
+  const hideChat = pathname === '/payment-poc-app' || pathname === '/task-tracker';
 
   return (
     <>
@@ -67,6 +69,7 @@ function AppRoutes() {
         <Route path="/poc-bfsi-sms" element={<BfsiSmsPage />} />
         <Route path="/poc-bfsi-sms-2" element={<Bfsi2SmsPage />} />
         <Route path="/payment-poc-app" element={<PaymentPocApp />} />
+        <Route path="/task-tracker" element={<TaskTrackerPage />} />
       </Routes>
       {!hideChat && <ChatWidget />}
     </>

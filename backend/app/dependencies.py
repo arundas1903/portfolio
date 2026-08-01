@@ -1,9 +1,11 @@
-from fastapi import Header, HTTPException, Request
+from fastapi import Depends, Header, HTTPException, Request
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from app.config import settings
 from app.services.rate_limit import SlidingWindowRateLimiter
 
 assistant_rate_limiter = SlidingWindowRateLimiter(max_requests=20, window_seconds=30 * 60)
+_task_bearer = HTTPBearer(auto_error=False)
 
 
 def get_client_ip(request: Request) -> str:
@@ -84,3 +86,23 @@ async def _require_assistant_rate_limit(assistant_id: str, subject: str) -> None
         ),
         headers={"Retry-After": str(retry_after)},
     )
+
+
+async def get_task_user_email(
+    credentials: HTTPAuthorizationCredentials | None = Depends(_task_bearer),
+) -> str:
+    from app.services.tasks import database as task_db
+    from app.services.tasks.auth import verify_session_token
+
+    if credentials is None or credentials.scheme.lower() != "bearer":
+        raise HTTPException(status_code=401, detail="Authentication required.")
+
+    email = verify_session_token(credentials.credentials)
+    if not email:
+        raise HTTPException(status_code=401, detail="Session expired or invalid.")
+
+    user = task_db.get_user(email)
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found.")
+
+    return email
