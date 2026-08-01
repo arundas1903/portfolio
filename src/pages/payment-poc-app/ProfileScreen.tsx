@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../../components/ios26/Button';
 import GlassCard from '../../components/ios26/GlassCard';
+import { getPaymentApiDocsUrl } from '../../api/payment';
 import type { PaymentProfile } from './types';
 
 interface ProfileScreenProps {
@@ -29,6 +30,32 @@ export default function ProfileScreen({ profile, onReset }: ProfileScreenProps) 
           <span className="ios26-footnote">UPI PIN</span>
           <span className="ios26-caption2 pay-muted">••••</span>
         </div>
+      </GlassCard>
+
+      <GlassCard size="la" className="pay-docs-card">
+        <p className="pay-docs-card__eyebrow ios26-caption2">Network API</p>
+        <h2 className="ios26-headline">Carrier intelligence</h2>
+        <p className="ios26-footnote pay-muted">
+          Network APIs require the <code className="pay-docs-code">X-BFSI-Owner-Email</code> header
+          (same as BFSI v1/v2). SIM swap checks cost 5 paise and appear in BFSI logs under the
+          network channel.
+        </p>
+        <ul className="pay-docs-list ios26-caption2 pay-muted">
+          <li>
+            <strong>sim_swap</strong> — status, days since swap, risk level
+          </li>
+          <li>
+            <strong>location</strong> — country, region, city, carrier
+          </li>
+        </ul>
+        <a
+          className="pay-docs-link ios26-footnote"
+          href={getPaymentApiDocsUrl()}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open API docs (Swagger) →
+        </a>
       </GlassCard>
 
       <Button variant="tinted" type="button" onClick={onReset}>

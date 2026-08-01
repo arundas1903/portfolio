@@ -232,6 +232,17 @@
   gap: 8px;
 }
 
+.bfsi2-simswap-preview {
+  margin: 0 0 10px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--kale-bg);
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-x: auto;
+  font-size: 0.82rem;
+}
+
 .bfsi2-template-id {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.75rem;

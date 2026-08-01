@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../components/ios26/Button';
 import GlassCard from '../../components/ios26/GlassCard';
-import { DEMO_RECIPIENT } from './types';
+import { checkPaymentNetwork } from '../../api/payment';
+import type { NetworkCheckResult } from '../../types/payment-network';
+import { isHighRiskNetworkCheck } from '../../types/payment-network';
+import { DEMO_RECIPIENT, getBfsiOwnerEmail } from './types';
+import NetworkCheckPanel from './NetworkCheckPanel';
 
 interface PayScreenProps {
   balance: number;
+  phone: string;
   paying?: boolean;
   error?: string;
   onBack: () => void;
@@ -20,15 +25,68 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-export default function PayScreen({ balance, paying = false, error: externalError, onBack, onPay }: PayScreenProps) {
+export default function PayScreen({
+  balance,
+  phone,
+  paying = false,
+  error: externalError,
+  onBack,
+  onPay,
+}: PayScreenProps) {
   const [amount, setAmount] = useState('');
   const [localError, setLocalError] = useState('');
+  const [networkLoading, setNetworkLoading] = useState(false);
+  const [networkError, setNetworkError] = useState('');
+  const [networkResult, setNetworkResult] = useState<NetworkCheckResult | null>(null);
 
   const parsedAmount = Number(amount);
-  const canPay = parsedAmount > 0 && parsedAmount <= balance && !paying;
+  const networkBlocked = isHighRiskNetworkCheck(networkResult);
+  const canPay = parsedAmount > 0 && parsedAmount <= balance && !paying && !networkLoading && !networkBlocked;
   const error = externalError || localError;
 
+  useEffect(() => {
+    let cancelled = false;
+
+    const runNetworkCheck = async () => {
+      if (!phone.trim()) {
+        setNetworkError('Add a phone number in setup to run network checks.');
+        setNetworkResult(null);
+        return;
+      }
+
+      setNetworkLoading(true);
+      setNetworkError('');
+
+      try {
+        const result = await checkPaymentNetwork({
+          phone_number: phone,
+          sim_swap: true,
+          location: true,
+          ownerEmail: getBfsiOwnerEmail(),
+        });
+        if (!cancelled) setNetworkResult(result);
+      } catch (err) {
+        if (!cancelled) {
+          setNetworkError(err instanceof Error ? err.message : 'Network check failed');
+          setNetworkResult(null);
+        }
+      } finally {
+        if (!cancelled) setNetworkLoading(false);
+      }
+    };
+
+    runNetworkCheck();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [phone]);
+
   const handlePay = async () => {
+    if (networkBlocked) {
+      setLocalError('Payment blocked — recent SIM swap detected on this number.');
+      return;
+    }
     if (!canPay) {
       setLocalError(parsedAmount > balance ? 'Insufficient balance' : 'Enter an amount');
       return;
@@ -79,6 +137,8 @@ export default function PayScreen({ balance, paying = false, error: externalErro
         </div>
       </GlassCard>
 
+      <NetworkCheckPanel loading={networkLoading} error={networkError} result={networkResult} />
+
       <label className="pay-amount-display">
         <span className="ios26-title2 pay-muted">₹</span>
         <input
@@ -108,7 +168,7 @@ export default function PayScreen({ balance, paying = false, error: externalErro
       </div>
 
       <Button variant="filled" type="button" disabled={!canPay} onClick={handlePay}>
-        {paying ? 'Processing…' : `Pay ₹${amount || '0'}`}
+        {paying ? 'Processing…' : networkBlocked ? 'Blocked — SIM swap risk' : `Pay ₹${amount || '0'}`}
       </Button>
     </div>
   );

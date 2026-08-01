@@ -2,12 +2,16 @@ from __future__ import annotations
 
 from app.services.bfsi import database as db
 from app.services.bfsi.intelligence import classify_transaction_message
-from app.services.bfsi.pricing import get_channel_price_paise
+from app.services.bfsi.pricing import get_channel_price_paise, get_sim_swap_price_paise
 
 AMOUNT_VARIABLE = "{amount}"
 SMS_CHANNEL = "sms"
 V2_TEMPLATE_ID = "v2"
 V2_TEMPLATE_NAME = "V2 · AI routing"
+SIM_SWAP_TEMPLATE_ID = "sim-swap"
+SIM_SWAP_TEMPLATE_NAME = "SIM swap alert email"
+SIM_SWAP_CHECK_TEMPLATE_ID = "sim-swap-check"
+SIM_SWAP_CHECK_TEMPLATE_NAME = "Network · SIM swap check"
 
 
 def pick_channel(template: dict, amount: float) -> str:
@@ -176,3 +180,66 @@ async def send_notification_v2(
         "routing_reason": routing_reason,
         "created_at": record["created_at"],
     }, None
+
+
+def send_sim_swap_alert_email(
+    *,
+    owner_email: str,
+    customer_email: str,
+    customer_phone: str,
+    message: str,
+) -> tuple[dict | None, str | None]:
+    normalized_email = (customer_email or "").strip()
+    if not normalized_email:
+        return None, "Customer email is required to send a SIM swap alert."
+
+    routing_reason = "SIM swap detected during UPI registration — sent configured alert email."
+    price_paise = get_channel_price_paise("email")
+    record = db.create_notification(
+        template_id=SIM_SWAP_TEMPLATE_ID,
+        template_owner=db.normalize_email(owner_email),
+        template_name=SIM_SWAP_TEMPLATE_NAME,
+        amount=0.0,
+        channel="email",
+        message=message.strip(),
+        audience_email=normalized_email,
+        audience_phone=(customer_phone or "").strip() or None,
+        routing_reason=routing_reason,
+        price_paise=price_paise,
+    )
+
+    return {
+        "notification_id": record["id"],
+        "channel": "email",
+        "message": record["message"],
+        "audience": {
+            "email": record["audience_email"],
+            "phone": record["audience_phone"],
+        },
+        "status": record["status"],
+        "routing_reason": routing_reason,
+        "created_at": record["created_at"],
+    }, None
+
+
+def log_sim_swap_network_check(
+    *,
+    owner_email: str,
+    phone_number: str,
+    sim_swap_status: str,
+) -> dict:
+    price_paise = get_sim_swap_price_paise()
+    routing_reason = f"SIM swap network check for {phone_number} — status: {sim_swap_status}."
+    record = db.create_notification(
+        template_id=SIM_SWAP_CHECK_TEMPLATE_ID,
+        template_owner=db.normalize_email(owner_email),
+        template_name=SIM_SWAP_CHECK_TEMPLATE_NAME,
+        amount=0.0,
+        channel="network",
+        message=f"SIM swap check · {phone_number} · {sim_swap_status}",
+        audience_email=None,
+        audience_phone=phone_number,
+        routing_reason=routing_reason,
+        price_paise=price_paise,
+    )
+    return record

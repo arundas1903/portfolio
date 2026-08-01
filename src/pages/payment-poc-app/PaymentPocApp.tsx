@@ -145,6 +145,7 @@ export default function PaymentPocApp() {
           {state.onboarded && flow === 'pay' && (
             <PayScreen
               balance={state.profile.balance}
+              phone={state.profile.phone}
               paying={paying}
               error={payError}
               onBack={() => {

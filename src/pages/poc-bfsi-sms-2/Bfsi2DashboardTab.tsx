@@ -61,7 +61,7 @@ export default function Bfsi2DashboardTab() {
           </div>
           <p className="kale-text-300">
             SMS {usage.channel_prices.sms} paise · Email {usage.channel_prices.email} paise · Push{' '}
-            {usage.channel_prices.push} paise
+            {usage.channel_prices.push} paise · Network {usage.channel_prices.network} paise
           </p>
         </div>
       )}

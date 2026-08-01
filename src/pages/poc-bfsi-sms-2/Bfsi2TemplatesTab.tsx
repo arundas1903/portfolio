@@ -28,6 +28,7 @@ import {
   type BfsiTemplate,
   type NotificationChannel,
 } from '../../types/bfsi';
+import Bfsi2SimSwapEmailSection from '../../components/bfsi/Bfsi2SimSwapEmailSection';
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString(undefined, {
@@ -368,6 +369,8 @@ export default function Bfsi2TemplatesTab() {
           <strong>bfsi-v2</strong> tags and require the <code>X-BFSI-Owner-Email</code> header.
         </p>
       </KaleCard>
+
+      <Bfsi2SimSwapEmailSection />
 
       <KaleCard className="bfsi2-panel">
         <div className="bfsi2-panel__header">

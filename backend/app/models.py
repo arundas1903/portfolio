@@ -97,7 +97,7 @@ class MovieChatResponse(BaseModel):
     movie_context: str | None = None
 
 
-NotificationChannel = Literal["sms", "email", "push"]
+NotificationChannel = Literal["sms", "email", "push", "network"]
 
 
 class BfsiSessionStartRequest(BaseModel):
@@ -173,6 +173,21 @@ class BfsiDefaultConfigPauseRequest(BaseModel):
 
 class BfsiDefaultConfigStatusResponse(BaseModel):
     config: BfsiDefaultConfigResponse | None = None
+
+
+class BfsiSimSwapEmailConfigUpsertRequest(BaseModel):
+    email_content: str = Field(min_length=1, max_length=5000)
+
+
+class BfsiSimSwapEmailConfigResponse(BaseModel):
+    email: str
+    email_content: str
+    created_at: str
+    updated_at: str
+
+
+class BfsiSimSwapEmailConfigStatusResponse(BaseModel):
+    config: BfsiSimSwapEmailConfigResponse | None = None
 
 
 class BfsiNotificationAudience(BaseModel):
@@ -274,6 +289,7 @@ class BfsiUsageResponse(BaseModel):
     total_usage_paise: int
     total_ai_tokens: int = 0
     send_count: int
+    notification_count: int
     channel_prices: dict[str, int]
     channel_counts: dict[str, int]
     baseline_cost_paise: int
@@ -380,3 +396,61 @@ class TaskAuthLoginRequest(BaseModel):
 class TaskAuthResponse(BaseModel):
     token: str
     user: TaskUserProfile
+
+
+class NetworkCheckRequest(BaseModel):
+    phone_number: str = Field(
+        min_length=10,
+        max_length=20,
+        description="Mobile number with country code or local 10-digit format.",
+        examples=["9876543210", "+919876543210"],
+    )
+    sim_swap: bool = Field(
+        default=True,
+        description="When true, include SIM swap status and risk level in the response.",
+    )
+    location: bool = Field(
+        default=True,
+        description="When true, include approximate country, region, city, and carrier.",
+    )
+
+
+class SimSwapCheckResult(BaseModel):
+    checked: bool
+    status: Literal["no_swap", "recent_swap", "unknown"]
+    swapped_within_days: int | None = Field(
+        default=None,
+        description="Days since last SIM swap when status is recent_swap.",
+    )
+    risk_level: Literal["low", "medium", "high"]
+
+
+class LocationCheckResult(BaseModel):
+    checked: bool
+    country: str
+    region: str
+    city: str
+    carrier: str
+
+
+class NetworkCheckResponse(BaseModel):
+    phone_number: str = Field(description="Normalized 10-digit mobile number.")
+    checked_at: str = Field(description="ISO-8601 UTC timestamp of the check.")
+    sim_swap: SimSwapCheckResult | None = None
+    location: LocationCheckResult | None = None
+    price_paise: int | None = Field(
+        default=None,
+        description="Usage cost in paise when a SIM swap check is performed (5 paise).",
+    )
+
+
+class PaymentRegisterVerifyRequest(BaseModel):
+    phone_number: str = Field(min_length=10, max_length=20)
+    email: str = Field(min_length=5, max_length=254)
+
+
+class PaymentRegisterVerifyResponse(BaseModel):
+    allowed: bool
+    blocked_reason: str | None = None
+    sim_swap: SimSwapCheckResult | None = None
+    alert_email_sent: bool = False

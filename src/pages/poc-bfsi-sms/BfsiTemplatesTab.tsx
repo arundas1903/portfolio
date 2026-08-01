@@ -18,6 +18,7 @@ import {
   type BfsiTemplate,
   type NotificationChannel,
 } from '../../types/bfsi';
+import SimSwapEmailSection from '../../components/bfsi/SimSwapEmailSection';
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString(undefined, {
@@ -384,6 +385,8 @@ export default function BfsiTemplatesTab() {
           <strong>bfsi-v2</strong> tags and require the <code>X-BFSI-Owner-Email</code> header.
         </p>
       </section>
+
+      <SimSwapEmailSection />
 
       <section className="bfsi-panel ios26-liquid-glass-la glass-surface">
         <div className="bfsi-panel__header">

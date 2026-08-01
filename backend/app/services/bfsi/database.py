@@ -11,7 +11,7 @@ BACKEND_DIR = Path(__file__).resolve().parents[3]
 DATA_DIR = BACKEND_DIR / "data"
 DB_PATH = DATA_DIR / "bfsi.db"
 
-NOTIFICATION_CHANNELS = frozenset({"sms", "email", "push"})
+NOTIFICATION_CHANNELS = frozenset({"sms", "email", "push", "network"})
 
 
 def _utc_now() -> str:
@@ -79,6 +79,13 @@ def init_db() -> None:
                 channel_if_above TEXT NOT NULL,
                 channel_if_below TEXT NOT NULL,
                 paused INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS sim_swap_email_configs (
+                email TEXT PRIMARY KEY,
+                email_content TEXT NOT NULL,
                 created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL
             );
@@ -402,6 +409,49 @@ def get_active_default_config(email: str) -> dict[str, Any] | None:
     return config
 
 
+def get_sim_swap_email_config(email: str) -> dict[str, Any] | None:
+    email = normalize_email(email)
+    with get_connection() as conn:
+        row = conn.execute("SELECT * FROM sim_swap_email_configs WHERE email = ?", (email,)).fetchone()
+    return _row_to_sim_swap_email_config(row) if row else None
+
+
+def upsert_sim_swap_email_config(email: str, *, email_content: str) -> dict[str, Any]:
+    email = normalize_email(email)
+    now = _utc_now()
+    with get_connection() as conn:
+        existing = conn.execute(
+            "SELECT email FROM sim_swap_email_configs WHERE email = ?",
+            (email,),
+        ).fetchone()
+        if existing:
+            conn.execute(
+                """
+                UPDATE sim_swap_email_configs
+                SET email_content = ?, updated_at = ?
+                WHERE email = ?
+                """,
+                (email_content.strip(), now, email),
+            )
+        else:
+            conn.execute(
+                """
+                INSERT INTO sim_swap_email_configs (email, email_content, created_at, updated_at)
+                VALUES (?, ?, ?, ?)
+                """,
+                (email, email_content.strip(), now, now),
+            )
+        row = conn.execute("SELECT * FROM sim_swap_email_configs WHERE email = ?", (email,)).fetchone()
+    return _row_to_sim_swap_email_config(row)
+
+
+def delete_sim_swap_email_config(email: str) -> bool:
+    email = normalize_email(email)
+    with get_connection() as conn:
+        deleted = conn.execute("DELETE FROM sim_swap_email_configs WHERE email = ?", (email,)).rowcount
+    return deleted > 0
+
+
 def create_notification(
     *,
     template_id: str,
@@ -482,7 +532,8 @@ def get_usage_summary(email: str) -> dict[str, Any]:
                 COUNT(*) AS send_count,
                 COALESCE(SUM(CASE WHEN channel = 'sms' THEN 1 ELSE 0 END), 0) AS sms_count,
                 COALESCE(SUM(CASE WHEN channel = 'email' THEN 1 ELSE 0 END), 0) AS email_count,
-                COALESCE(SUM(CASE WHEN channel = 'push' THEN 1 ELSE 0 END), 0) AS push_count
+                COALESCE(SUM(CASE WHEN channel = 'push' THEN 1 ELSE 0 END), 0) AS push_count,
+                COALESCE(SUM(CASE WHEN channel = 'network' THEN 1 ELSE 0 END), 0) AS network_count
             FROM notifications
             WHERE template_owner = ?
             """,
@@ -496,6 +547,7 @@ def get_usage_summary(email: str) -> dict[str, Any]:
             "sms": int(row["sms_count"]),
             "email": int(row["email_count"]),
             "push": int(row["push_count"]),
+            "network": int(row["network_count"]),
         },
     }
 
@@ -516,6 +568,15 @@ def _row_to_notification(row: sqlite3.Row) -> dict[str, Any]:
         "ai_tokens": int(row["ai_tokens"]) if row["ai_tokens"] is not None else None,
         "status": row["status"],
         "created_at": row["created_at"],
+    }
+
+
+def _row_to_sim_swap_email_config(row: sqlite3.Row) -> dict[str, Any]:
+    return {
+        "email": row["email"],
+        "email_content": row["email_content"],
+        "created_at": row["created_at"],
+        "updated_at": row["updated_at"],
     }
 
 

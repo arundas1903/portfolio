@@ -113,7 +113,7 @@ Re-run the **Deploy to GitHub Pages** workflow (or push to `main`). The producti
 
 - Free Render services spin down after inactivity; the first request after idle may take ~30s (cold start).
 - CORS already allows `https://arundas.me` and `https://www.arundas.me`.
-- Public API docs: `https://api.arundas.me/docs` (BFSI endpoints only).
+- Public API docs: `https://api.arundas.me/docs` (BFSI notification + Payment network APIs).
 - To redeploy the API, push to `main` — Render auto-deploys from GitHub.
 
 ## Build

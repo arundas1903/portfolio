@@ -1,4 +1,4 @@
-export type NotificationChannel = 'sms' | 'email' | 'push';
+export type NotificationChannel = 'sms' | 'email' | 'push' | 'network';
 
 export type BfsiTab = 'dashboard' | 'templates';
 
@@ -72,6 +72,7 @@ export interface BfsiUsage {
   total_usage_paise: number;
   total_ai_tokens: number;
   send_count: number;
+  notification_count: number;
   channel_prices: Record<NotificationChannel, number>;
   channel_counts: Record<NotificationChannel, number>;
   baseline_cost_paise: number;
@@ -119,3 +120,28 @@ export const AMOUNT_VARIABLE = '{amount}';
 
 export const DEFAULT_TEMPLATE_CONTENT =
   'Hi, your transaction of {amount} rupees is successful.';
+
+export const DEFAULT_SIM_SWAP_EMAIL_CONTENT = `Dear Customer,
+
+We detected a SIM swap on your registered mobile number within the last 24 hours. For your security, please review this activity immediately.
+
+If this was not you, block all transactions on your account using the link below:
+https://bank.example.com/block-transactions
+
+Once blocked, transactions cannot be resumed online. To unblock your account, please contact your bank branch or call our 24/7 helpline.
+
+If this was you, no action is required.
+
+Regards,
+Bank Security Team`;
+
+export interface BfsiSimSwapEmailConfig {
+  email: string;
+  email_content: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BfsiSimSwapEmailConfigInput {
+  email_content: string;
+}

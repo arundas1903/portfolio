@@ -34,6 +34,7 @@ function channelLabel(channel: string): string {
   if (channel === 'sms') return 'SMS';
   if (channel === 'email') return 'Email';
   if (channel === 'push') return 'Push';
+  if (channel === 'network') return 'Network';
   return channel;
 }
 
@@ -41,7 +42,7 @@ function deliveryAudience(log: BfsiNotificationLog): string {
   if (log.channel === 'email') {
     return log.audience_email ?? '—';
   }
-  if (log.channel === 'sms' || log.channel === 'push') {
+  if (log.channel === 'sms' || log.channel === 'push' || log.channel === 'network') {
     return log.audience_phone ?? '—';
   }
   return log.audience_phone ?? log.audience_email ?? '—';
@@ -82,14 +83,16 @@ export default function BfsiLogsTab({ onUsageUpdate }: BfsiLogsTabProps) {
   return (
     <>
       <p className="ios26-footnote bfsi-muted">
-        Successful send API calls for your templates — {total} total.
+        Notifications and network API checks — {total} total.
       </p>
 
       {loading && <p className="ios26-footnote bfsi-muted">Loading logs…</p>}
       {error && <p className="bfsi-error ios26-caption2">{error}</p>}
 
       {!loading && !error && logs.length === 0 && (
-        <p className="ios26-footnote bfsi-muted">No sends yet. Call the v1 send API to create logs.</p>
+        <p className="ios26-footnote bfsi-muted">
+          No activity yet. Send notifications or run SIM swap network checks to create logs.
+        </p>
       )}
 
       {!loading && logs.length > 0 && (

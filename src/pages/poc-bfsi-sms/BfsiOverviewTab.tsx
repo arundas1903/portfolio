@@ -17,6 +17,7 @@ const CHANNEL_STATS = [
   { key: 'sms' as const, label: 'SMS', unit: 'messages' },
   { key: 'email' as const, label: 'Email', unit: 'messages' },
   { key: 'push' as const, label: 'Push notifications', unit: 'sent' },
+  { key: 'network' as const, label: 'Network API', unit: 'SIM swap checks' },
 ];
 
 export default function BfsiOverviewTab({ usage, loading }: BfsiOverviewTabProps) {
@@ -71,13 +72,13 @@ export default function BfsiOverviewTab({ usage, loading }: BfsiOverviewTabProps
             <span className="ios26-footnote">If SMS were the default channel</span>
             <span className="ios26-headline">{formatMoney(usage.baseline_cost_paise)}</span>
             <span className="ios26-caption2 bfsi-muted">
-              {usage.send_count} × {smsPrice} paise
+              {usage.notification_count} × {smsPrice} paise
             </span>
           </div>
           <div className="bfsi-roi-compare__row">
             <span className="ios26-footnote">Actual cost with smart routing</span>
             <span className="ios26-headline">{formatMoney(usage.total_usage_paise)}</span>
-            <span className="ios26-caption2 bfsi-muted">SMS, email & push mix</span>
+            <span className="ios26-caption2 bfsi-muted">SMS, email, push & network mix</span>
           </div>
         </div>
 

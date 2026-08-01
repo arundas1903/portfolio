@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../components/ios26/Button';
 import GlassCard from '../../components/ios26/GlassCard';
+import { verifyPaymentRegistration } from '../../api/payment';
+import { getBfsiOwnerEmail } from './types';
 import {
   clearStoredBrowserEmail,
   getStoredBrowserEmail,
@@ -15,6 +17,7 @@ export default function SetupGate({ onComplete }: SetupGateProps) {
   const [phone, setPhone] = useState('');
   const [browserEmail, setBrowserEmail] = useState<string | null>(null);
   const [error, setError] = useState('');
+  const [checking, setChecking] = useState(false);
 
   useEffect(() => {
     const stored = getStoredBrowserEmail();
@@ -31,7 +34,7 @@ export default function SetupGate({ onComplete }: SetupGateProps) {
     setError('');
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const trimmedEmail = email.trim();
     const trimmedPhone = phone.trim();
@@ -46,8 +49,30 @@ export default function SetupGate({ onComplete }: SetupGateProps) {
       return;
     }
 
+    setChecking(true);
     setError('');
-    onComplete(trimmedEmail, trimmedPhone);
+
+    try {
+      const result = await verifyPaymentRegistration({
+        phone_number: trimmedPhone,
+        email: trimmedEmail,
+        ownerEmail: getBfsiOwnerEmail(),
+      });
+
+      if (!result.allowed) {
+        setError(
+          result.blocked_reason ??
+            'Your SIM was swapped recently. You cannot register for one day. Please contact your bank.',
+        );
+        return;
+      }
+
+      onComplete(trimmedEmail, trimmedPhone);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not verify registration');
+    } finally {
+      setChecking(false);
+    }
   };
 
   const emailLocked = Boolean(browserEmail);
@@ -57,8 +82,8 @@ export default function SetupGate({ onComplete }: SetupGateProps) {
       <GlassCard size="la" className="pay-setup-card">
         <h1 className="ios26-title2">Welcome to UPI Pay</h1>
         <p className="ios26-footnote pay-muted">
-          Enter your contact details to receive transaction alerts. One email per browser for this
-          demo.
+          Enter your contact details to receive transaction alerts. We check your number for recent
+          SIM swaps before registration. One email per browser for this demo.
         </p>
 
         <form className="pay-setup-form" onSubmit={handleSubmit}>
@@ -71,7 +96,7 @@ export default function SetupGate({ onComplete }: SetupGateProps) {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               autoComplete="email"
-              disabled={emailLocked}
+              disabled={emailLocked || checking}
               required
             />
           </label>
@@ -89,22 +114,30 @@ export default function SetupGate({ onComplete }: SetupGateProps) {
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="+919876543210"
+              placeholder="9999999999"
               autoComplete="tel"
+              disabled={checking}
               required
             />
+            <span className="ios26-caption2 pay-muted">
+              Demo: use 9999999999 to simulate a recent SIM swap (registration blocked).
+            </span>
           </label>
 
           {error && <p className="pay-error ios26-caption2">{error}</p>}
 
           <div className="pay-setup-actions">
             {emailLocked && (
-              <Button variant="tinted" type="button" onClick={handleResetEmail}>
+              <Button variant="tinted" type="button" onClick={handleResetEmail} disabled={checking}>
                 Reset email
               </Button>
             )}
-            <Button variant="filled" type="submit" disabled={!email.trim() || !phone.trim()}>
-              Enter application
+            <Button
+              variant="filled"
+              type="submit"
+              disabled={!email.trim() || !phone.trim() || checking}
+            >
+              {checking ? 'Checking SIM status…' : 'Enter application'}
             </Button>
           </div>
         </form>

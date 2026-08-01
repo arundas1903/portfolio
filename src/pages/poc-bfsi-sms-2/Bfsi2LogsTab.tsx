@@ -39,6 +39,7 @@ function channelLabel(channel: string): string {
   if (channel === 'sms') return 'SMS';
   if (channel === 'email') return 'Email';
   if (channel === 'push') return 'Push';
+  if (channel === 'network') return 'Network';
   return channel;
 }
 
@@ -46,7 +47,7 @@ function deliveryAudience(log: BfsiNotificationLog): string {
   if (log.channel === 'email') {
     return log.audience_email ?? '—';
   }
-  if (log.channel === 'sms' || log.channel === 'push') {
+  if (log.channel === 'sms' || log.channel === 'push' || log.channel === 'network') {
     return log.audience_phone ?? '—';
   }
   return log.audience_phone ?? log.audience_email ?? '—';
@@ -97,14 +98,16 @@ export default function Bfsi2LogsTab({ onUsageUpdate }: Bfsi2LogsTabProps) {
   return (
     <>
       <p className="kale-text-300">
-        Successful send API calls for your templates — {total} total.
+        Notifications and network API checks — {total} total.
       </p>
 
       {loading && <p className="kale-text-300">Loading logs…</p>}
       {error && <KaleAlert variant="error">{error}</KaleAlert>}
 
       {!loading && !error && logs.length === 0 && (
-        <KaleEmpty>No sends yet. Call the v1 send API to create logs.</KaleEmpty>
+        <KaleEmpty>
+          No activity yet. Send notifications or run SIM swap network checks to create logs.
+        </KaleEmpty>
       )}
 
       {!loading && logs.length > 0 && (

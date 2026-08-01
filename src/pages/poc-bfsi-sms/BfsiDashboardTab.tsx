@@ -60,7 +60,7 @@ export default function BfsiDashboardTab() {
           </div>
           <p className="bfsi-usage__rates ios26-caption2 bfsi-muted">
             SMS {usage.channel_prices.sms} paise · Email {usage.channel_prices.email} paise · Push{' '}
-            {usage.channel_prices.push} paise
+            {usage.channel_prices.push} paise · Network {usage.channel_prices.network} paise
           </p>
         </div>
       )}

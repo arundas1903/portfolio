@@ -4,7 +4,7 @@ from fastapi import Header
 from fastapi.openapi.utils import get_openapi
 
 BFSI_OWNER_EMAIL_HEADER = "X-BFSI-Owner-Email"
-BFSI_OPENAPI_TAGS = frozenset({"bfsi", "bfsi-v1", "bfsi-v2"})
+PUBLIC_OPENAPI_TAGS = frozenset({"bfsi", "bfsi-v1", "bfsi-v2", "payment"})
 
 OPENAPI_TAGS = [
     {
@@ -26,6 +26,13 @@ OPENAPI_TAGS = [
         "description": (
             "Public notification send API (v2). Requires `X-BFSI-Owner-Email`. AI classifies "
             "`message_body` and applies default configuration routing for transaction messages."
+        ),
+    },
+    {
+        "name": "payment",
+        "description": (
+            "Payment POC network intelligence API. Requires `X-BFSI-Owner-Email`. "
+            "SIM swap checks cost 5 paise and are logged under the network channel."
         ),
     },
 ]
@@ -78,14 +85,14 @@ def _filter_bfsi_paths(schema: dict) -> dict:
             method: operation
             for method, operation in path_item.items()
             if method in http_methods
-            and any(tag in BFSI_OPENAPI_TAGS for tag in operation.get("tags", []))
+            and any(tag in PUBLIC_OPENAPI_TAGS for tag in operation.get("tags", []))
         }
         if kept_operations:
             filtered_paths[path] = kept_operations
 
     schema["paths"] = filtered_paths
     if "tags" in schema:
-        schema["tags"] = [tag for tag in schema["tags"] if tag.get("name") in BFSI_OPENAPI_TAGS]
+        schema["tags"] = [tag for tag in schema["tags"] if tag.get("name") in PUBLIC_OPENAPI_TAGS]
     return schema
 
 
@@ -133,11 +140,14 @@ def configure_openapi(app) -> None:
             return app.openapi_schema
 
         schema = get_openapi(
-            title="BFSI Notification API",
+            title="Portfolio Public API",
             version=app.version,
             description=(
-                "Intelligent notification router for BFSI — template-based (v1) and AI-driven (v2) "
-                "channel routing across SMS, email, and push.\n\n"
+                "Public APIs for the arundas.me portfolio demos.\n\n"
+                "**BFSI** — Intelligent notification router (SMS, email, push) with template-based "
+                "routing (v1) and AI-driven routing (v2).\n\n"
+                "**Payment** — Network intelligence checks (SIM swap status and location) for the "
+                "UPI Pay POC. Responses are mocked for demo purposes.\n\n"
                 "**Swagger UI:** `/docs`\n"
                 "**OpenAPI JSON:** `/openapi.json`"
             ),

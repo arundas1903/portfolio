@@ -142,6 +142,16 @@
   margin-top: 8px;
 }
 
+.bfsi-simswap-preview {
+  margin: 0 0 10px;
+  padding: 12px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-label-secondary) 8%, transparent);
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  overflow-x: auto;
+}
+
 .bfsi-api-hint {
   margin: 16px 0 0;
   padding-top: 12px;
@@ -372,7 +382,7 @@
 
 .bfsi-roi-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 12px;
   margin-top: 16px;
 }

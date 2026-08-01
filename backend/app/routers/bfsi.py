@@ -10,6 +10,9 @@ from app.models import (
     BfsiSessionStartRequest,
     BfsiSessionStartResponse,
     BfsiSessionResetRequest,
+    BfsiSimSwapEmailConfigResponse,
+    BfsiSimSwapEmailConfigStatusResponse,
+    BfsiSimSwapEmailConfigUpsertRequest,
     BfsiStatusResponse,
     BfsiTemplateCreateRequest,
     BfsiTemplateListResponse,
@@ -25,6 +28,10 @@ from app.services.bfsi.default_config import (
     format_default_config_response,
     set_default_config_paused_for_user,
     upsert_default_config_for_user,
+)
+from app.services.bfsi.sim_swap_email import (
+    delete_sim_swap_email_config,
+    upsert_sim_swap_email_config,
 )
 from app.services.bfsi.pricing import channel_prices_public, compute_roi_summary
 from app.services.bfsi.sessions import verify_session_token
@@ -182,11 +189,40 @@ async def bfsi_delete_default_config(email: str = Depends(get_bfsi_email)) -> No
         raise HTTPException(status_code=404, detail=error)
 
 
+@router.get("/sim-swap-email-config", response_model=BfsiSimSwapEmailConfigStatusResponse)
+async def bfsi_get_sim_swap_email_config(
+    email: str = Depends(get_bfsi_email),
+) -> BfsiSimSwapEmailConfigStatusResponse:
+    config = db.get_sim_swap_email_config(email)
+    if not config:
+        return BfsiSimSwapEmailConfigStatusResponse(config=None)
+    return BfsiSimSwapEmailConfigStatusResponse(
+        config=BfsiSimSwapEmailConfigResponse(**config),
+    )
+
+
+@router.put("/sim-swap-email-config", response_model=BfsiSimSwapEmailConfigResponse)
+async def bfsi_upsert_sim_swap_email_config(
+    body: BfsiSimSwapEmailConfigUpsertRequest,
+    email: str = Depends(get_bfsi_email),
+) -> BfsiSimSwapEmailConfigResponse:
+    config, error = upsert_sim_swap_email_config(email, email_content=body.email_content)
+    if error or not config:
+        raise HTTPException(status_code=400, detail=error or "Could not save SIM swap email configuration")
+    return BfsiSimSwapEmailConfigResponse(**config)
+
+
+@router.delete("/sim-swap-email-config", status_code=204)
+async def bfsi_delete_sim_swap_email_config(email: str = Depends(get_bfsi_email)) -> None:
+    _, error = delete_sim_swap_email_config(email)
+    if error:
+        raise HTTPException(status_code=404, detail=error)
+
+
 @router.get("/usage", response_model=BfsiUsageResponse)
 async def bfsi_usage(email: str = Depends(get_bfsi_email)) -> BfsiUsageResponse:
     summary = db.get_usage_summary(email)
     roi = compute_roi_summary(
-        send_count=summary["send_count"],
         total_usage_paise=summary["total_usage_paise"],
         channel_counts=summary["channel_counts"],
     )
@@ -194,6 +230,7 @@ async def bfsi_usage(email: str = Depends(get_bfsi_email)) -> BfsiUsageResponse:
         total_usage_paise=summary["total_usage_paise"],
         total_ai_tokens=summary["total_ai_tokens"],
         send_count=summary["send_count"],
+        notification_count=int(roi["notification_count"]),
         channel_prices=channel_prices_public(),
         channel_counts=summary["channel_counts"],
         baseline_cost_paise=int(roi["baseline_cost_paise"]),

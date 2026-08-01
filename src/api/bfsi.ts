@@ -6,6 +6,8 @@ import type {
   BfsiUsage,
   BfsiDefaultConfig,
   BfsiDefaultConfigInput,
+  BfsiSimSwapEmailConfig,
+  BfsiSimSwapEmailConfigInput,
   BfsiV2SendInput,
   BfsiV2SendResponse,
 } from '../types/bfsi';
@@ -247,6 +249,61 @@ export async function deleteBfsiDefaultConfig(): Promise<void> {
 
   if (!response.ok) {
     throw new Error(await parseError(response, 'Could not delete default configuration'));
+  }
+}
+
+export async function fetchBfsiSimSwapEmailConfig(): Promise<BfsiSimSwapEmailConfig | null> {
+  const response = await fetch(`${API_BASE}/api/bfsi/sim-swap-email-config`, {
+    headers: authHeaders(),
+  });
+
+  if (response.status === 401) {
+    clearBfsiSession();
+    throw new Error('Session expired. Please sign in again.');
+  }
+
+  if (!response.ok) {
+    throw new Error('Could not load SIM swap email configuration');
+  }
+
+  const result = await response.json();
+  return result.config ?? null;
+}
+
+export async function saveBfsiSimSwapEmailConfig(
+  input: BfsiSimSwapEmailConfigInput,
+): Promise<BfsiSimSwapEmailConfig> {
+  const response = await fetch(`${API_BASE}/api/bfsi/sim-swap-email-config`, {
+    method: 'PUT',
+    headers: authHeaders(),
+    body: JSON.stringify(input),
+  });
+
+  if (response.status === 401) {
+    clearBfsiSession();
+    throw new Error('Session expired. Please sign in again.');
+  }
+
+  if (!response.ok) {
+    throw new Error(await parseError(response, 'Could not save SIM swap email configuration'));
+  }
+
+  return response.json();
+}
+
+export async function deleteBfsiSimSwapEmailConfig(): Promise<void> {
+  const response = await fetch(`${API_BASE}/api/bfsi/sim-swap-email-config`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  });
+
+  if (response.status === 401) {
+    clearBfsiSession();
+    throw new Error('Session expired. Please sign in again.');
+  }
+
+  if (!response.ok) {
+    throw new Error(await parseError(response, 'Could not delete SIM swap email configuration'));
   }
 }
 
