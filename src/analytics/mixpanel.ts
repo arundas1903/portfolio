@@ -5,6 +5,14 @@ const API_HOST = process.env.REACT_APP_MIXPANEL_API_HOST?.trim();
 
 let initialized = false;
 
+function isLocalDevelopment(): boolean {
+  if (typeof window === 'undefined') {
+    return false;
+  }
+  const hostname = window.location.hostname;
+  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '[::1]';
+}
+
 function isDebugEnabled(): boolean {
   if (process.env.NODE_ENV === 'development') {
     return true;
@@ -27,6 +35,13 @@ function buildInitConfig(persistence: 'localStorage' | 'cookie') {
 
 export function initMixpanel(): void {
   if (typeof window === 'undefined') {
+    return;
+  }
+
+  if (isLocalDevelopment()) {
+    if (process.env.NODE_ENV === 'development') {
+      console.info('[mixpanel] disabled on localhost during development');
+    }
     return;
   }
 

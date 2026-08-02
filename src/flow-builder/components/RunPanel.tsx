@@ -57,6 +57,17 @@ export default function RunPanel({
             {result.error && <span className="fb-error"> — {result.error}</span>}
           </p>
 
+          {result.status === 'waiting' && result.webhook_url && (
+            <div className="fb-run__block">
+              <h3 className="ios26-caption2 fb-muted">Waiting for webhook callback</h3>
+              <p className="ios26-footnote fb-muted">
+                Send the async provider your callback URL, then POST the result here. If no callback
+                arrives before the timeout, the timeout branch runs automatically.
+              </p>
+              <code className="fb-code ios26-caption2">{result.webhook_url}</code>
+            </div>
+          )}
+
           {result.trace.length > 0 && (
             <div className="fb-run__block">
               <h3 className="ios26-caption2 fb-muted">Trace</h3>

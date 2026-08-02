@@ -128,6 +128,121 @@
   outline: none;
 }
 
+.fb-table__row--static {
+  cursor: default;
+}
+
+.fb-table__row--static:hover,
+.fb-table__row--static:focus-visible {
+  background: color-mix(in srgb, var(--color-accent-indigo) 4%, transparent);
+}
+
+.fb-table__actions-col {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.fb-table__actions {
+  text-align: right;
+}
+
+.fb-table__action-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fb-table__action,
+.fb-table__delete {
+  min-height: 32px;
+  padding: 4px 12px;
+}
+
+.fb-history-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: color-mix(in srgb, var(--color-bg-grouped-primary) 35%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.fb-history-panel {
+  width: min(920px, 100%);
+  max-height: min(85dvh, 900px);
+  overflow: auto;
+  padding: 22px;
+  border-radius: 24px;
+}
+
+.fb-history-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.fb-history-panel__header h2 {
+  margin: 0;
+}
+
+.fb-history-item__details--modal {
+  padding-top: 4px;
+  border-top: 0;
+}
+
+.fb-history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.fb-history-item {
+  padding: 0;
+  overflow: hidden;
+}
+
+.fb-history-item__summary {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.fb-history-item__summary:hover,
+.fb-history-item__summary:focus-visible {
+  background: color-mix(in srgb, var(--color-accent-indigo) 8%, transparent);
+  outline: none;
+}
+
+.fb-history-item__details {
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--color-separator);
+}
+
+.fb-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .fb-editor-meta {
   padding: 20px;
   margin-bottom: 16px;
@@ -426,6 +541,16 @@
   border: 1px solid var(--color-separator);
   background: var(--color-fill-quaternary);
   color: var(--color-label-primary);
+}
+
+.fb-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.fb-checkbox input {
+  margin-top: 2px;
 }
 
 .fb-textarea {

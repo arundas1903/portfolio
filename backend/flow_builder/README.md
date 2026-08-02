@@ -19,6 +19,20 @@ Add a new node type:
 | log | Log | out |
 | delay | Delay | out |
 | api_call | API Call | success, error |
+| webhook_wait | Webhook Wait | received, timeout |
+
+## Async callbacks
+
+For APIs that accept a callback URL and respond later:
+
+1. Add **API Call** with `{{webhook_url}}` in the request body (enable **Async callback mode** for HTTP 202).
+2. Connect **Webhook Wait** after the API Call.
+3. When the flow runs, it pauses with status `waiting` and exposes the callback URL.
+4. The external provider POSTs to that URL; the workflow resumes automatically.
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/webhook/{token}` | Public callback — resumes a paused workflow (JSON body merged into context) |
 
 ## API
 

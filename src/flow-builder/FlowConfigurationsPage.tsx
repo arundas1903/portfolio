@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import SubpageNav from '../components/ios26/SubpageNav';
 import Button from '../components/ios26/Button';
 import GlassCard from '../components/ios26/GlassCard';
-import { fetchFlowConfigurations, getFlowBuilderApiDocsUrl } from './api/flowBuilder';
+import { deleteFlowConfiguration, fetchFlowConfigurations, getFlowBuilderApiDocsUrl } from './api/flowBuilder';
 import { getFlowBuilderEmail } from './api/flowBuilderAuth';
 import type { FlowConfigurationSummary } from './types/flow';
 
@@ -20,13 +20,39 @@ export default function FlowConfigurationsPage() {
   const [configurations, setConfigurations] = useState<FlowConfigurationSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchFlowConfigurations()
+  const loadConfigurations = () => {
+    setLoading(true);
+    setError('');
+    return fetchFlowConfigurations()
       .then(setConfigurations)
       .catch((err) => setError(err instanceof Error ? err.message : 'Failed to load configurations'))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    loadConfigurations();
   }, []);
+
+  const handleDelete = async (config: FlowConfigurationSummary) => {
+    const confirmed = window.confirm(`Delete "${config.name}"? This cannot be undone.`);
+    if (!confirmed) {
+      return;
+    }
+
+    setDeletingId(config.id);
+    setError('');
+
+    try {
+      await deleteFlowConfiguration(config.id);
+      setConfigurations((current) => current.filter((item) => item.id !== config.id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not delete configuration');
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   return (
     <div className="fb-page">
@@ -82,6 +108,9 @@ export default function FlowConfigurationsPage() {
                     <th scope="col">Description</th>
                     <th scope="col">UUID</th>
                     <th scope="col">Updated</th>
+                    <th scope="col" className="fb-table__actions-col">
+                      <span className="fb-sr-only">Actions</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -105,6 +134,33 @@ export default function FlowConfigurationsPage() {
                         <code className="fb-code-inline">{config.id}</code>
                       </td>
                       <td className="fb-muted">{formatWhen(config.updated_at)}</td>
+                      <td className="fb-table__actions">
+                        <div className="fb-table__action-group">
+                          <Button
+                            variant="tinted"
+                            type="button"
+                            className="fb-table__action"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              navigate(`/flow-builder/${config.id}/history`);
+                            }}
+                          >
+                            History
+                          </Button>
+                          <Button
+                            variant="tinted"
+                            type="button"
+                            className="fb-table__delete"
+                            disabled={deletingId === config.id}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              void handleDelete(config);
+                            }}
+                          >
+                            {deletingId === config.id ? 'Deleting…' : 'Delete'}
+                          </Button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

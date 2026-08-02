@@ -28,6 +28,7 @@ import TaskTrackerPage from './pages/task-tracker/TaskTrackerPage';
 import UrlStrengthPage from './pages/url-strength/UrlStrengthPage';
 import FlowConfigurationsPage from './flow-builder/FlowConfigurationsPage';
 import FlowBuilderEditorPage from './flow-builder/FlowBuilderEditorPage';
+import FlowConfigurationHistoryPage from './flow-builder/FlowConfigurationHistoryPage';
 import FlowBuilderLayout from './flow-builder/FlowBuilderLayout';
 import AllProjectsPage from './pages/AllProjectsPage';
 import AllBlogPage from './pages/AllBlogPage';
@@ -87,6 +88,7 @@ function AppRoutes() {
         <Route path="/flow-builder" element={<FlowBuilderLayout />}>
           <Route index element={<FlowConfigurationsPage />} />
           <Route path="new" element={<FlowBuilderEditorPage />} />
+          <Route path=":configId/history" element={<FlowConfigurationHistoryPage />} />
           <Route path=":configId" element={<FlowBuilderEditorPage />} />
         </Route>
       </Routes>

@@ -20,6 +20,8 @@ class NodeResult:
 
     output_handle: str = "out"
     stop: bool = False
+    wait_for_webhook: bool = False
+    webhook_response_key: str = "webhook_payload"
 
 
 @dataclass

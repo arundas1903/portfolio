@@ -45,11 +45,13 @@ class FlowTraceStep(BaseModel):
 
 
 class FlowExecuteResponse(BaseModel):
-    status: Literal["completed", "stopped", "error"]
+    status: Literal["completed", "stopped", "error", "waiting"]
     data: dict[str, Any]
     logs: list[str]
     trace: list[FlowTraceStep]
     error: str | None = None
+    webhook_url: str | None = None
+    webhook_token: str | None = None
 
 
 class ConfigFieldModel(BaseModel):
@@ -112,3 +114,16 @@ class FlowBuilderAccessResponse(BaseModel):
     required: bool
     unlocked: bool
     email_required: bool = True
+
+
+class FlowRunHistoryEntry(BaseModel):
+    id: str
+    config_id: str
+    source: str
+    status: str
+    input_data: dict[str, Any] = Field(default_factory=dict)
+    flow: FlowDefinition
+    result: FlowExecuteResponse
+    webhook_payload: dict[str, Any] | None = None
+    created_at: str
+    completed_at: str | None = None

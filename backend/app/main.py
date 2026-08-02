@@ -1,4 +1,6 @@
 from contextlib import asynccontextmanager
+import asyncio
+import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,6 +21,21 @@ from app.services.bfsi.database import init_db as init_bfsi_db
 from app.services.movies.database import init_db
 from app.services.tasks.database import init_db as init_tasks_db
 from flow_builder.database import init_db as init_flow_builder_db
+from flow_builder.engine import process_expired_webhook_waits
+
+logger = logging.getLogger(__name__)
+
+WEBHOOK_TIMEOUT_POLL_SECONDS = 15
+FLOW_BUILDER_PUBLIC_BASE_URL = "https://api.arundas.me"
+
+
+async def _webhook_timeout_worker() -> None:
+    while True:
+        try:
+            process_expired_webhook_waits(public_base_url=FLOW_BUILDER_PUBLIC_BASE_URL)
+        except Exception:
+            logger.exception("Failed processing expired webhook waits")
+        await asyncio.sleep(WEBHOOK_TIMEOUT_POLL_SECONDS)
 
 
 @asynccontextmanager
@@ -27,7 +44,15 @@ async def lifespan(_: FastAPI):
     init_bfsi_db()
     init_tasks_db()
     init_flow_builder_db()
-    yield
+    worker = asyncio.create_task(_webhook_timeout_worker())
+    try:
+        yield
+    finally:
+        worker.cancel()
+        try:
+            await worker
+        except asyncio.CancelledError:
+            pass
 
 
 app = FastAPI(

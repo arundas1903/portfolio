@@ -52,11 +52,26 @@ export interface FlowTraceStep {
 }
 
 export interface FlowExecuteResult {
-  status: 'completed' | 'stopped' | 'error';
+  status: 'completed' | 'stopped' | 'error' | 'waiting';
   data: Record<string, unknown>;
   logs: string[];
   trace: FlowTraceStep[];
   error?: string | null;
+  webhook_url?: string | null;
+  webhook_token?: string | null;
+}
+
+export interface FlowRunHistoryEntry {
+  id: string;
+  config_id: string;
+  source: string;
+  status: string;
+  input_data: Record<string, unknown>;
+  flow: FlowDefinition;
+  result: FlowExecuteResult;
+  webhook_payload?: Record<string, unknown> | null;
+  created_at: string;
+  completed_at?: string | null;
 }
 
 export interface FlowConfigurationSummary {

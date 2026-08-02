@@ -62,7 +62,17 @@ export default function NodeConfigPanel({
                   value={Number(config[field.key] ?? field.default ?? 0)}
                   onChange={(event) => update(field.key, Number(event.target.value))}
                 />
+              ) : field.field_type === 'boolean' ? (
+                <label className="fb-checkbox ios26-footnote">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(config[field.key] ?? field.default ?? false)}
+                    onChange={(event) => update(field.key, event.target.checked)}
+                  />
+                  <span>{field.description || 'Enabled'}</span>
+                </label>
               ) : field.field_type === 'textarea' ? (
+                <>
                 <textarea
                   className="fb-textarea ios26-footnote"
                   rows={4}
@@ -70,15 +80,24 @@ export default function NodeConfigPanel({
                   onChange={(event) => update(field.key, event.target.value)}
                   spellCheck={false}
                 />
+                {field.description && (
+                  <span className="ios26-caption2 fb-muted">{field.description}</span>
+                )}
+                </>
               ) : (
+                <>
                 <input
                   className="fb-input ios26-footnote"
                   type="text"
                   value={String(config[field.key] ?? field.default ?? '')}
                   onChange={(event) => update(field.key, event.target.value)}
                 />
+                {field.description && (
+                  <span className="ios26-caption2 fb-muted">{field.description}</span>
+                )}
+                </>
               )}
-              {field.description && (
+              {field.field_type !== 'textarea' && field.field_type !== 'boolean' && field.description && (
                 <span className="ios26-caption2 fb-muted">{field.description}</span>
               )}
             </label>

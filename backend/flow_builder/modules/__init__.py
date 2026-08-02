@@ -168,4 +168,4 @@ class DelayModule(FlowModule):
         return NodeResult(output_handle="out")
 
 
-from flow_builder.modules import api_call  # noqa: F401
+from flow_builder.modules import api_call, webhook_wait  # noqa: F401

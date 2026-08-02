@@ -48,9 +48,17 @@ class ApiCallModule(FlowModule):
                 key="body",
                 label="Body (JSON)",
                 field_type="textarea",
-                default='{"customer": "{{customer}}"}',
+                default='{"callback_url": "{{webhook_url}}", "customer": "{{customer}}"}',
                 required=False,
-                description="Request JSON body for POST/PUT/PATCH. Supports {{field}} templates.",
+                description="Request JSON body. Use {{webhook_url}} for async callback flows.",
+            ),
+            ConfigField(
+                key="async_mode",
+                label="Async callback mode",
+                field_type="boolean",
+                default=False,
+                required=False,
+                description="Treat HTTP 202 Accepted as success (for APIs that callback later).",
             ),
             ConfigField(
                 key="response_key",
@@ -96,7 +104,11 @@ class ApiCallModule(FlowModule):
 
             ctx.logs.append(f"API {method} {url} → {response.status_code}")
 
-            if 200 <= response.status_code < 300:
+            if 200 <= response.status_code < 300 or (
+                bool(config.get("async_mode")) and response.status_code == 202
+            ):
+                if response.status_code == 202:
+                    ctx.logs.append("Async request accepted (202) — continue to Webhook Wait.")
                 return NodeResult(output_handle="success")
 
             ctx.data["api_error"] = f"HTTP {response.status_code}"

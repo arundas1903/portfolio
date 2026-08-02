@@ -3,6 +3,7 @@ import type {
   FlowConfigurationSummary,
   FlowDefinition,
   FlowExecuteResult,
+  FlowRunHistoryEntry,
   ModuleDefinition,
 } from '../types/flow';
 import { API_BASE } from '../../api/chatAuth';
@@ -118,6 +119,30 @@ export async function executeSavedConfiguration(
   if (!response.ok) {
     const detail = payload.detail;
     throw new Error(typeof detail === 'string' ? detail : 'Flow execution failed');
+  }
+
+  return payload as FlowExecuteResult;
+}
+
+export async function fetchConfigurationHistory(configId: string): Promise<FlowRunHistoryEntry[]> {
+  const response = await fetch(`${API_BASE}/api/flow-builder/configurations/${configId}/history`, {
+    headers: flowBuilderAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Could not load run history');
+  }
+  return response.json();
+}
+
+export async function pollWebhookWait(token: string): Promise<FlowExecuteResult> {
+  const response = await fetch(`${API_BASE}/api/flow-builder/webhook/${token}/status`, {
+    headers: flowBuilderAuthHeaders(),
+  });
+
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const detail = payload.detail;
+    throw new Error(typeof detail === 'string' ? detail : 'Could not poll webhook wait');
   }
 
   return payload as FlowExecuteResult;

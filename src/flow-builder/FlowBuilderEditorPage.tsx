@@ -28,6 +28,7 @@ import {
   executeSavedConfiguration,
   fetchFlowConfiguration,
   fetchFlowModules,
+  pollWebhookWait,
   updateFlowConfiguration,
 } from './api/flowBuilder';
 import { FLOW_BUILDER_AUTH_HEADERS } from './api/flowBuilderAuth';
@@ -230,6 +231,27 @@ export default function FlowBuilderEditorPage() {
       setRunning(false);
     }
   };
+
+  useEffect(() => {
+    if (result?.status !== 'waiting' || !result.webhook_token) {
+      return;
+    }
+
+    const token = result.webhook_token;
+    const intervalId = window.setInterval(() => {
+      void pollWebhookWait(token)
+        .then((updated) => {
+          if (updated.status !== 'waiting') {
+            setResult(updated);
+          }
+        })
+        .catch(() => {
+          // Ignore transient poll errors while waiting.
+        });
+    }, 5000);
+
+    return () => window.clearInterval(intervalId);
+  }, [result?.status, result?.webhook_token]);
 
   return (
     <div className="fb-page">
