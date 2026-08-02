@@ -84,6 +84,7 @@ def _resolve_public_host(hostname: str) -> None:
     if not infos:
         raise UrlFetchError("Could not resolve the hostname.")
 
+    has_public = False
     for info in infos:
         sockaddr = info[4]
         if not sockaddr:
@@ -91,8 +92,12 @@ def _resolve_public_host(hostname: str) -> None:
         ip_value = sockaddr[0]
         if ip_value.startswith("::ffff:"):
             ip_value = ip_value.rsplit(":", 1)[-1]
-        if not _is_public_ip(ip_value):
-            raise UrlFetchError("That URL points to a private or local network address.")
+        if _is_public_ip(ip_value):
+            has_public = True
+            break
+
+    if not has_public:
+        raise UrlFetchError("That URL points to a private or local network address.")
 
 
 def _extract_title(html: str) -> str | None:

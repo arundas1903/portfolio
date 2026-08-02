@@ -40,6 +40,15 @@ export const projects: Project[] = [
     liveDemo: '/url-strength',
   },
   {
+    title: 'Flow Builder',
+    description:
+      'Visual workflow editor with pluggable modules. Save flows by email, run them from the canvas, or trigger saved configs over HTTP with your owner email and access password.',
+    icon: '🔀',
+    technologies: ['React Flow', 'FastAPI', 'Python', 'Plugins'],
+    accent: 'var(--color-accent-indigo)',
+    liveDemo: '/flow-builder',
+  },
+  {
     title: 'A2P Regulatory MCP',
     description:
       'Model Context Protocol server for AI-assisted A2P SMS regulatory intelligence — country lookup, registration rules, and onboarding guidance across 190+ markets.',

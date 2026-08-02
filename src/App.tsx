@@ -15,6 +15,7 @@ import './styles/poc-bfsi-sms-2.css';
 import './styles/payment-poc-app.css';
 import './styles/task-tracker.css';
 import './styles/url-strength.css';
+import './flow-builder/styles/flow-builder.css';
 import PortfolioApp from './PortfolioApp';
 import A2PAtlasPage from './a2p-atlas/A2PAtlasPage';
 import A2PRegulatoryMcpPage from './pages/A2PRegulatoryMcpPage';
@@ -25,6 +26,9 @@ import Bfsi2SmsPage from './pages/poc-bfsi-sms-2/Bfsi2SmsPage';
 import PaymentPocApp from './pages/payment-poc-app/PaymentPocApp';
 import TaskTrackerPage from './pages/task-tracker/TaskTrackerPage';
 import UrlStrengthPage from './pages/url-strength/UrlStrengthPage';
+import FlowConfigurationsPage from './flow-builder/FlowConfigurationsPage';
+import FlowBuilderEditorPage from './flow-builder/FlowBuilderEditorPage';
+import FlowBuilderLayout from './flow-builder/FlowBuilderLayout';
 import AllProjectsPage from './pages/AllProjectsPage';
 import AllBlogPage from './pages/AllBlogPage';
 import ChatWidget from './components/ChatWidget';
@@ -61,7 +65,9 @@ function ScrollManager() {
 
 function AppRoutes() {
   const { pathname } = useLocation();
-  const hideChat = pathname === '/payment-poc-app' || pathname === '/task-tracker' || pathname === '/url-strength';
+  const hideChat = pathname.startsWith('/payment-poc-app')
+    || pathname.startsWith('/task-tracker')
+    || pathname.startsWith('/url-strength');
 
   return (
     <>
@@ -78,6 +84,11 @@ function AppRoutes() {
         <Route path="/task-tracker" element={<TaskTrackerPage />} />
         <Route path="/projects" element={<AllProjectsPage />} />
         <Route path="/url-strength" element={<UrlStrengthPage />} />
+        <Route path="/flow-builder" element={<FlowBuilderLayout />}>
+          <Route index element={<FlowConfigurationsPage />} />
+          <Route path="new" element={<FlowBuilderEditorPage />} />
+          <Route path=":configId" element={<FlowBuilderEditorPage />} />
+        </Route>
       </Routes>
       {!hideChat && <ChatWidget />}
     </>

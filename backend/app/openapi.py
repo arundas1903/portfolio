@@ -4,7 +4,7 @@ from fastapi import Header
 from fastapi.openapi.utils import get_openapi
 
 BFSI_OWNER_EMAIL_HEADER = "X-BFSI-Owner-Email"
-PUBLIC_OPENAPI_TAGS = frozenset({"bfsi", "bfsi-v1", "bfsi-v2", "payment"})
+PUBLIC_OPENAPI_TAGS = frozenset({"bfsi", "bfsi-v1", "bfsi-v2", "payment", "flow-builder"})
 
 OPENAPI_TAGS = [
     {
@@ -33,6 +33,14 @@ OPENAPI_TAGS = [
         "description": (
             "Payment POC network intelligence API. Requires `X-BFSI-Owner-Email`. "
             "SIM swap checks cost 5 paise and are logged under the network channel."
+        ),
+    },
+    {
+        "name": "flow-builder",
+        "description": (
+            "Visual workflow builder API. Authenticate with `X-Chat-Password` (same as chat) and "
+            "`X-Flow-Builder-Email`. Configurations are scoped to the owner email. Trigger saved "
+            "flows via `POST /api/flow-builder/run/{config_id}` with both headers."
         ),
     },
 ]
@@ -148,6 +156,8 @@ def configure_openapi(app) -> None:
                 "routing (v1) and AI-driven routing (v2).\n\n"
                 "**Payment** — Network intelligence checks (SIM swap status and location) for the "
                 "UPI Pay POC. Responses are mocked for demo purposes.\n\n"
+                "**Flow Builder** — Pluggable workflow editor. Save configurations by UUID and "
+                "trigger runs over HTTP.\n\n"
                 "**Swagger UI:** `/docs`\n"
                 "**OpenAPI JSON:** `/openapi.json`"
             ),

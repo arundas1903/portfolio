@@ -1,3 +1,4 @@
+import re
 import secrets
 from fastapi import Depends, Header, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -9,6 +10,9 @@ assistant_rate_limiter = SlidingWindowRateLimiter(max_requests=20, window_second
 url_strength_rate_limiter = SlidingWindowRateLimiter(max_requests=10, window_seconds=24 * 60 * 60)
 unlock_rate_limiter = SlidingWindowRateLimiter(max_requests=5, window_seconds=15 * 60)
 _task_bearer = HTTPBearer(auto_error=False)
+
+FLOW_BUILDER_EMAIL_HEADER = "X-Flow-Builder-Email"
+_OWNER_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 def get_client_ip(request: Request) -> str:
@@ -56,6 +60,38 @@ def chat_password_valid(x_chat_password: str | None) -> bool:
     if not x_chat_password:
         return False
     return secrets.compare_digest(x_chat_password, settings.chat_access_password)
+
+
+def normalize_owner_email(email: str | None) -> str:
+    return (email or "").strip().lower()
+
+
+def is_valid_owner_email(email: str | None) -> bool:
+    normalized = normalize_owner_email(email)
+    return 5 <= len(normalized) <= 254 and bool(_OWNER_EMAIL_RE.match(normalized))
+
+
+def flow_builder_access_valid(
+    x_chat_password: str | None,
+    x_flow_builder_email: str | None,
+) -> bool:
+    if not is_valid_owner_email(x_flow_builder_email):
+        return False
+    return chat_password_valid(x_chat_password)
+
+
+async def require_flow_builder_owner(
+    x_chat_password: str | None = Header(default=None, alias="X-Chat-Password"),
+    x_flow_builder_email: str | None = Header(default=None, alias=FLOW_BUILDER_EMAIL_HEADER),
+) -> str:
+    if settings.chat_password_required and not chat_password_valid(x_chat_password):
+        raise HTTPException(status_code=401, detail="Invalid or missing chat password")
+
+    owner_email = normalize_owner_email(x_flow_builder_email)
+    if not is_valid_owner_email(owner_email):
+        raise HTTPException(status_code=401, detail="Invalid or missing owner email")
+
+    return owner_email
 
 
 async def require_faith_rate_limit(request: Request) -> None:
