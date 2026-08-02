@@ -1,4 +1,6 @@
+import httpx
 from fastapi import APIRouter, Depends, Header, HTTPException, Request
+from openai import OpenAIError
 
 from app.config import settings
 from app.dependencies import (
@@ -32,16 +34,9 @@ async def url_strength_limits(
     )
 
 
-@router.post(
-    "/analyze",
-    response_model=UrlStrengthAnalyzeResponse,
-    summary="Analyze a URL for trust and spam signals",
-)
-async def analyze_url(
+async def _analyze_url_impl(
     body: UrlStrengthAnalyzeRequest,
-    request: Request,
-    x_chat_password: str | None = Header(default=None, alias="X-Chat-Password"),
-    _: None = Depends(require_url_strength_rate_limit),
+    x_chat_password: str | None,
 ) -> UrlStrengthAnalyzeResponse:
     use_ai = body.use_ai
     if use_ai:
@@ -61,8 +56,12 @@ async def analyze_url(
         result = await analyze_url_strength(page, use_ai=use_ai)
     except UrlFetchError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
+    except OpenAIError as exc:
+        raise HTTPException(status_code=503, detail=f"AI analysis failed: {exc}") from exc
+    except httpx.HTTPError as exc:
+        raise HTTPException(status_code=422, detail=f"Could not fetch that URL: {exc}") from exc
     except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"Analysis failed: {exc}") from exc
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {exc}") from exc
 
     domain_info = result.get("domain_info") or {}
     return UrlStrengthAnalyzeResponse(
@@ -86,3 +85,32 @@ async def analyze_url(
         prompt_tokens=int(result.get("prompt_tokens") or 0),
         completion_tokens=int(result.get("completion_tokens") or 0),
     )
+
+
+@router.post(
+    "/analyze",
+    response_model=UrlStrengthAnalyzeResponse,
+    summary="Analyze a URL for trust and spam signals",
+)
+async def analyze_url(
+    body: UrlStrengthAnalyzeRequest,
+    request: Request,
+    x_chat_password: str | None = Header(default=None, alias="X-Chat-Password"),
+    _: None = Depends(require_url_strength_rate_limit),
+) -> UrlStrengthAnalyzeResponse:
+    return await _analyze_url_impl(body, x_chat_password)
+
+
+@router.post(
+    "/analyse",
+    response_model=UrlStrengthAnalyzeResponse,
+    summary="Analyze a URL for trust and spam signals (UK spelling alias)",
+    include_in_schema=False,
+)
+async def analyse_url(
+    body: UrlStrengthAnalyzeRequest,
+    request: Request,
+    x_chat_password: str | None = Header(default=None, alias="X-Chat-Password"),
+    _: None = Depends(require_url_strength_rate_limit),
+) -> UrlStrengthAnalyzeResponse:
+    return await _analyze_url_impl(body, x_chat_password)

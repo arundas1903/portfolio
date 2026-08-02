@@ -140,7 +140,7 @@ export default function UrlStrengthPage() {
         <SubpageNav to="/" label="Portfolio" />
 
         <header className="us-hero ios26-liquid-glass-la glass-surface">
-          <p className="us-eyebrow ios26-caption2">URL trust checker</p>
+          <p className="us-eyebrow ios26-caption2">URL Strength Checker</p>
           <h1 className="ios26-large-title ios26-large-title--emphasized">URL Strength</h1>
           <p className="ios26-body us-lead">
             Paste a link for a free technical scan—domain age, stack fingerprints, and spam-like

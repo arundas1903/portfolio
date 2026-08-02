@@ -158,7 +158,20 @@ async def fetch_page(url: str) -> FetchedPage:
                 raise UrlFetchError("Invalid redirect target.")
             _resolve_public_host(current_parsed.hostname)
 
-            response = await client.get(current_url)
+            try:
+                response = await client.get(current_url)
+            except httpx.TimeoutException as exc:
+                raise UrlFetchError("The request timed out while fetching that URL.") from exc
+            except httpx.ConnectError as exc:
+                message = str(exc).lower()
+                if "certificate" in message or "ssl" in message:
+                    raise UrlFetchError(
+                        "Could not verify the site's SSL certificate. It may be expired or misconfigured."
+                    ) from exc
+                raise UrlFetchError("Could not connect to that URL. It may be offline or unreachable.") from exc
+            except httpx.RequestError as exc:
+                raise UrlFetchError(f"Could not fetch that URL: {exc}") from exc
+
             if response.status_code in {301, 302, 303, 307, 308}:
                 redirect_count += 1
                 if redirect_count > MAX_REDIRECTS:

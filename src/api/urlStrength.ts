@@ -40,6 +40,14 @@ export async function analyzeUrlStrength(
           ? typeof detail === 'string'
             ? detail
             : 'Daily URL analysis limit reached (10 per day). Try again tomorrow.'
+          : response.status === 422
+            ? typeof detail === 'string'
+              ? detail
+              : 'Could not fetch that URL.'
+          : response.status === 503
+            ? typeof detail === 'string'
+              ? detail
+              : 'AI analysis is not available right now.'
           : typeof detail === 'string'
             ? detail
             : Array.isArray(detail) && detail[0]?.msg
